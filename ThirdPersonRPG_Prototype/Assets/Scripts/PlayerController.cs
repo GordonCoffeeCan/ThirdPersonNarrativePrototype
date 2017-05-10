@@ -7,8 +7,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
     private float _walkSpeed = 2;
     private float _runSpeed = 5;
-    private float _cameraRotationSpeed = 60;
-    private float _camFollowSpeed = 5;
+    private float _cameraRotationSpeed = 70;
+    private float _camFollowSpeed = 8;
     private float _gravity = 20;
 
     private float _currentSpeed = 0;
@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-		
+        Cursor.lockState = CursorLockMode.Locked;
 	}
 	
 	// Update is called once per frame
