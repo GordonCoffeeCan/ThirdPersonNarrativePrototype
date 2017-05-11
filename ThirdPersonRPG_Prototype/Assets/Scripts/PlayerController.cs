@@ -9,26 +9,24 @@ public class PlayerController : MonoBehaviour {
     //public float runSpeed = 5;
 
     private float _gravity = 20;
-
+    private float _rotationSpeed = 10;
     private float _currentSpeed = 0;
 
-    private Transform _camPivot;
-
     private CharacterController _characterCtr;
-
+    private Transform _rotationPivot;
     private Vector3 _moveDirection;
+    private Vector3 _rotationDirection;
 
     private void Awake() {
         _characterCtr = this.GetComponent<CharacterController>();
         _moveDirection = Vector3.zero;
-
-        _camPivot = GameObject.Find("CameraPivot").transform;
     }
 
     // Use this for initialization
     void Start () {
         Cursor.lockState = CursorLockMode.Locked;
-	}
+        _rotationPivot = this.transform.FindChild("RotationPivot");
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -47,9 +45,23 @@ public class PlayerController : MonoBehaviour {
 
         }
 
+        RotateCharacter(_moveDirection);
+
         _moveDirection.y -= _gravity * Time.deltaTime;
         _characterCtr.Move(_moveDirection * Time.deltaTime);
     }
 
-    
+    private void RotateCharacter(Vector3 _moveDirection) {
+        if (Mathf.Abs(_moveDirection.x) > 0.1f || Mathf.Abs(_moveDirection.z) > 0.1f) {
+            _rotationDirection = Camera.main.transform.TransformDirection(new Vector3(_moveDirection.x, 0, _moveDirection.z));
+            _rotationDirection.y = 0;
+            _rotationDirection.Normalize();
+            _rotationDirection *= Time.deltaTime;
+
+            _rotationDirection *= (Mathf.Abs(_moveDirection.x) > Mathf.Abs(_moveDirection.z)) ? Mathf.Abs(_moveDirection.x) : Mathf.Abs(_moveDirection.z);
+
+            _rotationPivot.rotation = Quaternion.Slerp(_rotationPivot.rotation, Quaternion.Euler(new Vector3(0, (Mathf.Atan2(_moveDirection.x, _moveDirection.z) * Mathf.Rad2Deg), 0)), _rotationSpeed * Time.deltaTime);
+
+        }
+    }
 }

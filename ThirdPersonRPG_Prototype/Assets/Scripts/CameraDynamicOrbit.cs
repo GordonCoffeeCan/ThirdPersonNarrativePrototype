@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class CameraDynamicOrbit : MonoBehaviour {
     public Transform followingTarget;
-    public float cameraDistance = 2;
+    public float cameraDistance = 3;
     public float cameraMinDistance = 0.5f;
-    public float cameraMaxDistance = 2;
+    public float cameraMaxDistance = 3;
     public float cameraRotationSpeed = 120;
     public float camDampSpeed = 0.25f;
     public float verticalMinAngle = -20;
@@ -35,14 +35,16 @@ public class CameraDynamicOrbit : MonoBehaviour {
     }
 
     private void FixedUpdate() {
-        if(Physics.Raycast(this.transform.position, -this.transform.forward, out _hit)) {
-            Debug.Log(_hit.distance);
-        }
+        cameraDistance = cameraMaxDistance;
 
-        cameraDistance = _hit.distance;
+        if (Physics.Raycast(this.transform.position, -this.transform.forward, out _hit)) {
+            if(_hit.collider.gameObject.layer == 8) {
+                if (_hit.distance < cameraMaxDistance) {
+                    cameraDistance = _hit.distance - 0.01f;
+                }
 
-        if(_hit.distance > cameraMaxDistance || _hit.distance == 0) {
-            cameraDistance = cameraMaxDistance;
+                Debug.Log(_hit.distance);
+            }
         }
     }
 
@@ -52,11 +54,14 @@ public class CameraDynamicOrbit : MonoBehaviour {
     }
 
     private void CameraFollow() {
-        this.transform.position = Vector3.SmoothDamp(this.transform.position, new Vector3(followingTarget.position.x, followingTarget.position.y + _cameraOffset, followingTarget.position.z), ref _veloctity, camDampSpeed);
+        if (followingTarget != null) {
+            this.transform.position = Vector3.SmoothDamp(this.transform.position, new Vector3(followingTarget.position.x, followingTarget.position.y + Mathf.Clamp(_cameraOffset / cameraDistance, 1.5f, 1.7f), followingTarget.position.z), ref _veloctity, camDampSpeed);
+        }
     }
 
     private void DynamicCameraDistance() {
-        _camTrans.localPosition = Vector3.Lerp(_camTrans.localPosition, new Vector3(0, 0, -cameraDistance), 2 * Time.deltaTime);
+        cameraDistance = Mathf.Clamp(cameraDistance, cameraMinDistance, cameraMaxDistance);
+        _camTrans.localPosition = Vector3.Lerp(_camTrans.localPosition, new Vector3(0, 0, -cameraDistance), 30 * Time.deltaTime);
     }
 
     private float AngleClamp(float _angle, float _min, float _max) {
