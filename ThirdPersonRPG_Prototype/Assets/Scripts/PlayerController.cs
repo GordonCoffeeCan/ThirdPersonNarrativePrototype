@@ -5,10 +5,9 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 
 public class PlayerController : MonoBehaviour {
-    private float _walkSpeed = 2;
-    private float _runSpeed = 5;
-    private float _cameraRotationSpeed = 70;
-    private float _camFollowSpeed = 8;
+    public float walkSpeed = 2;
+    //public float runSpeed = 5;
+
     private float _gravity = 20;
 
     private float _currentSpeed = 0;
@@ -34,12 +33,10 @@ public class PlayerController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         MoveCharacter();
-        RotateCamera();
-        CameraFollow();
     }
 
     private void MoveCharacter() {
-        _currentSpeed = _walkSpeed;
+        _currentSpeed = walkSpeed;
 
         if (_characterCtr.isGrounded) {
             _moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
@@ -54,12 +51,5 @@ public class PlayerController : MonoBehaviour {
         _characterCtr.Move(_moveDirection * Time.deltaTime);
     }
 
-    private void RotateCamera() {
-        _camPivot.Rotate(Input.GetAxis("Mouse Y") * _cameraRotationSpeed * Time.deltaTime, Input.GetAxis("Mouse X") * _cameraRotationSpeed * Time.deltaTime, 0 );
-        _camPivot.localEulerAngles = new Vector3(_camPivot.localEulerAngles.x, _camPivot.localEulerAngles.y, 0);
-    }
-
-    private void CameraFollow() {
-        _camPivot.position = Vector3.Lerp(_camPivot.position, _characterCtr.transform.position, _camFollowSpeed * Time.deltaTime);
-    }
+    
 }
