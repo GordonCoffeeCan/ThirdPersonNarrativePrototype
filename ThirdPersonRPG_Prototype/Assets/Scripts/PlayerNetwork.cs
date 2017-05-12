@@ -12,6 +12,8 @@ public class PlayerNetwork : NetworkBehaviour {
         isLocalInstance = isLocalPlayer;
         if(isLocalInstance == true) {
             CameraDynamicOrbit.followingTarget = this.transform;
+        } else {
+            this.gameObject.layer = 8;
         }
 	}
 	
