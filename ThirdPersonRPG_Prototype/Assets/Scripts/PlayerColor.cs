@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class PlayerColor : MonoBehaviour {
 
-    public Color32 bodyColor = new Color32(255, 255, 255, 255);
+    //public Color32 bodyColor = new Color32(255, 255, 255, 255);
+    private Color32 bodyColor;
 
     private Renderer _renderer;
 
 	// Use this for initialization
 	void Start () {
-        _renderer = this.transform.FindChild("RotationPivot/HumanBody").GetComponent<Renderer>();
+        bodyColor = new Color32((byte)Random.Range(0, 255), (byte)Random.Range(0, 255), (byte)Random.Range(0, 255), 255);
+        _renderer = this.transform.FindChild("HumanBody").GetComponent<Renderer>();
         _renderer.materials[1].SetColor("_Color", bodyColor);
     }
 	

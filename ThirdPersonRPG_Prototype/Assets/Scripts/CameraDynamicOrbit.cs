@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraDynamicOrbit : MonoBehaviour {
-    public Transform followingTarget;
+    public static Transform followingTarget;
     public float cameraMinDistance = 0.5f;
     public float cameraMaxDistance = 3;
     public float cameraRotationSpeed = 120;

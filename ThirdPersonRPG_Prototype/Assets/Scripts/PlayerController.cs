@@ -13,9 +13,9 @@ public class PlayerController : MonoBehaviour {
     private float _currentSpeed = 0;
 
     private CharacterController _characterCtr;
-    private Transform _rotationPivot;
     private Vector3 _moveDirection;
     private Vector3 _rotationDirection;
+    private PlayerNetwork _playerNetwork;
 
     private void Awake() {
         _characterCtr = this.GetComponent<CharacterController>();
@@ -25,12 +25,17 @@ public class PlayerController : MonoBehaviour {
     // Use this for initialization
     void Start () {
         Cursor.lockState = CursorLockMode.Locked;
-        _rotationPivot = this.transform.FindChild("RotationPivot");
+        _playerNetwork = this.GetComponent<PlayerNetwork>();
     }
-	
-	// Update is called once per frame
-	void Update () {
-        MoveCharacter();
+
+    // Update is called once per frame
+    void Update () {
+        if(_playerNetwork.isLocalInstance == true) {
+            MoveCharacter();
+        } else {
+            return;
+        }
+        
     }
 
     private void MoveCharacter() {
@@ -60,8 +65,7 @@ public class PlayerController : MonoBehaviour {
 
             _rotationDirection *= (Mathf.Abs(_moveDirection.x) > Mathf.Abs(_moveDirection.z)) ? Mathf.Abs(_moveDirection.x) : Mathf.Abs(_moveDirection.z);
 
-            _rotationPivot.rotation = Quaternion.Slerp(_rotationPivot.rotation, Quaternion.Euler(new Vector3(0, (Mathf.Atan2(_moveDirection.x, _moveDirection.z) * Mathf.Rad2Deg), 0)), _rotationSpeed * Time.deltaTime);
-
+            this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.Euler(new Vector3(0, (Mathf.Atan2(_moveDirection.x, _moveDirection.z) * Mathf.Rad2Deg), 0)), _rotationSpeed * Time.deltaTime);
         }
     }
 }
