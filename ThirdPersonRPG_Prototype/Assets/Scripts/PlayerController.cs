@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 [RequireComponent(typeof(CharacterController))]
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : NetworkBehaviour {
     public float walkSpeed = 2;
     //public float runSpeed = 5;
 
@@ -15,7 +16,6 @@ public class PlayerController : MonoBehaviour {
     private CharacterController _characterCtr;
     private Vector3 _moveDirection;
     private Vector3 _rotationDirection;
-    private PlayerNetwork _playerNetwork;
 
     private void Awake() {
         _characterCtr = this.GetComponent<CharacterController>();
@@ -25,17 +25,18 @@ public class PlayerController : MonoBehaviour {
     // Use this for initialization
     void Start () {
         //Cursor.lockState = CursorLockMode.Locked;
-        _playerNetwork = this.GetComponent<PlayerNetwork>();
+        if (!isLocalPlayer) {
+            Destroy(this);
+            return;
+        } else {
+            CameraDynamicOrbit.followingTarget = this.transform;
+        }
     }
 
     // Update is called once per frame
     void Update () {
-        if(_playerNetwork.isLocalInstance == true) {
-            MoveCharacter();
-        } else {
-            return;
-        }
-        
+        MoveCharacter();
+
     }
 
     private void MoveCharacter() {
