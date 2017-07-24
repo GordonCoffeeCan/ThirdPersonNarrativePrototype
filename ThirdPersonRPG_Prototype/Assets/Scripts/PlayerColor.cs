@@ -12,7 +12,7 @@ public class PlayerColor : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         bodyColor = new Color32((byte)Random.Range(0, 255), (byte)Random.Range(0, 255), (byte)Random.Range(0, 255), 255);
-        _renderer = this.transform.FindChild("HumanBody").GetComponent<Renderer>();
+        _renderer = this.transform.Find("HumanBody").GetComponent<Renderer>();
         _renderer.materials[1].SetColor("_Color", bodyColor);
     }
 	

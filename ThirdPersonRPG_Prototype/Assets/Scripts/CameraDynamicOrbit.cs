@@ -7,9 +7,12 @@ public class CameraDynamicOrbit : MonoBehaviour {
     public float cameraMinDistance = 0.5f;
     public float cameraMaxDistance = 3;
     public float cameraRotationSpeed = 120;
-    public float camDampSpeed = 0.25f;
+    public float camDampTime = 0.15f;
     public float verticalMinAngle = -20;
     public float verticalMaxAngle = 80;
+
+    [SerializeField]
+    private bool DampCamera = false;
 
     private float _cameraDistance = 3;
     private float _cameraVerticalOffset = 1.65f;
@@ -53,7 +56,14 @@ public class CameraDynamicOrbit : MonoBehaviour {
 
     private void CameraFollow() {
         if (followingTarget != null) {
-            this.transform.position = Vector3.SmoothDamp(this.transform.position, new Vector3(followingTarget.position.x, followingTarget.position.y + _cameraVerticalOffset, followingTarget.position.z), ref _veloctity, camDampSpeed);
+            Vector3 targetPostion = new Vector3(followingTarget.position.x, followingTarget.position.y + _cameraVerticalOffset, followingTarget.position.z);
+            if (DampCamera == true) {
+                this.transform.parent = null;
+                this.transform.position = Vector3.SmoothDamp(this.transform.position, targetPostion, ref _veloctity, camDampTime);
+            } else {
+                this.transform.parent = followingTarget;
+            }
+            
         }
     }
 
