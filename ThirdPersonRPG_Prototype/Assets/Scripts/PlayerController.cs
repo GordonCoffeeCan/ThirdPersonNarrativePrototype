@@ -11,6 +11,9 @@ public class PlayerController : MonoBehaviour {
     [SerializeField]
     private Transform rotationPivot;
 
+    [SerializeField]
+    private Camera playerCamera;
+
     private float gravity = 20;
     private float rotationSpeed = 10;
     private float currentSpeed = 0;
@@ -28,7 +31,13 @@ public class PlayerController : MonoBehaviour {
     // Use this for initialization
     void Start () {
         //Cursor.lockState = CursorLockMode.Locked;
-        CameraDynamicOrbit.followingTarget = this.transform;
+        if (CameraDynamicOrbit.instance.transform.parent == null) {
+            //single player mode, camera pivot is not set the child of single player prefab
+            CameraDynamicOrbit.followingTarget = this.transform;
+        } else {
+            //multiplayer Mode, camera pivot is set as the child of multiplayer mode player prefab
+
+        }
     }
 
     // Update is called once per frame
@@ -41,7 +50,7 @@ public class PlayerController : MonoBehaviour {
 
         if (_characterCtr.isGrounded) {
             moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-            moveDirection = Camera.main.transform.TransformDirection(moveDirection);
+            moveDirection = playerCamera.transform.TransformDirection(moveDirection);
             moveDirection.y = 0;
             moveDirection.Normalize();
             moveDirection *= currentSpeed;
@@ -54,16 +63,22 @@ public class PlayerController : MonoBehaviour {
         _characterCtr.Move(moveDirection * Time.deltaTime);
     }
 
-    private void RotateCharacter(Vector3 _moveDirection) {
-        if (Mathf.Abs(_moveDirection.x) > 0.1f || Mathf.Abs(_moveDirection.z) > 0.1f) {
-            rotationDirection = Camera.main.transform.TransformDirection(new Vector3(_moveDirection.x, 0, _moveDirection.z));
+    private void RotateCharacter(Vector3 _direction) {
+        if (Mathf.Abs(_direction.x) > 0.1f || Mathf.Abs(_direction.z) > 0.1f) {
+            rotationDirection = playerCamera.transform.TransformDirection(new Vector3(_direction.x, 0, _direction.z));
             rotationDirection.y = 0;
             rotationDirection.Normalize();
             rotationDirection *= Time.deltaTime;
 
-            rotationDirection *= (Mathf.Abs(_moveDirection.x) > Mathf.Abs(_moveDirection.z)) ? Mathf.Abs(_moveDirection.x) : Mathf.Abs(_moveDirection.z);
+            rotationDirection *= (Mathf.Abs(_direction.x) > Mathf.Abs(_direction.z)) ? Mathf.Abs(_direction.x) : Mathf.Abs(_direction.z);
 
-            rotationPivot.rotation = Quaternion.Slerp(rotationPivot.rotation, Quaternion.Euler(new Vector3(0, (Mathf.Atan2(_moveDirection.x, _moveDirection.z) * Mathf.Rad2Deg), 0)), rotationSpeed * Time.deltaTime);
+            if(CameraDynamicOrbit.instance.isAiming == false) {
+                rotationPivot.rotation = Quaternion.Slerp(rotationPivot.rotation, Quaternion.Euler(new Vector3(0, (Mathf.Atan2(_direction.x, _direction.z) * Mathf.Rad2Deg), 0)), rotationSpeed * Time.deltaTime);
+            }
+        }
+
+        if (CameraDynamicOrbit.instance.isAiming == true) {
+            rotationPivot.rotation = Quaternion.Slerp(rotationPivot.rotation, Quaternion.Euler(new Vector3(0, CameraDynamicOrbit.instance.transform.localEulerAngles.y, 0)), rotationSpeed * Time.deltaTime);
         }
     }
 }
