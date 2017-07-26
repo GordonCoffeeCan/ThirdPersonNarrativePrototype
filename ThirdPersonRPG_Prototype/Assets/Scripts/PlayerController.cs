@@ -12,6 +12,9 @@ public class PlayerController : MonoBehaviour {
     private Transform rotationPivot;
 
     [SerializeField]
+    private CameraDynamicOrbit cameraPivot;
+
+    [SerializeField]
     private Camera playerCamera;
 
     private float gravity = 20;
@@ -31,13 +34,6 @@ public class PlayerController : MonoBehaviour {
     // Use this for initialization
     void Start () {
         //Cursor.lockState = CursorLockMode.Locked;
-        if (CameraDynamicOrbit.instance.transform.parent == null) {
-            //single player mode, camera pivot is not set the child of single player prefab
-            CameraDynamicOrbit.followingTarget = this.transform;
-        } else {
-            //multiplayer Mode, camera pivot is set as the child of multiplayer mode player prefab
-
-        }
     }
 
     // Update is called once per frame
@@ -47,6 +43,7 @@ public class PlayerController : MonoBehaviour {
 
     private void MoveCharacter() {
         currentSpeed = walkSpeed;
+
 
         if (_characterCtr.isGrounded) {
             moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
@@ -72,13 +69,13 @@ public class PlayerController : MonoBehaviour {
 
             rotationDirection *= (Mathf.Abs(_direction.x) > Mathf.Abs(_direction.z)) ? Mathf.Abs(_direction.x) : Mathf.Abs(_direction.z);
 
-            if(CameraDynamicOrbit.instance.isAiming == false) {
+            if(cameraPivot.isAiming == false) {
                 rotationPivot.rotation = Quaternion.Slerp(rotationPivot.rotation, Quaternion.Euler(new Vector3(0, (Mathf.Atan2(_direction.x, _direction.z) * Mathf.Rad2Deg), 0)), rotationSpeed * Time.deltaTime);
             }
         }
 
-        if (CameraDynamicOrbit.instance.isAiming == true) {
-            rotationPivot.rotation = Quaternion.Slerp(rotationPivot.rotation, Quaternion.Euler(new Vector3(0, CameraDynamicOrbit.instance.transform.localEulerAngles.y, 0)), rotationSpeed * Time.deltaTime);
+        if (cameraPivot.isAiming == true) {
+            rotationPivot.rotation = Quaternion.Slerp(rotationPivot.rotation, Quaternion.Euler(new Vector3(0, cameraPivot.transform.localEulerAngles.y, 0)), rotationSpeed * Time.deltaTime);
         }
     }
 }

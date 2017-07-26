@@ -6,7 +6,7 @@ public class MultiplayerGameManager : MonoBehaviour {
 
     public static MultiplayerGameManager instance;
 
-    private static Dictionary<string, MultiplayerPlayer> players = new Dictionary<string, MultiplayerPlayer>();
+    //private static Dictionary<string, MultiplayerPlayer> players = new Dictionary<string, MultiplayerPlayer>();
 
     private void Awake() {
         if(instance != null) {

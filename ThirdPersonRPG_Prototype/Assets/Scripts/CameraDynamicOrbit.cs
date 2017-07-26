@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraDynamicOrbit : MonoBehaviour {
-    public static CameraDynamicOrbit instance;
-    public static Transform followingTarget;
     public float cameraMinDistance = 0.5f;
     public float cameraMaxDistance = 3;
     public float cameraAimMaxDistance = 1;
@@ -14,14 +12,10 @@ public class CameraDynamicOrbit : MonoBehaviour {
     public float verticalMaxAngle = 80;
     public bool isAiming = false;
 
-    [SerializeField]
-    private bool DampCamera = false;
-
     private float _cameraDistance;
     private float _cameraHorizontalOffset;
     private float _cameraVerticalOffset = 1.65f;
     private Transform _camTrans;
-    private Vector3 _veloctity = Vector3.zero;
 
     private float cameraOriginalMaxDistance;
 
@@ -30,20 +24,18 @@ public class CameraDynamicOrbit : MonoBehaviour {
     private ControllerAxis controllerAxis = new ControllerAxis();
 
     private void Awake() {
-        instance = this;
         _camTrans = this.transform.Find("PlayerCamera");
     }
 
     // Use this for initialization
     void Start () {
-        this.transform.position = new Vector3(0, _cameraVerticalOffset, 0);
+        this.transform.localPosition = new Vector3(0, _cameraVerticalOffset, 0);
         cameraOriginalMaxDistance = cameraMaxDistance;
     }
 	
 	// Update is called once per frame
 	void Update () {
         CameraRotate();
-        CameraFollow();
         CameraAiming();
         DynamicCameraDistance();
     }
@@ -63,21 +55,6 @@ public class CameraDynamicOrbit : MonoBehaviour {
     private void CameraRotate() {
         this.transform.Rotate(Input.GetAxis(controllerAxis.cameraVerticalAxis) * cameraRotationSpeed * Time.deltaTime, Input.GetAxis(controllerAxis.cameraHorizontalAxis) * cameraRotationSpeed * Time.deltaTime, 0);
         this.transform.localEulerAngles = new Vector3(AngleClamp(this.transform.localEulerAngles.x, verticalMinAngle, verticalMaxAngle), this.transform.localEulerAngles.y, 0);
-    }
-
-    private void CameraFollow() {
-        if (followingTarget != null) {
-            Vector3 targetPostion = new Vector3(followingTarget.position.x, followingTarget.position.y + _cameraVerticalOffset, followingTarget.position.z);
-            if (DampCamera == true) {
-                this.transform.parent = null;
-                this.transform.position = Vector3.SmoothDamp(this.transform.position, targetPostion, ref _veloctity, camDampTime);
-            } else {
-                this.transform.position = targetPostion;
-                this.transform.parent = followingTarget;
-            }
-        } else {
-            this.transform.localPosition = new Vector3(0, _cameraVerticalOffset, 0);
-        }
     }
 
     private void CameraAiming() {
