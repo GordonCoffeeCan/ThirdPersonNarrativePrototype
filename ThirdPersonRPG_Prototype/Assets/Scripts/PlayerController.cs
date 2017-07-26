@@ -78,7 +78,7 @@ public class PlayerController : MonoBehaviour {
 
         //On Aiming, Player rotation follow along with camera direction;
         if (ControllerManager.instacne.OnAim() == true) {
-            rotationPivot.rotation = Quaternion.Slerp(rotationPivot.rotation, Quaternion.Euler(new Vector3(0, cameraPivot.transform.localEulerAngles.y, 0)), rotationSpeed * Time.deltaTime);
+            rotationPivot.rotation = Quaternion.Slerp(rotationPivot.rotation, Quaternion.Euler(new Vector3(0, cameraPivot.transform.localEulerAngles.y + this.transform.eulerAngles.y, 0)), rotationSpeed * Time.deltaTime);
         }
     }
 }

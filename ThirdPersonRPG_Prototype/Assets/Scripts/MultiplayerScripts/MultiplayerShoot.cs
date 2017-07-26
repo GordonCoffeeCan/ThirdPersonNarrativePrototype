@@ -18,6 +18,8 @@ public class MultiplayerShoot : NetworkBehaviour {
     [SerializeField]
     private LayerMask layerMask;
 
+    private bool isFired = false;
+
     private Text debugInfo;
 
     // Use this for initialization
@@ -32,12 +34,17 @@ public class MultiplayerShoot : NetworkBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (ControllerManager.instacne.OnFire()) {
+        if (ControllerManager.instacne.OnFire() && isFired == false) {
             shoot();
+            isFired = true;
+        }else if (ControllerManager.instacne.OnFire() == false) {
+            isFired = false;
         }
+
+        //Debug.Log(isFired);
 	}
 
-    //this method only called on the client;
+    //this method only runing on the client;
     [Client]
     private void shoot() {
 
@@ -51,6 +58,7 @@ public class MultiplayerShoot : NetworkBehaviour {
 
         RaycastHit _hit;
 
+        //adjust ray cast position on Aim or not;
         if (ControllerManager.instacne.OnAim()) {
             _rayPostion = playerCamera.transform.position;
             _rayDirection = playerCamera.transform.forward;
@@ -58,19 +66,21 @@ public class MultiplayerShoot : NetworkBehaviour {
             _rayPostion = new Vector3(this.transform.position.x, this.transform.position.y + 1.39f, this.transform.position.z);
             _rayDirection = rotationPivot.transform.forward;
         }
+        //End ------ adjust ray cast position on Aim or not;
 
         if (Physics.Raycast(_rayPostion, _rayDirection, out _hit, weapon.range, layerMask)) {
             if (_hit.collider.tag == PLAYER_TAG) {
-                CmdPlayerShot(_hit.collider.name);
+                CmdPlayerShot(_hit.collider.name, weapon.damage);
             }
             debugInfo.text = _hit.collider.name + " is Hit!";
             Debug.DrawRay(_rayPostion, _rayDirection, Color.red, 1);
         }
     }
 
-    //this method only called on the server;
+    //this method only runing on the server;
     [Command]
-    private void CmdPlayerShot(string _playerName) {
-        Debug.Log(_playerName + " has been shot!");
+    private void CmdPlayerShot(string _playerName, int _damage) {
+        MultiplayerPlayerManager _player = MultiplayerGameManager.GetPlayer(_playerName);
+        _player.RpcTakeDamage(_damage);
     }
 }

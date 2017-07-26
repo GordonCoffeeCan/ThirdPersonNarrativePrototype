@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
 
-public class MultiplayerPlayer : NetworkBehaviour {
+[System.Serializable]
+public class MultiplayerGameSettings{
 
+    public float respawnDelayTime = 2;
+
+    /*
 	// Use this for initialization
 	void Start () {
 		
@@ -14,4 +17,5 @@ public class MultiplayerPlayer : NetworkBehaviour {
 	void Update () {
 		
 	}
+    */
 }

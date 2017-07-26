@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
+[RequireComponent(typeof(MultiplayerPlayerManager))]
 public class MultiplayerSetup : NetworkBehaviour {
 
     [SerializeField]
@@ -27,13 +28,15 @@ public class MultiplayerSetup : NetworkBehaviour {
             }
         }
 
-        RegisterPlayer();
-
+        this.GetComponent<MultiplayerPlayerManager>().SetupOnStart();
     }
 
-    private void RegisterPlayer() {
-        string _playerIDName = "Player " + GetComponent<NetworkIdentity>().netId;
-        this.transform.name = _playerIDName;
+    public override void OnStartClient() {
+        base.OnStartClient();
+
+        string _netID = this.GetComponent<NetworkIdentity>().netId.ToString();
+        MultiplayerPlayerManager _player = GetComponent<MultiplayerPlayerManager>();
+        MultiplayerGameManager.RegisterPlayer(_netID, _player);
     }
 
     private void AssignRemoteLayer() {
@@ -51,5 +54,7 @@ public class MultiplayerSetup : NetworkBehaviour {
         if(sceneCamera != null) {
             sceneCamera.gameObject.SetActive(true);
         }
+
+        MultiplayerGameManager.UnRegisterPlayer(this.transform.name);
     }
 }

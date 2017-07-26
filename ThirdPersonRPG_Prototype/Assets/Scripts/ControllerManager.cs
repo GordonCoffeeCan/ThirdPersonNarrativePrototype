@@ -57,7 +57,7 @@ public class ControllerManager : MonoBehaviour {
     }
 
     public bool OnFire() {
-        if ((Input.GetButton(fireButton) || Input.GetAxis(fireTrigger) > 0.2f)) {
+        if (Input.GetButtonDown(fireButton) || Input.GetAxis(fireTrigger) > 0.2f) {
             return true;
         } else {
             return false;
