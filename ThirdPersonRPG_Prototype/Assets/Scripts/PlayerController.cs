@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour {
 
 
         if (_characterCtr.isGrounded) {
-            moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+            moveDirection = ControllerManager.instacne.OnMove();
             moveDirection = playerCamera.transform.TransformDirection(moveDirection);
             moveDirection.y = 0;
             moveDirection.Normalize();
@@ -61,6 +61,8 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void RotateCharacter(Vector3 _direction) {
+
+        //No Aiming, Player will facing to it's movement direction;
         if (Mathf.Abs(_direction.x) > 0.1f || Mathf.Abs(_direction.z) > 0.1f) {
             rotationDirection = playerCamera.transform.TransformDirection(new Vector3(_direction.x, 0, _direction.z));
             rotationDirection.y = 0;
@@ -69,12 +71,13 @@ public class PlayerController : MonoBehaviour {
 
             rotationDirection *= (Mathf.Abs(_direction.x) > Mathf.Abs(_direction.z)) ? Mathf.Abs(_direction.x) : Mathf.Abs(_direction.z);
 
-            if(cameraPivot.isAiming == false) {
+            if(ControllerManager.instacne.OnAim() == false) {
                 rotationPivot.rotation = Quaternion.Slerp(rotationPivot.rotation, Quaternion.Euler(new Vector3(0, (Mathf.Atan2(_direction.x, _direction.z) * Mathf.Rad2Deg), 0)), rotationSpeed * Time.deltaTime);
             }
         }
 
-        if (cameraPivot.isAiming == true) {
+        //On Aiming, Player rotation follow along with camera direction;
+        if (ControllerManager.instacne.OnAim() == true) {
             rotationPivot.rotation = Quaternion.Slerp(rotationPivot.rotation, Quaternion.Euler(new Vector3(0, cameraPivot.transform.localEulerAngles.y, 0)), rotationSpeed * Time.deltaTime);
         }
     }

@@ -26,7 +26,15 @@ public class MultiplayerSetup : NetworkBehaviour {
                 sceneCamera.gameObject.SetActive(false);
             }
         }
-	}
+
+        RegisterPlayer();
+
+    }
+
+    private void RegisterPlayer() {
+        string _playerIDName = "Player " + GetComponent<NetworkIdentity>().netId;
+        this.transform.name = _playerIDName;
+    }
 
     private void AssignRemoteLayer() {
         this.gameObject.layer = LayerMask.NameToLayer(remoteLayerName);

@@ -10,7 +10,6 @@ public class CameraDynamicOrbit : MonoBehaviour {
     public float camDampTime = 0.15f;
     public float verticalMinAngle = -20;
     public float verticalMaxAngle = 80;
-    public bool isAiming = false;
 
     private float _cameraDistance;
     private float _cameraHorizontalOffset;
@@ -21,7 +20,7 @@ public class CameraDynamicOrbit : MonoBehaviour {
 
     private RaycastHit _hit;
 
-    private ControllerAxis controllerAxis = new ControllerAxis();
+    //private ControllerAxis controllerAxis = new ControllerAxis();
 
     private void Awake() {
         _camTrans = this.transform.Find("PlayerCamera");
@@ -53,17 +52,15 @@ public class CameraDynamicOrbit : MonoBehaviour {
     }
 
     private void CameraRotate() {
-        this.transform.Rotate(Input.GetAxis(controllerAxis.cameraVerticalAxis) * cameraRotationSpeed * Time.deltaTime, Input.GetAxis(controllerAxis.cameraHorizontalAxis) * cameraRotationSpeed * Time.deltaTime, 0);
+        this.transform.Rotate(Input.GetAxis(ControllerManager.instacne.cameraVerticalAxis) * cameraRotationSpeed * Time.deltaTime, Input.GetAxis(ControllerManager.instacne.cameraHorizontalAxis) * cameraRotationSpeed * Time.deltaTime, 0);
         this.transform.localEulerAngles = new Vector3(AngleClamp(this.transform.localEulerAngles.x, verticalMinAngle, verticalMaxAngle), this.transform.localEulerAngles.y, 0);
     }
 
     private void CameraAiming() {
-        if (Input.GetButton(controllerAxis.aimButton) || Input.GetAxis(controllerAxis.aimTrigger) > 0.2f) {
-            isAiming = true;
+        if (ControllerManager.instacne.OnAim()) {
             _cameraHorizontalOffset = 0.3f;
             cameraMaxDistance = cameraAimMaxDistance;
         } else {
-            isAiming = false;
             _cameraHorizontalOffset = 0;
             cameraMaxDistance = cameraOriginalMaxDistance;
         }

@@ -5,6 +5,7 @@ using UnityEngine.Networking;
 using UnityEngine.UI;
 
 public class MultiplayerShoot : NetworkBehaviour {
+    private const string PLAYER_TAG = "Player";
 
     public PlayerWeapon weapon;
 
@@ -17,8 +18,6 @@ public class MultiplayerShoot : NetworkBehaviour {
     [SerializeField]
     private LayerMask layerMask;
 
-    private ControllerAxis controllerAxis;
-
     private Text debugInfo;
 
     // Use this for initialization
@@ -27,19 +26,23 @@ public class MultiplayerShoot : NetworkBehaviour {
             Debug.LogError("No Player Camera referenced!");
             this.enabled = false;
         } else {
-            controllerAxis = new ControllerAxis();
             debugInfo = GameObject.Find("DebugInfo").GetComponent<Text>();
         }
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetButtonDown(controllerAxis.fireButton) || Input.GetAxis(controllerAxis.fireTrigger) > 0.2f) {
+        if (ControllerManager.instacne.OnFire()) {
             shoot();
         }
 	}
 
+    //this method only called on the client;
+    [Client]
     private void shoot() {
+
+        Vector3 _rayPostion;
+        Vector3 _rayDirection;
 
         if(rotationPivot == null) {
             Debug.LogError("No Roation Pivot referenced!");
@@ -48,20 +51,26 @@ public class MultiplayerShoot : NetworkBehaviour {
 
         RaycastHit _hit;
 
-        if ((Input.GetButton(controllerAxis.aimButton) || Input.GetAxis(controllerAxis.aimTrigger) > 0.2f)) {
-            if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out _hit, weapon.range, layerMask)) {
-                Debug.Log(_hit.collider.name + " is Hit!");
-                debugInfo.text = _hit.collider.name + " is Hit!";
-                Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward, Color.red, 1);
-            }
+        if (ControllerManager.instacne.OnAim()) {
+            _rayPostion = playerCamera.transform.position;
+            _rayDirection = playerCamera.transform.forward;
         } else {
-            if (Physics.Raycast(new Vector3(this.transform.position.x, this.transform.position.y + 1.65f, this.transform.position.z), rotationPivot.transform.forward, out _hit, weapon.range, layerMask)) {
-                Debug.Log(_hit.collider.name + " is Hit!");
-                Debug.DrawRay(new Vector3(this.transform.position.x, this.transform.position.y + 1.65f, this.transform.position.z), rotationPivot.transform.forward, Color.red, 1);
-                debugInfo.text = _hit.collider.name + " is Hit!";
-            }
+            _rayPostion = new Vector3(this.transform.position.x, this.transform.position.y + 1.39f, this.transform.position.z);
+            _rayDirection = rotationPivot.transform.forward;
         }
 
-        
+        if (Physics.Raycast(_rayPostion, _rayDirection, out _hit, weapon.range, layerMask)) {
+            if (_hit.collider.tag == PLAYER_TAG) {
+                CmdPlayerShot(_hit.collider.name);
+            }
+            debugInfo.text = _hit.collider.name + " is Hit!";
+            Debug.DrawRay(_rayPostion, _rayDirection, Color.red, 1);
+        }
+    }
+
+    //this method only called on the server;
+    [Command]
+    private void CmdPlayerShot(string _playerName) {
+        Debug.Log(_playerName + " has been shot!");
     }
 }
