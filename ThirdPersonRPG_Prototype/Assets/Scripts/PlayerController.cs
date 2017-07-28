@@ -38,6 +38,11 @@ public class PlayerController : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+
+        //If in Game menu panel is on, player cannot be controlled;
+        if (UIManager.isMenuPanelOn) {
+            return;
+        }
         MoveCharacter();
     }
 

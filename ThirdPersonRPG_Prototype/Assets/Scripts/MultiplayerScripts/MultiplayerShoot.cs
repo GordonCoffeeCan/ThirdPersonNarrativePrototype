@@ -48,6 +48,11 @@ public class MultiplayerShoot : NetworkBehaviour {
     [Client]
     private void shoot() {
 
+        //If in Game menu panel is on, player cannot shoot;
+        if (UIManager.isMenuPanelOn) {
+            return;
+        }
+
         Vector3 _rayPostion;
         Vector3 _rayDirection;
 

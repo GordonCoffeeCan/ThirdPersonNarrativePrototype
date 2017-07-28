@@ -34,6 +34,11 @@ public class CameraDynamicOrbit : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        //If in Game menu panel is on, camera cannot rotate;
+        if (UIManager.isMenuPanelOn) {
+            return;
+        }
+
         CameraRotate();
         CameraAiming();
         DynamicCameraDistance();

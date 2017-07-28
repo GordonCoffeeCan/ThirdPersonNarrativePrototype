@@ -7,6 +7,12 @@ public class MultiplayerGameManager : MonoBehaviour {
 
     public static MultiplayerGameManager instance;
 
+    [HideInInspector]
+    public bool isPlayerDie = false;
+
+    [HideInInspector]
+    public bool isPlayerInGame = false;
+
     private const string PLAYER_NAME_PREFIX = "Player ";
 
     private static Dictionary<string, MultiplayerPlayerManager> players = new Dictionary<string, MultiplayerPlayerManager>();

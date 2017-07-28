@@ -13,6 +13,8 @@ public class ControllerManager : MonoBehaviour {
     public string fireTrigger;
     public string aimButton;
     public string aimTrigger;
+    public string MenuButton;
+    public string BackButton;
 
     private void Awake() {
         instacne = this;
@@ -28,6 +30,9 @@ public class ControllerManager : MonoBehaviour {
         aimButton = "Aim";
         aimTrigger = "Left_Trigger";
 
+        MenuButton = "Menu";
+        BackButton = "Back";
+
 #if UNITY_EDITOR
 
 #endif
@@ -41,6 +46,8 @@ public class ControllerManager : MonoBehaviour {
         fireTrigger = "R_2_Fire";
         cameraHorizontalAxis = "Android_R_Stick_H";
         cameraVerticalAxis = "Android_R_Stick_V";
+        MenuButton = "Android_Menu";
+        BackButton = "Android_Back";
 #endif
     }
 
@@ -49,18 +56,18 @@ public class ControllerManager : MonoBehaviour {
     }
 
     public bool OnAim() {
-        if ((Input.GetButton(aimButton) || Input.GetAxis(aimTrigger) > 0.2f)) {
-            return true;
-        } else {
-            return false;
-        }
+        return (Input.GetButton(aimButton) || Input.GetAxis(aimTrigger) > 0.2f);
     }
 
     public bool OnFire() {
-        if (Input.GetButtonDown(fireButton) || Input.GetAxis(fireTrigger) > 0.2f) {
-            return true;
-        } else {
-            return false;
-        }
+        return (Input.GetButtonDown(fireButton) || Input.GetAxis(fireTrigger) > 0.2f);
+    }
+
+    public bool OnMenu() {
+        return Input.GetButtonUp(MenuButton);
+    }
+
+    public bool OnBack() {
+        return Input.GetButtonUp(BackButton);
     }
 }
