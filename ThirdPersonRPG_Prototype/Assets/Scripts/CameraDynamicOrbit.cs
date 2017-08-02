@@ -7,7 +7,7 @@ public class CameraDynamicOrbit : MonoBehaviour {
     public float cameraMaxDistance = 3;
     public float cameraAimMaxDistance = 1;
     public float cameraRotationSpeed = 120;
-    public float camDampTime = 0.15f;
+    public float camDampSpeed = 20;
     public float verticalMinAngle = -20;
     public float verticalMaxAngle = 80;
 
@@ -78,8 +78,8 @@ public class CameraDynamicOrbit : MonoBehaviour {
 
     private void DynamicCameraDistance() {
         _cameraDistance = Mathf.Clamp(_cameraDistance, cameraMinDistance, cameraMaxDistance);
-        _camTrans.localPosition = Vector3.Lerp(_camTrans.localPosition, new Vector3(_cameraHorizontalOffset, 0, -_cameraDistance), 30 * Time.deltaTime);
-        this.transform.localPosition = Vector3.Lerp(this.transform.localPosition, new Vector3(0, _cameraVerticalOffset, 0), 30 * Time.deltaTime);
+        _camTrans.localPosition = Vector3.Lerp(_camTrans.localPosition, new Vector3(_cameraHorizontalOffset, 0, -_cameraDistance), camDampSpeed * Time.deltaTime);
+        this.transform.localPosition = Vector3.Lerp(this.transform.localPosition, new Vector3(0, _cameraVerticalOffset, 0), camDampSpeed * Time.deltaTime);
     }
 
     private float AngleClamp(float _angle, float _min, float _max) {
