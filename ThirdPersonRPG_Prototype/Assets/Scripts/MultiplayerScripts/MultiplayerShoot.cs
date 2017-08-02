@@ -13,7 +13,16 @@ public class MultiplayerShoot : NetworkBehaviour {
     private Camera playerCamera;
 
     [SerializeField]
+    private Transform cameraPivot;
+
+    [SerializeField]
+    private Transform firePoint;
+
+    [SerializeField]
     private Transform rotationPivot;
+
+    [SerializeField]
+    private GameObject bulletEX;
 
     [SerializeField]
     private LayerMask layerMask;
@@ -56,7 +65,7 @@ public class MultiplayerShoot : NetworkBehaviour {
         Vector3 _rayPostion;
         Vector3 _rayDirection;
 
-        if(rotationPivot == null) {
+        if (rotationPivot == null) {
             Debug.LogError("No Roation Pivot referenced!");
             return;
         }
@@ -79,6 +88,28 @@ public class MultiplayerShoot : NetworkBehaviour {
             }
             debugInfo.text = _hit.collider.name + " is Hit!";
             Debug.DrawRay(_rayPostion, _rayDirection, Color.red, 1);
+        }
+
+        if (isLocalPlayer) {
+            CmdOnShoot(cameraPivot.transform.rotation);
+        } else {
+            CmdOnShoot(Quaternion.Euler(cameraPivot.transform.localRotation.eulerAngles + rotationPivot.transform.rotation.eulerAngles));
+        }
+        
+    }
+
+    [Command]
+    private void CmdOnShoot(Quaternion _bulletRotation) {
+        RpcShootEX(_bulletRotation);
+    }
+
+    [ClientRpc]
+    private void RpcShootEX(Quaternion _bulletRotation) {
+        if (bulletEX != null) {
+            //Instantiate(bulletEX, firePoint.position, Quaternion.Euler(new Vector3(0, rotationPivot.transform.localEulerAngles.y + this.transform.eulerAngles.y, 0)));
+            Instantiate(bulletEX, firePoint.position, _bulletRotation);
+        } else {
+            Debug.LogError("No Bullet Effect game object reference!");
         }
     }
 

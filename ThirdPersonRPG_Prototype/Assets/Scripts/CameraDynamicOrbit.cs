@@ -13,10 +13,11 @@ public class CameraDynamicOrbit : MonoBehaviour {
 
     private float _cameraDistance;
     private float _cameraHorizontalOffset;
-    private float _cameraVerticalOffset = 1.65f;
+    private float _cameraVerticalOffset;
     private Transform _camTrans;
 
     private float cameraOriginalMaxDistance;
+    private float _defaultVerticalOffset;
 
     private RaycastHit _hit;
 
@@ -30,6 +31,8 @@ public class CameraDynamicOrbit : MonoBehaviour {
     void Start () {
         this.transform.localPosition = new Vector3(0, _cameraVerticalOffset, 0);
         cameraOriginalMaxDistance = cameraMaxDistance;
+        _cameraVerticalOffset = 2;
+        _defaultVerticalOffset = _cameraVerticalOffset;
     }
 	
 	// Update is called once per frame
@@ -64,9 +67,11 @@ public class CameraDynamicOrbit : MonoBehaviour {
     private void CameraAiming() {
         if (ControllerManager.instacne.OnAim()) {
             _cameraHorizontalOffset = 0.3f;
+            _cameraVerticalOffset = 1.7f;
             cameraMaxDistance = cameraAimMaxDistance;
         } else {
             _cameraHorizontalOffset = 0;
+            _cameraVerticalOffset = _defaultVerticalOffset;
             cameraMaxDistance = cameraOriginalMaxDistance;
         }
     }
@@ -74,6 +79,7 @@ public class CameraDynamicOrbit : MonoBehaviour {
     private void DynamicCameraDistance() {
         _cameraDistance = Mathf.Clamp(_cameraDistance, cameraMinDistance, cameraMaxDistance);
         _camTrans.localPosition = Vector3.Lerp(_camTrans.localPosition, new Vector3(_cameraHorizontalOffset, 0, -_cameraDistance), 30 * Time.deltaTime);
+        this.transform.localPosition = Vector3.Lerp(this.transform.localPosition, new Vector3(0, _cameraVerticalOffset, 0), 30 * Time.deltaTime);
     }
 
     private float AngleClamp(float _angle, float _min, float _max) {

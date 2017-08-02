@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 public class UIManager : NetworkBehaviour {
 
@@ -35,11 +36,20 @@ public class UIManager : NetworkBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+        //Check the current scene is single player mode or multiplayer mode;
         //show reticle when aim;
-        if (ControllerManager.instacne.OnAim() && MultiplayerGameManager.instance.isPlayerInGame == true && MultiplayerGameManager.instance.isPlayerDie == false && isMenuPanelOn == false) {
-            reticleUI.gameObject.SetActive(true);
-        } else {
-            reticleUI.gameObject.SetActive(false);
+        if (SceneManager.GetActiveScene().name == "Singleplayer_Level") {
+            if (ControllerManager.instacne.OnAim() && isMenuPanelOn == false) {
+                reticleUI.gameObject.SetActive(true);
+            } else {
+                reticleUI.gameObject.SetActive(false);
+            }
+        }else if(SceneManager.GetActiveScene().name == "Multiplayer_Level") {
+            if (ControllerManager.instacne.OnAim() && MultiplayerGameManager.instance.isPlayerInGame == true && MultiplayerGameManager.instance.isPlayerDie == false && isMenuPanelOn == false) {
+                reticleUI.gameObject.SetActive(true);
+            } else {
+                reticleUI.gameObject.SetActive(false);
+            }
         }
 
         //Show in game menu;

@@ -5,8 +5,13 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 
 public class PlayerController : MonoBehaviour {
-    public float walkSpeed = 2;
-    public float runSpeed = 5;
+
+    [SerializeField]
+    private float walkSpeed = 2;
+    [SerializeField]
+    private float runSpeed = 5;
+    [SerializeField]
+    private float jumpSpeed = 8;
 
     [SerializeField]
     private Transform rotationPivot;
@@ -18,7 +23,8 @@ public class PlayerController : MonoBehaviour {
     private Camera playerCamera;
 
     private float gravity = 20;
-    private float rotationSpeed = 10;
+    private float rotationSpeed = 15;
+    private float aimRotationSpeed = 40;
     private float currentSpeed = 0;
 
     private CharacterController _characterCtr;
@@ -49,20 +55,22 @@ public class PlayerController : MonoBehaviour {
     private void MoveCharacter() {
         currentSpeed = walkSpeed;
 
-
         if (_characterCtr.isGrounded) {
             moveDirection = ControllerManager.instacne.OnMove();
             moveDirection = playerCamera.transform.TransformDirection(moveDirection);
-            moveDirection.y = 0;
             moveDirection.Normalize();
             moveDirection *= currentSpeed;
-
+            if (ControllerManager.instacne.OnJump() == true) {
+                moveDirection.y = jumpSpeed;
+            } else {
+                moveDirection.y = 0;
+            }
         }
-
-        RotateCharacter(moveDirection);
 
         moveDirection.y -= gravity * Time.deltaTime;
         _characterCtr.Move(moveDirection * Time.deltaTime);
+
+        RotateCharacter(moveDirection);
     }
 
     private void RotateCharacter(Vector3 _direction) {
@@ -76,14 +84,14 @@ public class PlayerController : MonoBehaviour {
 
             rotationDirection *= (Mathf.Abs(_direction.x) > Mathf.Abs(_direction.z)) ? Mathf.Abs(_direction.x) : Mathf.Abs(_direction.z);
 
-            if(ControllerManager.instacne.OnAim() == false) {
+            if(ControllerManager.instacne.OnAim() == false && ControllerManager.instacne.OnFire() == false) {
                 rotationPivot.rotation = Quaternion.Slerp(rotationPivot.rotation, Quaternion.Euler(new Vector3(0, (Mathf.Atan2(_direction.x, _direction.z) * Mathf.Rad2Deg), 0)), rotationSpeed * Time.deltaTime);
             }
         }
 
         //On Aiming, Player rotation follow along with camera direction;
-        if (ControllerManager.instacne.OnAim() == true) {
-            rotationPivot.rotation = Quaternion.Slerp(rotationPivot.rotation, Quaternion.Euler(new Vector3(0, cameraPivot.transform.localEulerAngles.y + this.transform.eulerAngles.y, 0)), rotationSpeed * Time.deltaTime);
+        if (ControllerManager.instacne.OnAim() == true || ControllerManager.instacne.OnFire() == true) {
+            rotationPivot.rotation = Quaternion.Slerp(rotationPivot.rotation, Quaternion.Euler(new Vector3(0, cameraPivot.transform.localEulerAngles.y + this.transform.eulerAngles.y, 0)), aimRotationSpeed * Time.deltaTime);
         }
     }
 }

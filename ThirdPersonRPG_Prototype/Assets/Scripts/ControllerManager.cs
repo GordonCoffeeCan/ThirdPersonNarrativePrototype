@@ -7,6 +7,7 @@ public class ControllerManager : MonoBehaviour {
     public static ControllerManager instacne;
     public string moveHorizontalAxis;
     public string moveVerticalAxis;
+    public string jumpButton;
     public string cameraHorizontalAxis;
     public string cameraVerticalAxis;
     public string fireButton;
@@ -21,6 +22,8 @@ public class ControllerManager : MonoBehaviour {
 
         moveHorizontalAxis = "Horizontal";
         moveVerticalAxis = "Vertical";
+
+        jumpButton = "Jump";
 
         cameraHorizontalAxis = "CamHorizontal";
         cameraVerticalAxis = "CamVertical";
@@ -55,12 +58,16 @@ public class ControllerManager : MonoBehaviour {
         return new Vector3(Input.GetAxis(moveHorizontalAxis), 0, Input.GetAxis(moveVerticalAxis));
     }
 
+    public bool OnJump() {
+        return Input.GetButtonDown(jumpButton);
+    }
+
     public bool OnAim() {
         return (Input.GetButton(aimButton) || Input.GetAxis(aimTrigger) > 0.2f);
     }
 
     public bool OnFire() {
-        return (Input.GetButtonDown(fireButton) || Input.GetAxis(fireTrigger) > 0.2f);
+        return (Input.GetButton(fireButton) || Input.GetAxis(fireTrigger) > 0.2f);
     }
 
     public bool OnMenu() {
