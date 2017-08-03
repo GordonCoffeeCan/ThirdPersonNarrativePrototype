@@ -6,6 +6,9 @@ using UnityEngine.Networking;
 public class MultiplayerPlayerManager : NetworkBehaviour {
 
     [SerializeField]
+    private Transform rotationPivot;
+
+    [SerializeField]
     private Behaviour[] componentsToDisable;
 
     [SerializeField]
@@ -145,6 +148,7 @@ public class MultiplayerPlayerManager : NetworkBehaviour {
         Transform _spawnPoint = NetworkManager.singleton.GetStartPosition();
         this.transform.position = _spawnPoint.position;
         this.transform.rotation = _spawnPoint.rotation;
+        rotationPivot.localRotation = Quaternion.Euler(Vector3.zero);
     }
 
     //On Disable this instance

@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
+    public static PlayerController instance;
+
     [SerializeField]
     private float walkSpeed = 2;
     [SerializeField]
@@ -13,8 +15,7 @@ public class PlayerController : MonoBehaviour {
     [SerializeField]
     private float jumpSpeed = 8;
 
-    [SerializeField]
-    private Transform rotationPivot;
+    public Transform rotationPivot;
 
     [SerializeField]
     private CameraDynamicOrbit cameraPivot;
@@ -33,6 +34,7 @@ public class PlayerController : MonoBehaviour {
     private Vector3 rotationDirection;
 
     private void Awake() {
+        instance = this;
         _characterCtr = this.GetComponent<CharacterController>();
         moveDirection = Vector3.zero;
     }

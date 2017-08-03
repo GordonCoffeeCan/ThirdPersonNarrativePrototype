@@ -50,8 +50,9 @@ public class MultiplayerShoot : NetworkBehaviour {
             isFired = false;
         }
 
+        debugInfo.text = "the player rotation is " + rotationPivot.localEulerAngles.y;
         //Debug.Log(isFired);
-	}
+    }
 
     //this method only runing on the client;
     [Client]
@@ -86,7 +87,6 @@ public class MultiplayerShoot : NetworkBehaviour {
             if (_hit.collider.tag == PLAYER_TAG) {
                 CmdPlayerShot(_hit.collider.name, weapon.damage);
             }
-            debugInfo.text = _hit.collider.name + " is Hit!";
             Debug.DrawRay(_rayPostion, _rayDirection, Color.red, 1);
         }
 
