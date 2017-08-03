@@ -4,10 +4,6 @@ using UnityEngine;
 using UnityEngine.Networking;
 
 public class MultiplayerPlayerManager : NetworkBehaviour {
-
-    [SerializeField]
-    private Transform rotationPivot;
-
     [SerializeField]
     private Behaviour[] componentsToDisable;
 
@@ -20,13 +16,14 @@ public class MultiplayerPlayerManager : NetworkBehaviour {
     [SerializeField]
     private Behaviour[] disableOnDeath;
 
-    private Camera sceneCamera;
-
     [SyncVar]
     private int currentHealth;
 
     [SyncVar]
     private bool _isDead = false;
+
+    private Camera sceneCamera;
+    private Transform rotationPivot;
 
     private bool[] wasEnabled;
 
@@ -40,6 +37,7 @@ public class MultiplayerPlayerManager : NetworkBehaviour {
         if (!isLocalPlayer) {
             DisableComponent();
             AssignRemoteLayer();
+            rotationPivot = this.GetComponent<PlayerController>().rotationPivot;
         } else {
             //Disable Scene Camera when player log in
             sceneCamera = Camera.main;

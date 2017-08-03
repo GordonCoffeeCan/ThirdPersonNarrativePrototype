@@ -13,23 +13,18 @@ public class MultiplayerShoot : NetworkBehaviour {
     private Camera playerCamera;
 
     [SerializeField]
-    private Transform cameraPivot;
-
-    [SerializeField]
     private Transform firePoint;
-
+    
     [SerializeField]
-    private Transform rotationPivot;
-
-    [SerializeField]
-    private GameObject bulletEX;
+    private BulletScript bulletEX;
 
     [SerializeField]
     private LayerMask layerMask;
 
-    private bool isFired = false;
+    private Transform cameraPivot;
+    private Transform rotationPivot;
 
-    private Text debugInfo;
+    private bool isFired = false;
 
     // Use this for initialization
     void Start () {
@@ -37,7 +32,8 @@ public class MultiplayerShoot : NetworkBehaviour {
             Debug.LogError("No Player Camera referenced!");
             this.enabled = false;
         } else {
-            debugInfo = GameObject.Find("DebugInfo").GetComponent<Text>();
+            rotationPivot = this.GetComponent<PlayerController>().rotationPivot;
+            cameraPivot = this.GetComponent<PlayerController>().cameraPivot.transform;
         }
 	}
 	
@@ -49,9 +45,6 @@ public class MultiplayerShoot : NetworkBehaviour {
         }else if (ControllerManager.instacne.OnFire() == false) {
             isFired = false;
         }
-
-        debugInfo.text = "the player rotation is " + rotationPivot.localEulerAngles.y;
-        //Debug.Log(isFired);
     }
 
     //this method only runing on the client;
@@ -91,23 +84,27 @@ public class MultiplayerShoot : NetworkBehaviour {
         }
 
         if (isLocalPlayer) {
-            CmdOnShoot(cameraPivot.transform.rotation);
+            CmdOnShoot(cameraPivot.transform.rotation, _hit.distance);
         } else {
-            CmdOnShoot(Quaternion.Euler(cameraPivot.transform.localRotation.eulerAngles + rotationPivot.transform.rotation.eulerAngles));
+            CmdOnShoot(Quaternion.Euler(cameraPivot.transform.localRotation.eulerAngles + rotationPivot.transform.rotation.eulerAngles), _hit.distance);
         }
         
     }
 
     [Command]
-    private void CmdOnShoot(Quaternion _bulletRotation) {
-        RpcShootEX(_bulletRotation);
+    private void CmdOnShoot(Quaternion _bulletRotation, float _distance) {
+        RpcShootEX(_bulletRotation, _distance);
     }
 
     [ClientRpc]
-    private void RpcShootEX(Quaternion _bulletRotation) {
+    private void RpcShootEX(Quaternion _bulletRotation, float _distance) {
         if (bulletEX != null) {
             //Instantiate(bulletEX, firePoint.position, Quaternion.Euler(new Vector3(0, rotationPivot.transform.localEulerAngles.y + this.transform.eulerAngles.y, 0)));
-            Instantiate(bulletEX, firePoint.position, _bulletRotation);
+            BulletScript _bullet = (BulletScript)Instantiate(bulletEX, firePoint.position, _bulletRotation);
+            if (_distance <= 0) {
+                _distance = 200;
+            }
+            _bullet.shootDistance = _distance;
         } else {
             Debug.LogError("No Bullet Effect game object reference!");
         }

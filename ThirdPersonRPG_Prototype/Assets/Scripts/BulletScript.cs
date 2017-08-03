@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class BulletScript : MonoBehaviour {
 
+    public float shootDistance;
+
+    private float bulletSpeed = 75;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -11,8 +15,8 @@ public class BulletScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        this.transform.Translate(this.transform.forward * 90 * Time.deltaTime, Space.World);
+        this.transform.Translate(this.transform.forward * bulletSpeed * Time.deltaTime, Space.World);
 
-        Destroy(this.gameObject, 1);
+        Destroy(this.gameObject, shootDistance/bulletSpeed);
     }
 }
