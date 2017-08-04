@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.Networking;
 
 public class MultiplayerPlayerManager : NetworkBehaviour {
+    public string pickedUpKeyName;
+
     [SerializeField]
     private Behaviour[] componentsToDisable;
 
