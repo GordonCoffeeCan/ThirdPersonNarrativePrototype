@@ -51,16 +51,4 @@ public class MultiplayerGameManager : MonoBehaviour {
     public static MultiplayerPlayerManager GetPlayer(string _playerNameID) {
         return players[_playerNameID];
     }
-
-    /*private void OnGUI() {
-        GUILayout.BeginArea(new Rect(200, 200, 200, 500));
-        GUILayout.BeginVertical();
-
-        foreach(string _playerNetID in players.Keys) {
-            GUILayout.Label(_playerNetID + " - " + players[_playerNetID].transform.name);
-        }
-
-        GUILayout.EndVertical();
-        GUILayout.EndArea();
-    }*/
 }

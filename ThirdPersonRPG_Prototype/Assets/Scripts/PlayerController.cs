@@ -54,18 +54,15 @@ public class PlayerController : MonoBehaviour {
         if (_characterCtr.isGrounded) {
             moveDirection = ControllerManager.instacne.OnMove();
             moveDirection = playerCamera.transform.TransformDirection(moveDirection);
+            moveDirection.y = 0;
             moveDirection.Normalize();
             moveDirection *= currentSpeed;
             if (ControllerManager.instacne.OnJump() == true) {
                 moveDirection.y = jumpSpeed;
-            } else {
-                moveDirection.y = 0;
             }
         }
-
         moveDirection.y -= gravity * Time.deltaTime;
         _characterCtr.Move(moveDirection * Time.deltaTime);
-
         RotateCharacter(moveDirection);
     }
 
