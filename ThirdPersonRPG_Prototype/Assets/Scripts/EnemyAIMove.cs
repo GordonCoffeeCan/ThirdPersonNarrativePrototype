@@ -7,6 +7,8 @@ public class EnemyAIMove : MonoBehaviour {
 
     public Transform target;
     public Transform self;
+    public string targetTag;
+
     private NavMeshAgent navigator;
     // Use this for initialization
     void Start()
