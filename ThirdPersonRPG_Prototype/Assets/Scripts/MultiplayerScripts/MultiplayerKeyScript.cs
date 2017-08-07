@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class KeyScript : NetworkBehaviour {
+public class MultiplayerKeyScript : NetworkBehaviour {
 
     [SyncVar]
     [SerializeField]
