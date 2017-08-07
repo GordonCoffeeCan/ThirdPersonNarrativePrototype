@@ -15,62 +15,9 @@ Platform assembly: D:\Documents\ThirdPersonNarrativePrototype\ThirdPersonRPG_Pro
 Loading D:\Documents\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
 Platform assembly: D:\Documents\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
 Loading D:\Documents\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
-- Completed reload, in  0.021 seconds
+- Completed reload, in  0.018 seconds
 Platform assembly: D:\Documents\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: D:\Documents\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\System.dll (this message is harmless)
 desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
-<RI> Initialized touch support.
-UnloadTime: 1.305282 ms
-MatchMakingClient ListMatches :https://mm.unet.unity3d.com/json/reply/ListMatchRequest
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Setting up 4 worker threads for Enlighten.
-  Thread -> id: 824 -> priority: 1 
-  Thread -> id: 3f18 -> priority: 1 
-  Thread -> id: 53c8 -> priority: 1 
-  Thread -> id: 10cc -> priority: 1 
-MatchMakingClient ListMatches :https://mm.unet.unity3d.com/json/reply/ListMatchRequest
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-MatchMakingClient Join :https://mm.unet.unity3d.com/json/reply/JoinMatchRequest
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Network configuration mismatch detected. The number of networked scripts on the client does not match the number of networked scripts on the server. This could be caused by lazy loading of scripts on the client. This warning can be disabled by the checkbox in NetworkManager Script CRC Check.
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-CRC Local Dump MultiplayerPlayerManager : 0
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-CRC Local Dump MultiplayerShoot : 0
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-CRC Remote Dump MultiplayerPlayerManager : 0
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-CRC Remote Dump MultiplayerShoot : 0
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-CRC Remote Dump MultiplayerKeyScript : 0
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 3.753873 ms
-
-Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 1228.
-Total: 0.553876 ms (FindLiveObjects: 0.061629 ms CreateObjectMapping: 0.015802 ms MarkObjects: 0.402567 ms  DeleteObjects: 0.073481 ms)
-
-RPC Function RpcOnPickUp called on client.
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-

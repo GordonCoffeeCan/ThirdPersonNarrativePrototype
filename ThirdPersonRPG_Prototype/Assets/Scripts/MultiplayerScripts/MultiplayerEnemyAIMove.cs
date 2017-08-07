@@ -6,62 +6,35 @@ using UnityEngine.Networking;
 
 public class MultiplayerEnemyAIMove : NetworkBehaviour {
 
-    public Transform target;
-    public Transform self;
-    public string targetTag;
+    [SerializeField]
+    private float speed = 2.5f;
 
     private NavMeshAgent navigator;
     // Use this for initialization
     void Start()
     {
-        self = this.transform;
         navigator = this.gameObject.GetComponent<NavMeshAgent>();
+        navigator.speed = speed;
+        navigator.stoppingDistance = 2;
+    }
+
+    // Update is called once per frame
+    void Update(){
+
 
     }
 
-    public override void OnStartClient() {
-        base.OnStartClient();
-
-
-    }
-
-        // Update is called once per frame
-        void Update()
-    {
-
-        if (GameObject.FindGameObjectWithTag(targetTag) != null)
-        {
-            target = GameObject.FindGameObjectWithTag(targetTag).transform;
-
+    private void OnTriggerStay(Collider _col) {
+        if (_col.tag == "Player") {
+            navigator.SetDestination(_col.transform.position);
+            navigator.isStopped = false;
         }
-        else
-        { target = FindClosestEnemy().transform; }
-
-            navigator.SetDestination(target.position);
-
-
-
-
     }
 
-
-    public GameObject FindClosestEnemy()
-    {
-        GameObject[] gos;
-        gos = GameObject.FindGameObjectsWithTag(targetTag);
-        GameObject closest = null;
-        float distance = Mathf.Infinity;
-        Vector3 position = transform.position;
-        foreach (GameObject go in gos)
-        {
-            Vector3 diff = go.transform.position - position;
-            float curDistance = diff.sqrMagnitude;
-            if (curDistance < distance)
-            {
-                closest = go;
-                distance = curDistance;
-            }
+    private void OnTriggerExit(Collider _col) {
+        if (_col.tag == "Player") {
+            navigator.SetDestination(this.transform.position);
+            navigator.isStopped = true;
         }
-        return closest;
     }
 }
