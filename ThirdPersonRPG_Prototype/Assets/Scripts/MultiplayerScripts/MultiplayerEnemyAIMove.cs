@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Networking;
 
-public class EnemyAIMove : MonoBehaviour {
+public class MultiplayerEnemyAIMove : NetworkBehaviour {
 
     public Transform target;
     public Transform self;
@@ -18,8 +19,14 @@ public class EnemyAIMove : MonoBehaviour {
 
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void OnStartClient() {
+        base.OnStartClient();
+
+
+    }
+
+        // Update is called once per frame
+        void Update()
     {
 
         if (GameObject.FindGameObjectWithTag(targetTag) != null)

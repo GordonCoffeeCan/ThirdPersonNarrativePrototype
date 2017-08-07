@@ -15,23 +15,23 @@ Platform assembly: D:\Documents\ThirdPersonNarrativePrototype\ThirdPersonRPG_Pro
 Loading D:\Documents\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
 Platform assembly: D:\Documents\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
 Loading D:\Documents\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
-- Completed reload, in  0.018 seconds
+- Completed reload, in  0.019 seconds
 Platform assembly: D:\Documents\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: D:\Documents\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\System.dll (this message is harmless)
 desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
 <RI> Initialized touch support.
-UnloadTime: 1.041381 ms
+UnloadTime: 1.907356 ms
 MatchMakingClient ListMatches :https://mm.unet.unity3d.com/json/reply/ListMatchRequest
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
 Setting up 4 worker threads for Enlighten.
-  Thread -> id: 49b4 -> priority: 1 
-  Thread -> id: 4924 -> priority: 1 
-  Thread -> id: 4484 -> priority: 1 
-  Thread -> id: 493c -> priority: 1 
+  Thread -> id: 38f4 -> priority: 1 
+  Thread -> id: 43b0 -> priority: 1 
+  Thread -> id: fd0 -> priority: 1 
+  Thread -> id: b6c -> priority: 1 
 MatchMakingClient ListMatches :https://mm.unet.unity3d.com/json/reply/ListMatchRequest
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
@@ -65,31 +65,47 @@ CRC Remote Dump MultiplayerKeyScript : 0
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
 Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 3.842762 ms
-
-Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 1217.
-Total: 0.423900 ms (FindLiveObjects: 0.075456 ms CreateObjectMapping: 0.015407 ms MarkObjects: 0.313678 ms  DeleteObjects: 0.018962 ms)
-
-Log: connection {1} has been disconnected by timeout; address {::ffff:52.86.130.215:9999} time {67841}, last rec time {65373} rtt {27} timeout {2000}
-MatchMakingClient DropConnection :https://mm.unet.unity3d.com/json/reply/DropConnectionRequest
+UnloadTime: 5.152390 ms
+NullReferenceException: Object reference not set to an instance of an object
+  at EnemyAIMove.Update () [0x00000] in <filename unknown>:0 
  
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+(Filename:  Line: -1)
 
-Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
-MatchMakingClient DropConnection :https://mm.unet.unity3d.com/json/reply/DropConnectionRequest
+
+Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 1226.
+Total: 0.799604 ms (FindLiveObjects: 0.133530 ms CreateObjectMapping: 0.025678 ms MarkObjects: 0.619061 ms  DeleteObjects: 0.020543 ms)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at EnemyAIMove.Update () [0x00000] in <filename unknown>:0 
  
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+(Filename:  Line: -1)
 
-ClientDisconnected due to error: Timeout
+NullReferenceException: Object reference not set to an instance of an object
+  at EnemyAIMove.Update () [0x00000] in <filename unknown>:0 
  
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+(Filename:  Line: -1)
 
-UnloadTime: 1.141332 ms
+NullReferenceException: Object reference not set to an instance of an object
+  at EnemyAIMove.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
 
-Unloading 23 unused Assets to reduce memory usage. Loaded Objects now: 474.
-Total: 0.430616 ms (FindLiveObjects: 0.015012 ms CreateObjectMapping: 0.010666 ms MarkObjects: 0.308147 ms  DeleteObjects: 0.096394 ms)
+NullReferenceException: Object reference not set to an instance of an object
+  at EnemyAIMove.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
 
-MatchMakingClient ListMatches :https://mm.unet.unity3d.com/json/reply/ListMatchRequest
+NullReferenceException: Object reference not set to an instance of an object
+  at EnemyAIMove.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at EnemyAIMove.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+RPC Function RpcOnPickUp called on client.
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
