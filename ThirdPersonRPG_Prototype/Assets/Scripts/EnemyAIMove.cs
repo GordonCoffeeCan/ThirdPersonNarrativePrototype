@@ -22,9 +22,9 @@ public class EnemyAIMove : MonoBehaviour {
     void Update()
     {
 
-        if (GameObject.FindGameObjectWithTag("SinglePlayer") != null)
+        if (GameObject.FindGameObjectWithTag(targetTag) != null)
         {
-            target = GameObject.FindGameObjectWithTag("SinglePlayer").transform;
+            target = GameObject.FindGameObjectWithTag(targetTag).transform;
 
         }
         else
@@ -41,7 +41,7 @@ public class EnemyAIMove : MonoBehaviour {
     public GameObject FindClosestEnemy()
     {
         GameObject[] gos;
-        gos = GameObject.FindGameObjectsWithTag("SinglePlayer");
+        gos = GameObject.FindGameObjectsWithTag(targetTag);
         GameObject closest = null;
         float distance = Mathf.Infinity;
         Vector3 position = transform.position;

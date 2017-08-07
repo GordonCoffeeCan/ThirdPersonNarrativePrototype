@@ -15,32 +15,24 @@ Platform assembly: C:\Users\93haq\Documents\GitHubClones\GordonPrototype\ThirdPe
 Loading C:\Users\93haq\Documents\GitHubClones\GordonPrototype\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTestBuilds\TestBuild070817_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
 Platform assembly: C:\Users\93haq\Documents\GitHubClones\GordonPrototype\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTestBuilds\TestBuild070817_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
 Loading C:\Users\93haq\Documents\GitHubClones\GordonPrototype\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTestBuilds\TestBuild070817_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
-- Completed reload, in  0.043 seconds
+- Completed reload, in  0.019 seconds
 Platform assembly: C:\Users\93haq\Documents\GitHubClones\GordonPrototype\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTestBuilds\TestBuild070817_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: C:\Users\93haq\Documents\GitHubClones\GordonPrototype\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTestBuilds\TestBuild070817_Data\Managed\System.dll (this message is harmless)
 desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
 <RI> Initialized touch support.
-UnloadTime: 1.328593 ms
+UnloadTime: 1.177284 ms
 MatchMakingClient ListMatches :https://mm.unet.unity3d.com/json/reply/ListMatchRequest
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
 Setting up 4 worker threads for Enlighten.
-  Thread -> id: 2574 -> priority: 1 
-  Thread -> id: 51c -> priority: 1 
-  Thread -> id: 4d54 -> priority: 1 
-  Thread -> id: 2998 -> priority: 1 
-MatchMakingClient Join :https://mm.unet.unity3d.com/json/reply/JoinMatchRequest
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-MatchMakingClient ListMatches :https://mm.unet.unity3d.com/json/reply/ListMatchRequest
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Creating Room: testbuild with room for 4 players
+  Thread -> id: 2a28 -> priority: 1 
+  Thread -> id: 1e4c -> priority: 1 
+  Thread -> id: 4040 -> priority: 1 
+  Thread -> id: 44f0 -> priority: 1 
+Creating Room: test123 with room for 4 players
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
@@ -49,86 +41,82 @@ MatchMakingClient Create :https://mm.unet.unity3d.com/json/reply/CreateMatchRequ
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
 Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 3.403063 ms
+UnloadTime: 3.771260 ms
 
 Unloading 26 unused Assets to reduce memory usage. Loaded Objects now: 1234.
-Total: 0.604839 ms (FindLiveObjects: 0.095209 ms CreateObjectMapping: 0.053333 ms MarkObjects: 0.430222 ms  DeleteObjects: 0.026074 ms)
+Total: 0.634074 ms (FindLiveObjects: 0.068740 ms CreateObjectMapping: 0.024098 ms MarkObjects: 0.498568 ms  DeleteObjects: 0.042271 ms)
 
-Log: cannot connect after {10} attempt address {::ffff:52.87.26.226:9999}
-MatchMakingClient DropConnection :https://mm.unet.unity3d.com/json/reply/DropConnectionRequest
+Player 7 is hit! Current health is 90
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
-MatchMakingClient DropConnection :https://mm.unet.unity3d.com/json/reply/DropConnectionRequest
+Player 7 is hit! Current health is 80
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-ClientDisconnected due to error: Timeout
+Player 7 is hit! Current health is 70
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-UnloadTime: 0.798025 ms
-
-Unloading 22 unused Assets to reduce memory usage. Loaded Objects now: 453.
-Total: 0.496592 ms (FindLiveObjects: 0.012641 ms CreateObjectMapping: 0.013827 ms MarkObjects: 0.333827 ms  DeleteObjects: 0.135506 ms)
-
-MatchMakingClient ListMatches :https://mm.unet.unity3d.com/json/reply/ListMatchRequest
+Player 8 is hit! Current health is 90
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-MatchMakingClient Join :https://mm.unet.unity3d.com/json/reply/JoinMatchRequest
+Player 7 is hit! Current health is 60
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-MatchMakingClient ListMatches :https://mm.unet.unity3d.com/json/reply/ListMatchRequest
+Player 7 is hit! Current health is 50
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-MatchMakingClient Join :https://mm.unet.unity3d.com/json/reply/JoinMatchRequest
+Player 8 is hit! Current health is 80
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-Log: connection {3} has been disconnected by timeout; address {::ffff:52.86.7.189:9999}
-Empty player list given to NetworkServer.Destroy(), nothing to do.
+Player 8 is hit! Current health is 70
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-ServerDisconnected due to error: Timeout
+Player 7 is hit! Current health is 40
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-Log: connection {1} has been disconnected by timeout; address {::ffff:52.86.7.189:9999}
-Empty player list given to NetworkServer.Destroy(), nothing to do.
+Player 8 is hit! Current health is 60
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-ServerDisconnected due to error: Timeout
+Player 7 is hit! Current health is 30
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-MatchMakingClient ListMatches :https://mm.unet.unity3d.com/json/reply/ListMatchRequest
+Player 7 is hit! Current health is 20
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-MatchMakingClient Join :https://mm.unet.unity3d.com/json/reply/JoinMatchRequest
+Player 7 is hit! Current health is 10
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-Log: Library version mismatch
-UNet Client Disconnect Error: VersionMismatch
+Player 8 is hit! Current health is 50
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-MatchMakingClient DropConnection :https://mm.unet.unity3d.com/json/reply/DropConnectionRequest
+Player 7 is Dead!
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-MatchMakingClient DropConnection :https://mm.unet.unity3d.com/json/reply/DropConnectionRequest
+Player 7 is hit! Current health is 0
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-ClientDisconnected due to error: VersionMismatch
+NullReferenceException: Object reference not set to an instance of an object
+  at MultiplayerPlayerManager+<Respawn>c__Iterator0.MoveNext () [0x00000] in <filename unknown>:0 
+  at UnityEngine.SetupCoroutine.InvokeMoveNext (IEnumerator enumerator, IntPtr returnValueAddress) [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+Player 7 is hit! Current health is 90
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
