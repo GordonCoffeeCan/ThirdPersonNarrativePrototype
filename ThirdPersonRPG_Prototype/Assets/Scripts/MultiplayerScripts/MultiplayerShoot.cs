@@ -10,7 +10,7 @@ public class MultiplayerShoot : NetworkBehaviour {
 
     public PlayerWeapon weapon;
 
-    //[HideInInspector]
+    [SyncVar]
     public int obstacleNumLimit;
 
     [SerializeField]
@@ -94,17 +94,13 @@ public class MultiplayerShoot : NetworkBehaviour {
                 obstacleNumLimit++;
                 Destroy(_hit.collider.gameObject);
             } else {
-                if (isLocalPlayer) {
-                    CmdOnShoot(cameraPivot.transform.rotation, _hit.distance);
-                } else {
-                    CmdOnShoot(Quaternion.Euler(cameraPivot.transform.localRotation.eulerAngles + rotationPivot.transform.rotation.eulerAngles), _hit.distance);
-                }
+                CmdOnShoot(cameraPivot.transform.rotation, _hit.distance);
             }
             Debug.DrawRay(_rayPostion, _rayDirection, Color.red, 1);
         }
 
-        /*
-        if (isLocalPlayer) {
+        
+        /*if (isLocalPlayer) {
             CmdOnShoot(cameraPivot.transform.rotation, _hit.distance);
         } else {
             CmdOnShoot(Quaternion.Euler(cameraPivot.transform.localRotation.eulerAngles + rotationPivot.transform.rotation.eulerAngles), _hit.distance);
@@ -134,9 +130,9 @@ public class MultiplayerShoot : NetworkBehaviour {
             if(obstacleNumLimit > 0) {
                 ObstacleCrateScript _obstacle = (ObstacleCrateScript)Instantiate(obstacleCrate, firePoint.position, _bulletRotation);
                 _obstacle.playerName = this.name;
-                Debug.Log(_obstacle.playerName);
                 obstacleNumLimit--;
             }
+
             
         } else {
             Debug.LogError("No Obstacle Crate game object reference!");
