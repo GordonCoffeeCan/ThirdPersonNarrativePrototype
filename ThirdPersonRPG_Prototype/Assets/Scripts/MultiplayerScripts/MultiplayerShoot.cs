@@ -19,6 +19,9 @@ public class MultiplayerShoot : NetworkBehaviour {
     private BulletScript bulletEX;
 
     [SerializeField]
+    private ObstacleCrateScript obstacleCrate;
+
+    [SerializeField]
     private LayerMask layerMask;
 
     private Transform cameraPivot;
@@ -98,7 +101,7 @@ public class MultiplayerShoot : NetworkBehaviour {
 
     [ClientRpc]
     private void RpcShootEX(Quaternion _bulletRotation, float _distance) {
-        if (bulletEX != null) {
+        /*if (bulletEX != null) {
             //Instantiate(bulletEX, firePoint.position, Quaternion.Euler(new Vector3(0, rotationPivot.transform.localEulerAngles.y + this.transform.eulerAngles.y, 0)));
             BulletScript _bullet = (BulletScript)Instantiate(bulletEX, firePoint.position, _bulletRotation);
             if (_distance <= 0) {
@@ -107,6 +110,12 @@ public class MultiplayerShoot : NetworkBehaviour {
             _bullet.shootDistance = _distance;
         } else {
             Debug.LogError("No Bullet Effect game object reference!");
+        }*/
+
+        if(obstacleCrate != null) {
+            ObstacleCrateScript _obstacle = (ObstacleCrateScript)Instantiate(obstacleCrate, firePoint.position, _bulletRotation);
+        } else {
+            Debug.LogError("No Obstacle Crate game object reference!");
         }
     }
 
