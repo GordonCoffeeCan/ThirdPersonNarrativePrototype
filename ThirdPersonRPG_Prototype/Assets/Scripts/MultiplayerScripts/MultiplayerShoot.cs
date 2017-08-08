@@ -26,6 +26,7 @@ public class MultiplayerShoot : NetworkBehaviour {
 
     private Transform cameraPivot;
     private Transform rotationPivot;
+    private int obstacleNumLimit;
 
     private bool isFired = false;
 
@@ -37,6 +38,7 @@ public class MultiplayerShoot : NetworkBehaviour {
         } else {
             rotationPivot = this.GetComponent<PlayerController>().rotationPivot;
             cameraPivot = this.GetComponent<PlayerController>().cameraPivot.transform;
+            obstacleNumLimit = weapon.obstacleNumberLimit;
         }
 	}
 	
@@ -83,6 +85,10 @@ public class MultiplayerShoot : NetworkBehaviour {
             if (_hit.collider.tag == PLAYER_TAG) {
                 CmdPlayerShot(_hit.collider.name, weapon.damage);
             }
+
+            if (_hit.collider.tag == PLAYER_TAG) {
+
+            }
             Debug.DrawRay(_rayPostion, _rayDirection, Color.red, 1);
         }
 
@@ -113,7 +119,11 @@ public class MultiplayerShoot : NetworkBehaviour {
         }*/
 
         if(obstacleCrate != null) {
-            ObstacleCrateScript _obstacle = (ObstacleCrateScript)Instantiate(obstacleCrate, firePoint.position, _bulletRotation);
+            if(obstacleNumLimit > 0) {
+                ObstacleCrateScript _obstacle = (ObstacleCrateScript)Instantiate(obstacleCrate, firePoint.position, _bulletRotation);
+                obstacleNumLimit--;
+            }
+            
         } else {
             Debug.LogError("No Obstacle Crate game object reference!");
         }
