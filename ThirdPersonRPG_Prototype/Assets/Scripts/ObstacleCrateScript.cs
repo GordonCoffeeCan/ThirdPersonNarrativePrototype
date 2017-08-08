@@ -4,18 +4,17 @@ using UnityEngine;
 
 public class ObstacleCrateScript : MonoBehaviour {
 
-    //public float shootDistance;
+    [HideInInspector]
+    public string playerName;
 
     //private float bulletSpeed = 75;
 
     // Use this for initialization
-
     public float delayTime;
 
 	void Start () {
         delayTime = 15;
-
-        Destroy(this.gameObject, delayTime);
+        StartCoroutine(SelfDestroy(delayTime));
 	}
 	
 	// Update is called once per frame
@@ -24,6 +23,11 @@ public class ObstacleCrateScript : MonoBehaviour {
 
         //Destroy(this.gameObject, 5);
     }
+    private IEnumerator SelfDestroy(float _timer) {
+        yield return new WaitForSeconds(_timer);
+        GameObject.Find(playerName).GetComponent<MultiplayerShoot>().obstacleNumLimit++;
+        Destroy(this.gameObject);
+    }
 
-    
+
 }

@@ -6,8 +6,12 @@ using UnityEngine.UI;
 
 public class MultiplayerShoot : NetworkBehaviour {
     private const string PLAYER_TAG = "Player";
+    private const string OBSTACLE_TAG = "DynamicObstacle";
 
     public PlayerWeapon weapon;
+
+    //[HideInInspector]
+    public int obstacleNumLimit;
 
     [SerializeField]
     private Camera playerCamera;
@@ -26,7 +30,7 @@ public class MultiplayerShoot : NetworkBehaviour {
 
     private Transform cameraPivot;
     private Transform rotationPivot;
-    private int obstacleNumLimit;
+    
 
     private bool isFired = false;
 
@@ -86,17 +90,25 @@ public class MultiplayerShoot : NetworkBehaviour {
                 CmdPlayerShot(_hit.collider.name, weapon.damage);
             }
 
-            if (_hit.collider.tag == PLAYER_TAG) {
-
+            if (_hit.collider.tag == OBSTACLE_TAG && obstacleNumLimit < 3) {
+                obstacleNumLimit++;
+                Destroy(_hit.collider.gameObject);
+            } else {
+                if (isLocalPlayer) {
+                    CmdOnShoot(cameraPivot.transform.rotation, _hit.distance);
+                } else {
+                    CmdOnShoot(Quaternion.Euler(cameraPivot.transform.localRotation.eulerAngles + rotationPivot.transform.rotation.eulerAngles), _hit.distance);
+                }
             }
             Debug.DrawRay(_rayPostion, _rayDirection, Color.red, 1);
         }
 
+        /*
         if (isLocalPlayer) {
             CmdOnShoot(cameraPivot.transform.rotation, _hit.distance);
         } else {
             CmdOnShoot(Quaternion.Euler(cameraPivot.transform.localRotation.eulerAngles + rotationPivot.transform.rotation.eulerAngles), _hit.distance);
-        }
+        }*/
         
     }
 
@@ -121,6 +133,8 @@ public class MultiplayerShoot : NetworkBehaviour {
         if(obstacleCrate != null) {
             if(obstacleNumLimit > 0) {
                 ObstacleCrateScript _obstacle = (ObstacleCrateScript)Instantiate(obstacleCrate, firePoint.position, _bulletRotation);
+                _obstacle.playerName = this.name;
+                Debug.Log(_obstacle.playerName);
                 obstacleNumLimit--;
             }
             
