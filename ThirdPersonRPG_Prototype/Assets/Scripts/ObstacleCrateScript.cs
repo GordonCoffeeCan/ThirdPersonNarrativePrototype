@@ -8,9 +8,14 @@ public class ObstacleCrateScript : MonoBehaviour {
 
     //private float bulletSpeed = 75;
 
-	// Use this for initialization
+    // Use this for initialization
+
+    public float delayTime;
+
 	void Start () {
-		
+        delayTime = 15;
+
+        Destroy(this.gameObject, delayTime);
 	}
 	
 	// Update is called once per frame
@@ -19,4 +24,6 @@ public class ObstacleCrateScript : MonoBehaviour {
 
         //Destroy(this.gameObject, 5);
     }
+
+    
 }
