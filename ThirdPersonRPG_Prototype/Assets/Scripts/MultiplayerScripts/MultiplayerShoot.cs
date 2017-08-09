@@ -86,26 +86,26 @@ public class MultiplayerShoot : NetworkBehaviour {
         //End ------ adjust ray cast position on Aim or not;
 
         if (Physics.Raycast(_rayPostion, _rayDirection, out _hit, weapon.range, layerMask)) {
-            if (_hit.collider.tag == PLAYER_TAG) {
+            /*if (_hit.collider.tag == PLAYER_TAG) {
                 CmdPlayerShot(_hit.collider.name, weapon.damage);
-            }
+            }*/
 
-            if (_hit.collider.tag == OBSTACLE_TAG && obstacleNumLimit < 3) {
+            /*if (_hit.collider.tag == OBSTACLE_TAG && obstacleNumLimit < 3) {
                 obstacleNumLimit++;
                 Destroy(_hit.collider.gameObject);
             } else {
                 CmdOnShoot(cameraPivot.transform.rotation, _hit.distance);
-            }
+            }*/
             Debug.DrawRay(_rayPostion, _rayDirection, Color.red, 1);
         }
 
-        
+
         /*if (isLocalPlayer) {
             CmdOnShoot(cameraPivot.transform.rotation, _hit.distance);
         } else {
             CmdOnShoot(Quaternion.Euler(cameraPivot.transform.localRotation.eulerAngles + rotationPivot.transform.rotation.eulerAngles), _hit.distance);
         }*/
-        
+
     }
 
     [Command]
@@ -132,8 +132,6 @@ public class MultiplayerShoot : NetworkBehaviour {
                 _obstacle.playerName = this.name;
                 obstacleNumLimit--;
             }
-
-            
         } else {
             Debug.LogError("No Obstacle Crate game object reference!");
         }
