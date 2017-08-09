@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObstacleCrateScript : MonoBehaviour {
+public class MultiplayerObstacleCrateScript : MonoBehaviour {
 
     [HideInInspector]
     public string playerName;
@@ -16,9 +16,9 @@ public class ObstacleCrateScript : MonoBehaviour {
         delayTime = 15;
         StartCoroutine(SelfDestroy(delayTime));
 	}
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update () {
         //this.transform.Translate(this.transform.forward * bulletSpeed * Time.deltaTime, Space.World);
 
         //Destroy(this.gameObject, 5);
@@ -31,8 +31,4 @@ public class ObstacleCrateScript : MonoBehaviour {
     private void OnDestroy() {
         GameObject.Find(playerName).GetComponent<MultiplayerShoot>().obstacleNumLimit++;
     }
-
-    
-
-
 }

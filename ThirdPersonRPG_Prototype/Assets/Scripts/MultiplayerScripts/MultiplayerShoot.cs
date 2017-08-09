@@ -22,7 +22,7 @@ public class MultiplayerShoot : NetworkBehaviour {
     private BulletScript bulletEX;
 
     [SerializeField]
-    private ObstacleCrateScript obstacleCrate;
+    private MultiplayerObstacleCrateScript obstacleCrate;
 
     [SerializeField]
     private LayerMask layerMask;
@@ -135,7 +135,22 @@ public class MultiplayerShoot : NetworkBehaviour {
     //Create and Destory Obstacle
     [Client]
     private void createObstacle() {
-        CmdCreateObstacle();
+        RaycastHit _hit;
+
+        if (ControllerManager.instacne.OnAim()) {
+            if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out _hit, weapon.range, layerMask)) {
+                if (_hit.collider.tag == OBSTACLE_TAG) {
+                    
+                } else {
+                    CmdCreateObstacle();
+                }
+            } else {
+                CmdCreateObstacle();
+            }
+        } else {
+            CmdCreateObstacle();
+        }
+
     }
 
     [Command]
@@ -147,7 +162,7 @@ public class MultiplayerShoot : NetworkBehaviour {
     private void RpcCreateObstacle() {
         if(obstacleCrate != null) {
             if(obstacleNumLimit > 0) {
-                ObstacleCrateScript _obstacle = (ObstacleCrateScript)Instantiate(obstacleCrate, firePoint.position, firePoint.rotation);
+                MultiplayerObstacleCrateScript _obstacle = (MultiplayerObstacleCrateScript)Instantiate(obstacleCrate, firePoint.position, firePoint.rotation);
                 obstacleNumLimit--;
                 _obstacle.playerName = this.transform.name;
             }
