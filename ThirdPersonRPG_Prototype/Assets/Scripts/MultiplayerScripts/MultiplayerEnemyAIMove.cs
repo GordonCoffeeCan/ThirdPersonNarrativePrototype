@@ -24,17 +24,22 @@ public class MultiplayerEnemyAIMove : NetworkBehaviour {
 
     }
 
+    private void OnTriggerEnter(Collider _col) {
+        if (_col.tag == "Player") {
+            navigator.ResetPath();
+            navigator.SetDestination(_col.transform.position);
+        }
+    }
+
     private void OnTriggerStay(Collider _col) {
         if (_col.tag == "Player") {
             navigator.SetDestination(_col.transform.position);
-            navigator.isStopped = false;
         }
     }
 
     private void OnTriggerExit(Collider _col) {
         if (_col.tag == "Player") {
-            navigator.SetDestination(this.transform.position);
-            navigator.isStopped = true;
+            navigator.ResetPath();
         }
     }
 }

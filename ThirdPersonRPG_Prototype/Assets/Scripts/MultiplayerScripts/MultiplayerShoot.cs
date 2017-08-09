@@ -10,7 +10,6 @@ public class MultiplayerShoot : NetworkBehaviour {
 
     public PlayerWeapon weapon;
 
-    [SyncVar]
     public int obstacleNumLimit;
 
     [SerializeField]
@@ -30,7 +29,6 @@ public class MultiplayerShoot : NetworkBehaviour {
 
     private Transform cameraPivot;
     private Transform rotationPivot;
-    
 
     private bool isFired = false;
 
@@ -44,27 +42,46 @@ public class MultiplayerShoot : NetworkBehaviour {
             cameraPivot = this.GetComponent<PlayerController>().cameraPivot.transform;
             obstacleNumLimit = weapon.obstacleNumberLimit;
         }
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {
+        //If in Game menu panel is on, player cannot shoot;
+        if (UIManager.isMenuPanelOn) {
+            return;
+        }
+
+        if (!isLocalPlayer) {
+            return;
+        }
+
+        if (Input.GetKeyUp(KeyCode.Alpha1)) {
+            weapon.currentWeapon = PlayerWeapon.Weapon.Glock;
+        }else if (Input.GetKeyUp(KeyCode.Alpha2)) {
+            weapon.currentWeapon = PlayerWeapon.Weapon.ObstacleCrate;
+        }
+
         if (ControllerManager.instacne.OnFire() && isFired == false) {
-            shoot();
+            switch (weapon.currentWeapon) {
+                case PlayerWeapon.Weapon.Glock:
+                    shoot();
+                    break;
+                case PlayerWeapon.Weapon.ObstacleCrate:
+                    createObstacle();
+                    break;
+                default:
+                    break;
+            }
             isFired = true;
         }else if (ControllerManager.instacne.OnFire() == false) {
             isFired = false;
         }
     }
 
+    //Shoot bullet
     //this method only runing on the client;
     [Client]
     private void shoot() {
-
-        //If in Game menu panel is on, player cannot shoot;
-        if (UIManager.isMenuPanelOn) {
-            return;
-        }
-
         Vector3 _rayPostion;
         Vector3 _rayDirection;
 
@@ -86,37 +103,25 @@ public class MultiplayerShoot : NetworkBehaviour {
         //End ------ adjust ray cast position on Aim or not;
 
         if (Physics.Raycast(_rayPostion, _rayDirection, out _hit, weapon.range, layerMask)) {
-            /*if (_hit.collider.tag == PLAYER_TAG) {
+            if (_hit.collider.tag == PLAYER_TAG) {
                 CmdPlayerShot(_hit.collider.name, weapon.damage);
-            }*/
-
-            /*if (_hit.collider.tag == OBSTACLE_TAG && obstacleNumLimit < 3) {
-                obstacleNumLimit++;
-                Destroy(_hit.collider.gameObject);
-            } else {
-                CmdOnShoot(cameraPivot.transform.rotation, _hit.distance);
-            }*/
+            }
             Debug.DrawRay(_rayPostion, _rayDirection, Color.red, 1);
         }
 
-
-        /*if (isLocalPlayer) {
-            CmdOnShoot(cameraPivot.transform.rotation, _hit.distance);
-        } else {
-            CmdOnShoot(Quaternion.Euler(cameraPivot.transform.localRotation.eulerAngles + rotationPivot.transform.rotation.eulerAngles), _hit.distance);
-        }*/
-
+        CmdOnShoot(cameraPivot.transform.rotation, _hit.distance);
     }
 
+    //Shoot Bullet runing on Server
     [Command]
     private void CmdOnShoot(Quaternion _bulletRotation, float _distance) {
         RpcShootEX(_bulletRotation, _distance);
     }
 
+    ////Shoot Bullet Response effect on clients
     [ClientRpc]
     private void RpcShootEX(Quaternion _bulletRotation, float _distance) {
-        /*if (bulletEX != null) {
-            //Instantiate(bulletEX, firePoint.position, Quaternion.Euler(new Vector3(0, rotationPivot.transform.localEulerAngles.y + this.transform.eulerAngles.y, 0)));
+        if (bulletEX != null) {
             BulletScript _bullet = (BulletScript)Instantiate(bulletEX, firePoint.position, _bulletRotation);
             if (_distance <= 0) {
                 _distance = 200;
@@ -124,13 +129,27 @@ public class MultiplayerShoot : NetworkBehaviour {
             _bullet.shootDistance = _distance;
         } else {
             Debug.LogError("No Bullet Effect game object reference!");
-        }*/
+        }
+    }
 
+    //Create and Destory Obstacle
+    [Client]
+    private void createObstacle() {
+        CmdCreateObstacle();
+    }
+
+    [Command]
+    private void CmdCreateObstacle() {
+        RpcCreateObstacle();
+    }
+
+    [ClientRpc]
+    private void RpcCreateObstacle() {
         if(obstacleCrate != null) {
             if(obstacleNumLimit > 0) {
-                ObstacleCrateScript _obstacle = (ObstacleCrateScript)Instantiate(obstacleCrate, firePoint.position, _bulletRotation);
-                _obstacle.playerName = this.name;
+                ObstacleCrateScript _obstacle = (ObstacleCrateScript)Instantiate(obstacleCrate, firePoint.position, firePoint.rotation);
                 obstacleNumLimit--;
+                _obstacle.playerName = this.transform.name;
             }
         } else {
             Debug.LogError("No Obstacle Crate game object reference!");

@@ -25,9 +25,14 @@ public class ObstacleCrateScript : MonoBehaviour {
     }
     private IEnumerator SelfDestroy(float _timer) {
         yield return new WaitForSeconds(_timer);
-        GameObject.Find(playerName).GetComponent<MultiplayerShoot>().obstacleNumLimit++;
         Destroy(this.gameObject);
     }
+
+    private void OnDestroy() {
+        GameObject.Find(playerName).GetComponent<MultiplayerShoot>().obstacleNumLimit++;
+    }
+
+    
 
 
 }
