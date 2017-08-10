@@ -30,6 +30,8 @@ public class MultiplayerShoot : NetworkBehaviour {
     private Transform cameraPivot;
     private Transform rotationPivot;
 
+    private int obstacleID;
+
     private bool isFired = false;
 
     // Use this for initialization
@@ -43,9 +45,13 @@ public class MultiplayerShoot : NetworkBehaviour {
             obstacleNumLimit = weapon.obstacleNumberLimit;
         }
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    public override void OnStartClient() {
+        base.OnStartClient();
+    }
+
+    // Update is called once per frame
+    void Update () {
         //If in Game menu panel is on, player cannot shoot;
         if (UIManager.isMenuPanelOn) {
             return;
@@ -140,7 +146,7 @@ public class MultiplayerShoot : NetworkBehaviour {
         if (ControllerManager.instacne.OnAim()) {
             if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out _hit, weapon.range, layerMask)) {
                 if (_hit.collider.tag == OBSTACLE_TAG) {
-                    
+                    CmdDestroyObstacle(_hit.collider.name);
                 } else {
                     CmdCreateObstacle();
                 }
@@ -163,6 +169,10 @@ public class MultiplayerShoot : NetworkBehaviour {
         if(obstacleCrate != null) {
             if(obstacleNumLimit > 0) {
                 MultiplayerObstacleCrateScript _obstacle = (MultiplayerObstacleCrateScript)Instantiate(obstacleCrate, firePoint.position, firePoint.rotation);
+                string _nameID = this.transform.name + obstacleID;
+                MultiplayerGameManager.StoreObstacle(_nameID, _obstacle);
+                NetworkServer.Spawn(_obstacle.gameObject);
+                obstacleID++;
                 obstacleNumLimit--;
                 _obstacle.playerName = this.transform.name;
             }
@@ -176,5 +186,16 @@ public class MultiplayerShoot : NetworkBehaviour {
     private void CmdPlayerShot(string _playerName, int _damage) {
         MultiplayerPlayerManager _player = MultiplayerGameManager.GetPlayer(_playerName);
         _player.RpcTakeDamage(_damage);
+    }
+
+    [Command]
+    private void CmdDestroyObstacle(string _obstacleName) {
+        RpcDestroyObstacle(_obstacleName);
+    }
+
+    [ClientRpc]
+    private void RpcDestroyObstacle(string _obstacleName) {
+        MultiplayerObstacleCrateScript _obstacle = MultiplayerGameManager.GetObstacle(_obstacleName);
+        Destroy(_obstacle.gameObject);
     }
 }
