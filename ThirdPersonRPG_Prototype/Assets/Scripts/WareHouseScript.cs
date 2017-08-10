@@ -19,8 +19,8 @@ public class WareHouseScript : MonoBehaviour {
             MultiplayerPlayerManager _player = _col.GetComponent<MultiplayerPlayerManager>();
             if (_player.hasCargo == true) {
                 CargoScript _cargo = _col.transform.Find("CargoCrate").GetComponent<CargoScript>();
-                _player.hasCargo = false;
                 _cargo.RpcDeactivateObject();
+                _player.hasCargo = false;
             }
         }
     }

@@ -28,6 +28,7 @@ public class CargoScript : NetworkBehaviour {
 
     [ClientRpc]
     public void RpcDeactivateObject() {
+        this.transform.parent = null;
         this.gameObject.SetActive(false);
     }
 }
