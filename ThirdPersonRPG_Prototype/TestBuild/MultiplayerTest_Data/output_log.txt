@@ -2,1040 +2,153 @@ Initialize engine version: 5.6.2f1 (a2913c821e27)
 GfxDevice: creating device client; threaded=1
 Direct3D:
     Version:  Direct3D 11.0 [level 11.1]
-    Renderer: NVIDIA GeForce GTX 980 Ti (ID=0x17c8)
+    Renderer: NVIDIA GeForce GTX 1070 (ID=0x1be1)
     Vendor:   NVIDIA
-    VRAM:     6103 MB
-    Driver:   21.21.13.7866
+    VRAM:     8113 MB
+    Driver:   22.21.13.8233
 Begin MonoManager ReloadAssembly
-Platform assembly: D:\Documents\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\UnityEngine.dll (this message is harmless)
-Loading D:\Documents\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\UnityEngine.dll into Unity Child Domain
-Platform assembly: D:\Documents\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\Assembly-CSharp.dll (this message is harmless)
-Loading D:\Documents\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
-Platform assembly: D:\Documents\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\UnityEngine.UI.dll (this message is harmless)
-Loading D:\Documents\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
-Platform assembly: D:\Documents\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
-Loading D:\Documents\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
-- Completed reload, in  0.013 seconds
-Platform assembly: D:\Documents\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\System.Core.dll (this message is harmless)
-Platform assembly: D:\Documents\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\System.dll (this message is harmless)
-desktop: 1920x1080 60Hz; virtual: 3840x2160 at 0,0
+Platform assembly: C:\Users\93haq\Documents\GitHubClones\GordonPrototype\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\93haq\Documents\GitHubClones\GordonPrototype\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\93haq\Documents\GitHubClones\GordonPrototype\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\93haq\Documents\GitHubClones\GordonPrototype\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\93haq\Documents\GitHubClones\GordonPrototype\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\93haq\Documents\GitHubClones\GordonPrototype\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\93haq\Documents\GitHubClones\GordonPrototype\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\93haq\Documents\GitHubClones\GordonPrototype\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+- Completed reload, in  0.037 seconds
+Platform assembly: C:\Users\93haq\Documents\GitHubClones\GordonPrototype\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\93haq\Documents\GitHubClones\GordonPrototype\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\System.dll (this message is harmless)
+desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
 <RI> Initialized touch support.
-UnloadTime: 0.752896 ms
+UnloadTime: 0.918911 ms
 MatchMakingClient ListMatches :https://mm.unet.unity3d.com/json/reply/ListMatchRequest
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
 Setting up 4 worker threads for Enlighten.
-  Thread -> id: 6078 -> priority: 1 
-  Thread -> id: 58cc -> priority: 1 
-  Thread -> id: 5fd8 -> priority: 1 
-  Thread -> id: 6034 -> priority: 1 
-MatchMakingClient ListMatches :https://mm.unet.unity3d.com/json/reply/ListMatchRequest
+  Thread -> id: 3180 -> priority: 1 
+  Thread -> id: 3698 -> priority: 1 
+  Thread -> id: 3250 -> priority: 1 
+  Thread -> id: 2d70 -> priority: 1 
+Creating Room: dadar with room for 4 players
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-MatchMakingClient Join :https://mm.unet.unity3d.com/json/reply/JoinMatchRequest
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Network configuration mismatch detected. The number of networked scripts on the client does not match the number of networked scripts on the server. This could be caused by lazy loading of scripts on the client. This warning can be disabled by the checkbox in NetworkManager Script CRC Check.
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-CRC Local Dump MultiplayerPlayerManager : 0
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-CRC Local Dump MultiplayerShoot : 0
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-CRC Remote Dump MultiplayerPlayerManager : 0
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-CRC Remote Dump MultiplayerShoot : 0
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-CRC Remote Dump MultiplayerKeyScript : 0
+MatchMakingClient Create :https://mm.unet.unity3d.com/json/reply/CreateMatchRequest
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
 Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 2.931457 ms
+UnloadTime: 3.493919 ms
 
-Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 1298.
-Total: 0.374016 ms (FindLiveObjects: 0.050176 ms CreateObjectMapping: 0.017664 ms MarkObjects: 0.289024 ms  DeleteObjects: 0.016384 ms)
+Unloading 26 unused Assets to reduce memory usage. Loaded Objects now: 1336.
+Total: 0.436147 ms (FindLiveObjects: 0.057678 ms CreateObjectMapping: 0.016197 ms MarkObjects: 0.341332 ms  DeleteObjects: 0.020938 ms)
 
-SpawnObject for ObstaclePlayer 100 (UnityEngine.GameObject), NetworkServer is not active. Cannot spawn objects without an active server.
+Player 10 is hit! Current health is 90
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-Failed to spawn server object, did you forget to add it to the NetworkManager? assetId=c420f9eabf862994786b0cfe6c736a6d netId=11
+Player 10 is hit! Current health is 80
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-Did not find target for sync message for 11
+Player 10 is hit! Current health is 70
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-Did not find target for sync message for 11
+Player 10 is hit! Current health is 60
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-Did not find target for sync message for 11
+Player 10 is hit! Current health is 50
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-Did not find target for sync message for 11
+Player 10 is hit! Current health is 40
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-Did not find target for sync message for 11
+Player 10 is hit! Current health is 30
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-Did not find target for sync message for 11
+Player 10 is hit! Current health is 20
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-Did not find target for sync message for 11
+Player 9 is hit! Current health is 90
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-Did not find target for sync message for 11
+Player 10 is hit! Current health is 10
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-Did not find target for sync message for 11
+Player 9 is hit! Current health is 80
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-Did not find target for sync message for 11
+Player 10 is Dead!
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-Did not find target for sync message for 11
+Player 10 is hit! Current health is 0
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-Did not find target for sync message for 11
+Player 9 is hit! Current health is 70
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-Did not find target for sync message for 11
+Player 9 is hit! Current health is 60
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-Did not find target for sync message for 11
+Player 9 is hit! Current health is 50
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-SpawnObject for ObstaclePlayer 101 (UnityEngine.GameObject), NetworkServer is not active. Cannot spawn objects without an active server.
+Player 9 is hit! Current health is 40
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-Failed to spawn server object, did you forget to add it to the NetworkManager? assetId=c420f9eabf862994786b0cfe6c736a6d netId=12
+Player 10 is hit! Current health is 90
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-Did not find target for sync message for 12
+Player 9 is hit! Current health is 30
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-Did not find target for sync message for 12
+Player 10 is hit! Current health is 80
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-Did not find target for sync message for 12
+Player 9 is hit! Current health is 20
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-Did not find target for sync message for 12
+Player 9 is hit! Current health is 10
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-Did not find target for sync message for 12
+Player 9 is Dead!
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-Did not find target for sync message for 12
+Player 9 is hit! Current health is 0
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-Did not find target for sync message for 12
+NullReferenceException: Object reference not set to an instance of an object
+  at MultiplayerPlayerManager+<Respawn>c__Iterator0.MoveNext () [0x00000] in <filename unknown>:0 
+  at UnityEngine.SetupCoroutine.InvokeMoveNext (IEnumerator enumerator, IntPtr returnValueAddress) [0x00000] in <filename unknown>:0 
  
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 12
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 12
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-SpawnObject for ObstaclePlayer 102 (UnityEngine.GameObject), NetworkServer is not active. Cannot spawn objects without an active server.
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Failed to spawn server object, did you forget to add it to the NetworkManager? assetId=c420f9eabf862994786b0cfe6c736a6d netId=13
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 12
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 13
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 12
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 13
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 12
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 13
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 13
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 13
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 13
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 13
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 13
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 13
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-SpawnObject for ObstaclePlayer 90 (UnityEngine.GameObject), NetworkServer is not active. Cannot spawn objects without an active server.
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Failed to spawn server object, did you forget to add it to the NetworkManager? assetId=c420f9eabf862994786b0cfe6c736a6d netId=14
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 14
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 14
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 14
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 14
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 14
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 14
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-SpawnObject for ObstaclePlayer 91 (UnityEngine.GameObject), NetworkServer is not active. Cannot spawn objects without an active server.
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Failed to spawn server object, did you forget to add it to the NetworkManager? assetId=c420f9eabf862994786b0cfe6c736a6d netId=15
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 15
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 14
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 15
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 14
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 15
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 14
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 15
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 14
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 15
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 14
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-SpawnObject for ObstaclePlayer 92 (UnityEngine.GameObject), NetworkServer is not active. Cannot spawn objects without an active server.
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 15
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Failed to spawn server object, did you forget to add it to the NetworkManager? assetId=c420f9eabf862994786b0cfe6c736a6d netId=16
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 16
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 14
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 15
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 16
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 14
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 15
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 16
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 14
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 15
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 16
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 14
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 15
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 16
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 14
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 15
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 16
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 14
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 15
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 16
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 14
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 15
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 16
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 14
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 15
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 16
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 14
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 16
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 14
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 16
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 14
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 16
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 14
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 16
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 14
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 16
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 14
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 16
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 14
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 16
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 14
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 16
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 14
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 16
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 14
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 16
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 14
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 14
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 14
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 14
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 14
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 14
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 14
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Log: connection {1} has been disconnected by timeout; address {::ffff:52.86.130.215:9999} time {25442}, last rec time {22975} rtt {38} timeout {2000}
-MatchMakingClient DropConnection :https://mm.unet.unity3d.com/json/reply/DropConnectionRequest
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
-MatchMakingClient DropConnection :https://mm.unet.unity3d.com/json/reply/DropConnectionRequest
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-ClientDisconnected due to error: Timeout
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-UnloadTime: 0.657920 ms
-
-Unloading 29 unused Assets to reduce memory usage. Loaded Objects now: 493.
-Total: 0.354304 ms (FindLiveObjects: 0.013056 ms CreateObjectMapping: 0.009472 ms MarkObjects: 0.240384 ms  DeleteObjects: 0.090880 ms)
-
-MatchMakingClient ListMatches :https://mm.unet.unity3d.com/json/reply/ListMatchRequest
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-MatchMakingClient ListMatches :https://mm.unet.unity3d.com/json/reply/ListMatchRequest
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-MatchMakingClient Join :https://mm.unet.unity3d.com/json/reply/JoinMatchRequest
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Unloading 4 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 0.424960 ms
-
-Unloading 22 unused Assets to reduce memory usage. Loaded Objects now: 1298.
-Total: 0.332032 ms (FindLiveObjects: 0.034304 ms CreateObjectMapping: 0.014080 ms MarkObjects: 0.270592 ms  DeleteObjects: 0.012288 ms)
-
-SpawnObject for ObstaclePlayer 90 (UnityEngine.GameObject), NetworkServer is not active. Cannot spawn objects without an active server.
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Failed to spawn server object, did you forget to add it to the NetworkManager? assetId=c420f9eabf862994786b0cfe6c736a6d netId=11
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 11
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 11
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 11
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 11
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 11
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 11
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 11
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 11
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 11
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 11
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 11
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-SpawnObject for ObstaclePlayer 91 (UnityEngine.GameObject), NetworkServer is not active. Cannot spawn objects without an active server.
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Failed to spawn server object, did you forget to add it to the NetworkManager? assetId=c420f9eabf862994786b0cfe6c736a6d netId=12
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 12
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 11
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 12
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 11
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 12
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 11
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 12
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 11
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 12
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 11
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 12
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 11
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 12
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 11
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 12
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 12
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 12
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-SpawnObject for ObstaclePlayer 92 (UnityEngine.GameObject), NetworkServer is not active. Cannot spawn objects without an active server.
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Failed to spawn server object, did you forget to add it to the NetworkManager? assetId=c420f9eabf862994786b0cfe6c736a6d netId=13
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 13
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 13
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 13
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 11
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 13
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 11
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 13
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 11
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 13
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 11
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 13
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 11
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 13
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 11
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 13
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 11
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 13
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 11
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 13
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 11
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 13
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 11
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 13
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 13
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 13
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 13
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 11
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 13
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 11
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-SpawnObject for ObstaclePlayer 93 (UnityEngine.GameObject), NetworkServer is not active. Cannot spawn objects without an active server.
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Failed to spawn server object, did you forget to add it to the NetworkManager? assetId=c420f9eabf862994786b0cfe6c736a6d netId=14
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 14
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 14
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 14
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Log: Packet has been already received, connection {1}
-Did not find target for sync message for 14
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 14
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-SpawnObject for ObstaclePlayer 94 (UnityEngine.GameObject), NetworkServer is not active. Cannot spawn objects without an active server.
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Failed to spawn server object, did you forget to add it to the NetworkManager? assetId=c420f9eabf862994786b0cfe6c736a6d netId=15
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 15
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 14
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 15
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 14
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 15
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 14
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 15
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 14
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 15
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 14
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-SpawnObject for ObstaclePlayer 95 (UnityEngine.GameObject), NetworkServer is not active. Cannot spawn objects without an active server.
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 15
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 14
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Failed to spawn server object, did you forget to add it to the NetworkManager? assetId=c420f9eabf862994786b0cfe6c736a6d netId=16
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 16
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 15
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 14
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 16
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 15
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 14
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 16
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 15
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 14
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 16
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 15
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 14
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 16
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 15
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 16
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 15
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 16
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 15
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 16
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 15
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 16
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 16
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 16
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 16
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Did not find target for sync message for 16
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Log: connection {1} has been disconnected by timeout; address {::ffff:52.86.7.189:9999} time {272818}, last rec time {270359} rtt {36} timeout {2000}
-MatchMakingClient DropConnection :https://mm.unet.unity3d.com/json/reply/DropConnectionRequest
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-MatchMakingClient DropConnection :https://mm.unet.unity3d.com/json/reply/DropConnectionRequest
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-ClientDisconnected due to error: Timeout
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 0.429824 ms
-
-Unloading 29 unused Assets to reduce memory usage. Loaded Objects now: 493.
-Total: 0.359680 ms (FindLiveObjects: 0.012800 ms CreateObjectMapping: 0.009472 ms MarkObjects: 0.257536 ms  DeleteObjects: 0.079360 ms)
+(Filename:  Line: -1)
 
-MatchMakingClient ListMatches :https://mm.unet.unity3d.com/json/reply/ListMatchRequest
+Player 9 is hit! Current health is 90
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
