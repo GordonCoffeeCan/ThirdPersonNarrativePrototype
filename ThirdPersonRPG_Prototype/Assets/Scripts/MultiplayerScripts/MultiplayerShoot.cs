@@ -30,6 +30,8 @@ public class MultiplayerShoot : NetworkBehaviour {
     private Transform cameraPivot;
     private Transform rotationPivot;
 
+    private Vector3 currentFirePointPosition;
+
     private int obstacleID;
 
     private bool isFired = false;
@@ -43,6 +45,14 @@ public class MultiplayerShoot : NetworkBehaviour {
             rotationPivot = this.GetComponent<PlayerController>().rotationPivot;
             cameraPivot = this.GetComponent<PlayerController>().cameraPivot.transform;
             obstacleNumLimit = weapon.obstacleNumberLimit;
+
+            currentFirePointPosition = firePoint.localPosition;
+
+            if (weapon.currentWeapon == PlayerWeapon.Weapon.Glock) {
+                firePoint.localPosition = currentFirePointPosition;
+            } else if (weapon.currentWeapon == PlayerWeapon.Weapon.ObstacleCrate) {
+                firePoint.localPosition = new Vector3(currentFirePointPosition.x, 0.35f, currentFirePointPosition.z + 1);
+            }
         }
     }
 
@@ -63,8 +73,10 @@ public class MultiplayerShoot : NetworkBehaviour {
 
         if (Input.GetKeyUp(KeyCode.Alpha1)) {
             weapon.currentWeapon = PlayerWeapon.Weapon.Glock;
-        }else if (Input.GetKeyUp(KeyCode.Alpha2)) {
+            firePoint.localPosition = currentFirePointPosition;
+        } else if (Input.GetKeyUp(KeyCode.Alpha2)) {
             weapon.currentWeapon = PlayerWeapon.Weapon.ObstacleCrate;
+            firePoint.localPosition = new Vector3(currentFirePointPosition.x, 0.35f, currentFirePointPosition.z + 1);
         }
 
         if (ControllerManager.instacne.OnFire() && isFired == false) {

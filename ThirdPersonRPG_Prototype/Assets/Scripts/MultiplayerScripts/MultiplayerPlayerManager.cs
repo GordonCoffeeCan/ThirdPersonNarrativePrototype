@@ -39,7 +39,7 @@ public class MultiplayerPlayerManager : NetworkBehaviour {
         if (!isLocalPlayer) {
             DisableComponent();
             AssignRemoteLayer();
-            rotationPivot = this.GetComponent<PlayerController>().rotationPivot;
+            
         } else {
             //Disable Scene Camera when player log in
             sceneCamera = Camera.main;
@@ -47,6 +47,8 @@ public class MultiplayerPlayerManager : NetworkBehaviour {
             if (sceneCamera != null) {
                 sceneCamera.gameObject.SetActive(false);
             }
+
+            rotationPivot = this.GetComponent<PlayerController>().rotationPivot;
         }
 
         SetupOnStart();
@@ -148,6 +150,11 @@ public class MultiplayerPlayerManager : NetworkBehaviour {
         Transform _spawnPoint = NetworkManager.singleton.GetStartPosition();
         this.transform.position = _spawnPoint.position;
         this.transform.rotation = _spawnPoint.rotation;
+
+        if (rotationPivot == null) {
+            rotationPivot = this.GetComponent<PlayerController>().rotationPivot;
+        }
+
         rotationPivot.localRotation = Quaternion.Euler(Vector3.zero);
     }
 

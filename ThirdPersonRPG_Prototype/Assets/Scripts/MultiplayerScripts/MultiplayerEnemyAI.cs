@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Networking;
 
-public class MultiplayerEnemyAIMove : NetworkBehaviour {
+public class MultiplayerEnemyAI : NetworkBehaviour {
 
     [SerializeField]
     private float speed = 2.5f;
@@ -41,5 +41,12 @@ public class MultiplayerEnemyAIMove : NetworkBehaviour {
         if (_col.tag == "Player") {
             navigator.ResetPath();
         }
+    }
+
+    [Command]
+    public void CmdPlayerDie(string _playerName, int _damage) {
+        navigator.ResetPath();
+        MultiplayerPlayerManager _player = MultiplayerGameManager.GetPlayer(_playerName);
+        _player.RpcTakeDamage(_damage);
     }
 }
