@@ -5,6 +5,7 @@ using UnityEngine.Networking;
 
 public class MultiplayerPlayerManager : NetworkBehaviour {
     public string pickedUpKeyName;
+    public bool hasCargo = false;
 
     [SerializeField]
     private Behaviour[] componentsToDisable;
@@ -90,9 +91,9 @@ public class MultiplayerPlayerManager : NetworkBehaviour {
 
     public void SetDefaults() {
         isDead = false;
+        hasCargo = false;
         MultiplayerGameManager.instance.isPlayerDie = isDead;
         MultiplayerGameManager.instance.isPlayerInGame = true;
-
         for (int i = 0; i < disableOnDeath.Length; i++) {
             disableOnDeath[i].enabled = wasEnabled[i];
         }
@@ -124,6 +125,12 @@ public class MultiplayerPlayerManager : NetworkBehaviour {
 
     private void Die() {
         isDead = true;
+
+        if (hasCargo == true) {
+            CargoScript _cargo = this.transform.Find("CargoCrate").GetComponent<CargoScript>();
+            _cargo.transform.parent = null;
+            _cargo.transform.position = _cargo.originalPosition;
+        }
 
         Debug.Log(this.transform.name + " is Dead!");
 

@@ -2,7 +2,6 @@ Initialize engine version: 5.6.2f1 (a2913c821e27)
 GfxDevice: creating device client; threaded=1
 Direct3D:
     Version:  Direct3D 11.0 [level 11.1]
-<<<<<<< HEAD
     Renderer: NVIDIA GeForce GTX 1060 (ID=0x1c20)
     Vendor:   NVIDIA
     VRAM:     6084 MB
@@ -16,50 +15,23 @@ Platform assembly: D:\Documents\ThirdPersonNarrativePrototype\ThirdPersonRPG_Pro
 Loading D:\Documents\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
 Platform assembly: D:\Documents\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
 Loading D:\Documents\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
-- Completed reload, in  0.017 seconds
+- Completed reload, in  0.155 seconds
 Platform assembly: D:\Documents\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: D:\Documents\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\System.dll (this message is harmless)
-=======
-    Renderer: NVIDIA GeForce GTX 1070 (ID=0x1be1)
-    Vendor:   NVIDIA
-    VRAM:     8113 MB
-    Driver:   22.21.13.8233
-Begin MonoManager ReloadAssembly
-Platform assembly: C:\Users\93haq\Documents\GitHubClones\GordonPrototype\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\UnityEngine.dll (this message is harmless)
-Loading C:\Users\93haq\Documents\GitHubClones\GordonPrototype\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\UnityEngine.dll into Unity Child Domain
-Platform assembly: C:\Users\93haq\Documents\GitHubClones\GordonPrototype\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\Assembly-CSharp.dll (this message is harmless)
-Loading C:\Users\93haq\Documents\GitHubClones\GordonPrototype\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
-Platform assembly: C:\Users\93haq\Documents\GitHubClones\GordonPrototype\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\UnityEngine.UI.dll (this message is harmless)
-Loading C:\Users\93haq\Documents\GitHubClones\GordonPrototype\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
-Platform assembly: C:\Users\93haq\Documents\GitHubClones\GordonPrototype\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
-Loading C:\Users\93haq\Documents\GitHubClones\GordonPrototype\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
-- Completed reload, in  0.037 seconds
-Platform assembly: C:\Users\93haq\Documents\GitHubClones\GordonPrototype\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\System.Core.dll (this message is harmless)
-Platform assembly: C:\Users\93haq\Documents\GitHubClones\GordonPrototype\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\System.dll (this message is harmless)
->>>>>>> master
 desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
 <RI> Initialized touch support.
-<<<<<<< HEAD
-UnloadTime: 1.545875 ms
-=======
-UnloadTime: 0.918911 ms
->>>>>>> master
+UnloadTime: 1.675060 ms
 MatchMakingClient ListMatches :https://mm.unet.unity3d.com/json/reply/ListMatchRequest
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
 Setting up 4 worker threads for Enlighten.
-<<<<<<< HEAD
-  Thread -> id: b214 -> priority: 1 
-  Thread -> id: 59c0 -> priority: 1 
-  Thread -> id: 35cc -> priority: 1 
-  Thread -> id: 7004 -> priority: 1 
-MatchMakingClient ListMatches :https://mm.unet.unity3d.com/json/reply/ListMatchRequest
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
+  Thread -> id: d8d8 -> priority: 1 
+  Thread -> id: d988 -> priority: 1 
+  Thread -> id: d150 -> priority: 1 
+  Thread -> id: d8e4 -> priority: 1 
 MatchMakingClient Join :https://mm.unet.unity3d.com/json/reply/JoinMatchRequest
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
@@ -97,28 +69,12 @@ CRC Remote Dump MultiplayerEnemyAI : 0
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
 Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 5.225477 ms
+UnloadTime: 5.085625 ms
 
-Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 1302.
-Total: 0.438123 ms (FindLiveObjects: 0.059654 ms CreateObjectMapping: 0.030419 ms MarkObjects: 0.329876 ms  DeleteObjects: 0.017382 ms)
+Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 1426.
+Total: 0.579950 ms (FindLiveObjects: 0.109432 ms CreateObjectMapping: 0.028444 ms MarkObjects: 0.414814 ms  DeleteObjects: 0.026469 ms)
 
-RPC Function RpcOnPickUp called on client.
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Player 11 is Dead!
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Player 11 is hit! Current health is -900
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Trying to send command for object without authority.
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Log: connection {1} has been disconnected by timeout; address {::ffff:52.87.26.226:9999} time {46823}, last rec time {44462} rtt {29} timeout {2000}
+Log: connection {1} has been disconnected by timeout; address {::ffff:52.71.166.171:9999} time {28080}, last rec time {25723} rtt {27} timeout {2000}
 MatchMakingClient DropConnection :https://mm.unet.unity3d.com/json/reply/DropConnectionRequest
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
@@ -132,135 +88,12 @@ ClientDisconnected due to error: Timeout
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-UnloadTime: 1.065480 ms
+UnloadTime: 0.869530 ms
 
-Unloading 29 unused Assets to reduce memory usage. Loaded Objects now: 495.
-Total: 0.466172 ms (FindLiveObjects: 0.017382 ms CreateObjectMapping: 0.011061 ms MarkObjects: 0.323950 ms  DeleteObjects: 0.113382 ms)
+Unloading 47 unused Assets to reduce memory usage. Loaded Objects now: 504.
+Total: 0.471308 ms (FindLiveObjects: 0.016592 ms CreateObjectMapping: 0.015407 ms MarkObjects: 0.325530 ms  DeleteObjects: 0.113382 ms)
 
 MatchMakingClient ListMatches :https://mm.unet.unity3d.com/json/reply/ListMatchRequest
-=======
-  Thread -> id: 3180 -> priority: 1 
-  Thread -> id: 3698 -> priority: 1 
-  Thread -> id: 3250 -> priority: 1 
-  Thread -> id: 2d70 -> priority: 1 
-Creating Room: dadar with room for 4 players
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-MatchMakingClient Create :https://mm.unet.unity3d.com/json/reply/CreateMatchRequest
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 3.493919 ms
-
-Unloading 26 unused Assets to reduce memory usage. Loaded Objects now: 1336.
-Total: 0.436147 ms (FindLiveObjects: 0.057678 ms CreateObjectMapping: 0.016197 ms MarkObjects: 0.341332 ms  DeleteObjects: 0.020938 ms)
-
-Player 10 is hit! Current health is 90
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Player 10 is hit! Current health is 80
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Player 10 is hit! Current health is 70
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Player 10 is hit! Current health is 60
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Player 10 is hit! Current health is 50
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Player 10 is hit! Current health is 40
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Player 10 is hit! Current health is 30
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Player 10 is hit! Current health is 20
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Player 9 is hit! Current health is 90
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Player 10 is hit! Current health is 10
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Player 9 is hit! Current health is 80
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Player 10 is Dead!
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Player 10 is hit! Current health is 0
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Player 9 is hit! Current health is 70
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Player 9 is hit! Current health is 60
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Player 9 is hit! Current health is 50
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Player 9 is hit! Current health is 40
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Player 10 is hit! Current health is 90
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Player 9 is hit! Current health is 30
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Player 10 is hit! Current health is 80
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Player 9 is hit! Current health is 20
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Player 9 is hit! Current health is 10
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Player 9 is Dead!
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Player 9 is hit! Current health is 0
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-NullReferenceException: Object reference not set to an instance of an object
-  at MultiplayerPlayerManager+<Respawn>c__Iterator0.MoveNext () [0x00000] in <filename unknown>:0 
-  at UnityEngine.SetupCoroutine.InvokeMoveNext (IEnumerator enumerator, IntPtr returnValueAddress) [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-Player 9 is hit! Current health is 90
->>>>>>> master
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 

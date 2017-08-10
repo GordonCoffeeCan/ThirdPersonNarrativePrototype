@@ -9,11 +9,11 @@ public class cargoCrateListScript : MonoBehaviour {
     public int listSize;
     private int halfOfSize;
 
-    public GameObject cargo;
+    [SerializeField]
+    private GameObject cargo;
     public GameObject spawnPointStarter;
 
     private Vector3 cargoSpawnPoint;
-    private GameObject newCargo;
 
 	// Use this for initialization
 	void Start () {
@@ -36,9 +36,11 @@ public class cargoCrateListScript : MonoBehaviour {
             {
                 cargoSpawnPoint = new Vector3(spawnPointStarter.transform.position.x - ((i - halfOfSize) * 2), spawnPointStarter.transform.position.y, spawnPointStarter.transform.position.z + 5);
             }
-            cargoList.Add(Instantiate(cargo, cargoSpawnPoint, Quaternion.identity));
-            
 
+            GameObject _cargoClone = Instantiate(cargo, cargoSpawnPoint, Quaternion.identity);
+            _cargoClone.transform.name = "Cargo";
+
+            cargoList.Add(_cargoClone);
         }
     }
 	
