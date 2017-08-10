@@ -15,23 +15,31 @@ Platform assembly: D:\Documents\ThirdPersonNarrativePrototype\ThirdPersonRPG_Pro
 Loading D:\Documents\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
 Platform assembly: D:\Documents\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
 Loading D:\Documents\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
-- Completed reload, in  0.155 seconds
+- Completed reload, in  0.055 seconds
 Platform assembly: D:\Documents\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: D:\Documents\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\System.dll (this message is harmless)
 desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
 <RI> Initialized touch support.
-UnloadTime: 1.675060 ms
+UnloadTime: 1.034665 ms
 MatchMakingClient ListMatches :https://mm.unet.unity3d.com/json/reply/ListMatchRequest
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
 Setting up 4 worker threads for Enlighten.
-  Thread -> id: d8d8 -> priority: 1 
-  Thread -> id: d988 -> priority: 1 
-  Thread -> id: d150 -> priority: 1 
-  Thread -> id: d8e4 -> priority: 1 
+  Thread -> id: ebf4 -> priority: 1 
+  Thread -> id: c7c4 -> priority: 1 
+  Thread -> id: d3dc -> priority: 1 
+  Thread -> id: e0c0 -> priority: 1 
+MatchMakingClient ListMatches :https://mm.unet.unity3d.com/json/reply/ListMatchRequest
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+MatchMakingClient ListMatches :https://mm.unet.unity3d.com/json/reply/ListMatchRequest
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
 MatchMakingClient Join :https://mm.unet.unity3d.com/json/reply/JoinMatchRequest
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
@@ -68,13 +76,45 @@ CRC Remote Dump MultiplayerEnemyAI : 0
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
+CRC Remote Dump CargoScript : 0
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
 Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 5.085625 ms
+UnloadTime: 5.494514 ms
 
-Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 1426.
-Total: 0.579950 ms (FindLiveObjects: 0.109432 ms CreateObjectMapping: 0.028444 ms MarkObjects: 0.414814 ms  DeleteObjects: 0.026469 ms)
+Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 1503.
+Total: 0.524246 ms (FindLiveObjects: 0.091654 ms CreateObjectMapping: 0.048197 ms MarkObjects: 0.364246 ms  DeleteObjects: 0.019358 ms)
 
-Log: connection {1} has been disconnected by timeout; address {::ffff:52.71.166.171:9999} time {28080}, last rec time {25723} rtt {27} timeout {2000}
+SpawnObject for ObstaclePlayer 200 (UnityEngine.GameObject), NetworkServer is not active. Cannot spawn objects without an active server.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Failed to spawn server object, did you forget to add it to the NetworkManager? assetId=c420f9eabf862994786b0cfe6c736a6d netId=21
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Did not find target for sync message for 21
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Did not find target for sync message for 21
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Did not find target for sync message for 21
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+RPC Function RpcOnPickUp called on client.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+RPC Function RpcDeactivateObject called on client.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Log: connection {1} has been disconnected by timeout; address {::ffff:52.71.166.171:9999} time {112076}, last rec time {109901} rtt {28} timeout {2000}
 MatchMakingClient DropConnection :https://mm.unet.unity3d.com/json/reply/DropConnectionRequest
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
@@ -88,10 +128,10 @@ ClientDisconnected due to error: Timeout
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-UnloadTime: 0.869530 ms
+UnloadTime: 0.782616 ms
 
-Unloading 47 unused Assets to reduce memory usage. Loaded Objects now: 504.
-Total: 0.471308 ms (FindLiveObjects: 0.016592 ms CreateObjectMapping: 0.015407 ms MarkObjects: 0.325530 ms  DeleteObjects: 0.113382 ms)
+Unloading 35 unused Assets to reduce memory usage. Loaded Objects now: 504.
+Total: 0.449184 ms (FindLiveObjects: 0.017777 ms CreateObjectMapping: 0.011456 ms MarkObjects: 0.289580 ms  DeleteObjects: 0.129975 ms)
 
 MatchMakingClient ListMatches :https://mm.unet.unity3d.com/json/reply/ListMatchRequest
  

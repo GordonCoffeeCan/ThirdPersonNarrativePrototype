@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class CargoScript : MonoBehaviour {
+public class CargoScript : NetworkBehaviour {
     public Vector3 originalPosition;
 
 	// Use this for initialization
@@ -23,5 +24,10 @@ public class CargoScript : MonoBehaviour {
                 _col.GetComponent<MultiplayerPlayerManager>().hasCargo = true;
             }
         }
+    }
+
+    [ClientRpc]
+    public void RpcDeactivateObject() {
+        this.gameObject.SetActive(false);
     }
 }

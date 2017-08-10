@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class MultiplayerGameManager : MonoBehaviour {
+public class MultiplayerGameManager : NetworkBehaviour {
 
     public static MultiplayerGameManager instance;
 
     public static int obstacleNumber;
+
+    //public float gameTime;
+
+    //[SyncVar]
+    //private float _gameTime = 300;
 
     [HideInInspector]
     public bool isPlayerDie = false;
@@ -43,8 +48,8 @@ public class MultiplayerGameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+        
+    }
 
     //Register and UnRegister Players
     public static void RegisterPlayer(string _netID, MultiplayerPlayerManager _player) {

@@ -16,9 +16,12 @@ public class WareHouseScript : MonoBehaviour {
 
     private void OnTriggerEnter(Collider _col) {
         if (_col.tag == "Player") {
-            Transform _cargo = _col.transform.Find("CargoCrate");
-            _col.GetComponent<MultiplayerPlayerManager>().hasCargo = false;
-            _cargo.gameObject.SetActive(false);
+            MultiplayerPlayerManager _player = _col.GetComponent<MultiplayerPlayerManager>();
+            if (_player.hasCargo == true) {
+                CargoScript _cargo = _col.transform.Find("CargoCrate").GetComponent<CargoScript>();
+                _player.hasCargo = false;
+                _cargo.RpcDeactivateObject();
+            }
         }
     }
 }

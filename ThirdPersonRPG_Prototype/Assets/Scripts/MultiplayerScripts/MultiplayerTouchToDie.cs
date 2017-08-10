@@ -5,12 +5,6 @@ using UnityEngine.Networking;
 
 public class MultiplayerTouchToDie : NetworkBehaviour {
 
-    private BoxCollider _deathTrigger;
-
-    private void Awake() {
-        _deathTrigger = this.GetComponent<BoxCollider>();
-    }
-
     // Use this for initialization
     void Start () {
 		

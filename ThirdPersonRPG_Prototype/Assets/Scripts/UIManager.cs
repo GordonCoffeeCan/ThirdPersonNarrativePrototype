@@ -15,6 +15,9 @@ public class UIManager : NetworkBehaviour {
     [SerializeField]
     private Image menuPanel;
 
+    //[SerializeField]
+    //private Text timerUI;
+
     private NetworkManager networkManager;
 
 	// Use this for initialization
@@ -57,7 +60,10 @@ public class UIManager : NetworkBehaviour {
             isMenuPanelOn = !menuPanel.gameObject.activeSelf;
             menuPanel.gameObject.SetActive(!menuPanel.gameObject.activeSelf);
         }
-	}
+
+        //timerUI.text = Mathf.Floor(MultiplayerGameManager.instance.gameTime).ToString();
+
+    }
 
     public void LeaveRoom() {
         networkManager.matchMaker.DropConnection(networkManager.matchInfo.networkId, networkManager.matchInfo.nodeId, 0, networkManager.OnDropConnection);
