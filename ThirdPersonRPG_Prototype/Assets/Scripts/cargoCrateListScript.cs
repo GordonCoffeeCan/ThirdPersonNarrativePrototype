@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class cargoCrateListScript : MonoBehaviour {
+public class CargoCrateListScript : MonoBehaviour {
 
     public List<GameObject> cargoList;
 

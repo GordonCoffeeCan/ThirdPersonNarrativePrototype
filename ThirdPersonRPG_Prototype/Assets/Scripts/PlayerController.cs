@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour {
     [SerializeField]
     private float walkSpeed = 2;
     [SerializeField]
-    private float runSpeed = 5;
+    private float runSpeed = 6;
     [SerializeField]
     private float jumpSpeed = 8;
 
@@ -56,10 +56,16 @@ public class PlayerController : MonoBehaviour {
             moveDirection = playerCamera.transform.TransformDirection(moveDirection);
             moveDirection.y = 0;
             moveDirection.Normalize();
+            if (ControllerManager.instacne.OnSprint() == true) {
+                currentSpeed = runSpeed;
+            }
+
             moveDirection *= currentSpeed;
+
             if (ControllerManager.instacne.OnJump() == true) {
                 moveDirection.y = jumpSpeed;
             }
+            
         }
         moveDirection.y -= gravity * Time.deltaTime;
         _characterCtr.Move(moveDirection * Time.deltaTime);

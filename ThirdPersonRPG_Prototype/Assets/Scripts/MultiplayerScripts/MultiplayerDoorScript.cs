@@ -23,7 +23,7 @@ public class MultiplayerDoorScript : NetworkBehaviour {
     // Use this for initialization
     void Start () {
         objectGFX = this.transform.Find("Door_GFX").GetComponent<Renderer>();
-        doorAnimator = this.transform.Find("Door_GFX").GetComponent<Animator>();
+        doorAnimator = this.GetComponent<Animator>();
 
         if ((DoorGreen == true && DoorRed == true) || (DoorGreen == false && DoorRed == false)) {
             Debug.LogError("Door color is not set correctly! Check one of the boxes mutually-exclusivly");
