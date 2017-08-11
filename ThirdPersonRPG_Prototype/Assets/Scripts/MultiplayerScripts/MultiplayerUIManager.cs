@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
-public class UIManager : NetworkBehaviour {
+public class MultiplayerUIManager : NetworkBehaviour {
 
     public static bool isMenuPanelOn = false;
 

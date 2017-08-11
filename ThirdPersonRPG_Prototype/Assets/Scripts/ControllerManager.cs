@@ -52,6 +52,7 @@ public class ControllerManager : MonoBehaviour {
         fireTrigger = "R_2_Fire";
         cameraHorizontalAxis = "Android_R_Stick_H";
         cameraVerticalAxis = "Android_R_Stick_V";
+        sprintButton = "Android_Sprint";
         MenuButton = "Android_Menu";
         BackButton = "Android_Back";
 #endif

@@ -63,7 +63,7 @@ public class MultiplayerShoot : NetworkBehaviour {
     // Update is called once per frame
     void Update () {
         //If in Game menu panel is on, player cannot shoot;
-        if (UIManager.isMenuPanelOn) {
+        if (MultiplayerUIManager.isMenuPanelOn) {
             return;
         }
 

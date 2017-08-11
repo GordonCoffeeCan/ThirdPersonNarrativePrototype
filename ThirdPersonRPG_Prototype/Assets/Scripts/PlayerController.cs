@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour {
     void Update () {
 
         //If in Game menu panel is on, player cannot be controlled;
-        if (UIManager.isMenuPanelOn) {
+        if (MultiplayerUIManager.isMenuPanelOn) {
             return;
         }
         MoveCharacter();
