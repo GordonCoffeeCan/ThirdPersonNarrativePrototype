@@ -26,14 +26,13 @@ public class MultiplayerShoot : NetworkBehaviour {
 
     [SerializeField]
     private LayerMask layerMask;
-
     private Transform cameraPivot;
     private Transform rotationPivot;
-
     private Vector3 currentFirePointPosition;
-
+    private float coolDownTime;
+    private float coolDownTimeLimit;
     private int obstacleID;
-
+    private bool readyToFire;
     private bool isFired = false;
 
     // Use this for initialization
@@ -48,11 +47,15 @@ public class MultiplayerShoot : NetworkBehaviour {
 
             currentFirePointPosition = firePoint.localPosition;
 
-            if (weapon.currentWeapon == PlayerWeapon.Weapon.Glock) {
+            if (weapon.currentWeapon == PlayerWeapon.Weapon.Freezer) {
                 firePoint.localPosition = currentFirePointPosition;
-            } else if (weapon.currentWeapon == PlayerWeapon.Weapon.ObstacleCrate) {
+                
+            } else if (weapon.currentWeapon == PlayerWeapon.Weapon.ObstacleCreator) {
                 firePoint.localPosition = new Vector3(currentFirePointPosition.x, 0.35f, currentFirePointPosition.z + 1);
             }
+
+            coolDownTime = weapon.SetupCoolDownTime(weapon.currentWeapon);
+            coolDownTimeLimit = coolDownTime;
         }
     }
 
@@ -72,26 +75,44 @@ public class MultiplayerShoot : NetworkBehaviour {
         }
 
         if (Input.GetKeyUp(KeyCode.Alpha1)) {
-            weapon.currentWeapon = PlayerWeapon.Weapon.Glock;
+            weapon.currentWeapon = PlayerWeapon.Weapon.Freezer;
             firePoint.localPosition = currentFirePointPosition;
+            coolDownTime = weapon.SetupCoolDownTime(weapon.currentWeapon);
+            coolDownTimeLimit = coolDownTime;
         } else if (Input.GetKeyUp(KeyCode.Alpha2)) {
-            weapon.currentWeapon = PlayerWeapon.Weapon.ObstacleCrate;
+            weapon.currentWeapon = PlayerWeapon.Weapon.ObstacleCreator;
             firePoint.localPosition = new Vector3(currentFirePointPosition.x, 0.35f, currentFirePointPosition.z + 1);
+            coolDownTime = weapon.SetupCoolDownTime(weapon.currentWeapon);
+            coolDownTimeLimit = coolDownTime;
         }
+
+        coolDownTime += Time.deltaTime;
+
+        if (coolDownTime >= coolDownTimeLimit) {
+            coolDownTime = coolDownTimeLimit;
+            readyToFire = true;
+        } else {
+            readyToFire = false;
+        }
+
+        SetCoolDownLevel();
 
         if (ControllerManager.instacne.OnFire() && isFired == false) {
             switch (weapon.currentWeapon) {
-                case PlayerWeapon.Weapon.Glock:
-                    shoot();
+                case PlayerWeapon.Weapon.Freezer:
+                    if(readyToFire == true) {
+                        shoot();
+                        coolDownTime = 0;
+                    }
                     break;
-                case PlayerWeapon.Weapon.ObstacleCrate:
-                    createObstacle();
+                case PlayerWeapon.Weapon.ObstacleCreator:
+                    OnObstacleAction();
                     break;
                 default:
                     break;
             }
             isFired = true;
-        }else if (ControllerManager.instacne.OnFire() == false) {
+        } else if (ControllerManager.instacne.OnFire() == false) {
             isFired = false;
         }
     }
@@ -152,7 +173,7 @@ public class MultiplayerShoot : NetworkBehaviour {
 
     //Create and Destory Obstacle
     [Client]
-    private void createObstacle() {
+    private void OnObstacleAction() {
         RaycastHit _hit;
 
         if (ControllerManager.instacne.OnAim()) {
@@ -160,15 +181,20 @@ public class MultiplayerShoot : NetworkBehaviour {
                 if (_hit.collider.tag == OBSTACLE_TAG) {
                     CmdDestroyObstacle(_hit.collider.name);
                 } else {
-                    CmdCreateObstacle();
+                    CreateObstacle();
                 }
             } else {
-                CmdCreateObstacle();
+                CreateObstacle();
             }
         } else {
+            CreateObstacle();
+        }
+    }
+
+    private void CreateObstacle() {
+        if (readyToFire == true) {
             CmdCreateObstacle();
         }
-
     }
 
     [Command]
@@ -183,9 +209,9 @@ public class MultiplayerShoot : NetworkBehaviour {
                 MultiplayerObstacleCrateScript _obstacle = (MultiplayerObstacleCrateScript)Instantiate(obstacleCrate, firePoint.position, firePoint.rotation);
                 string _nameID = this.transform.name + obstacleID;
                 MultiplayerGameManager.StoreObstacle(_nameID, _obstacle);
-                NetworkServer.Spawn(_obstacle.gameObject);
                 obstacleID++;
                 obstacleNumLimit--;
+                coolDownTime = 0;
                 _obstacle.playerName = this.transform.name;
             }
         } else {
@@ -209,5 +235,9 @@ public class MultiplayerShoot : NetworkBehaviour {
     private void RpcDestroyObstacle(string _obstacleName) {
         MultiplayerObstacleCrateScript _obstacle = MultiplayerGameManager.GetObstacle(_obstacleName);
         Destroy(_obstacle.gameObject);
+    }
+
+    private void SetCoolDownLevel() {
+        MultiplayerGameManager.instance.coolDownLevel = coolDownTime / coolDownTimeLimit;
     }
 }

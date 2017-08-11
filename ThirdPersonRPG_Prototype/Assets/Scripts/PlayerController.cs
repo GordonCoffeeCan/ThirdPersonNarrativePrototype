@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour {
     private float runSpeed = 6;
     [SerializeField]
     private float jumpSpeed = 8;
+    [SerializeField]
+    private float sprintTime = 1.65f;
 
     public Transform rotationPivot;
     public CameraDynamicOrbit cameraPivot;
@@ -27,10 +29,12 @@ public class PlayerController : MonoBehaviour {
     
     private Vector3 moveDirection;
     private Vector3 rotationDirection;
+    private float sprintTimeLimit;
 
     private void Awake() {
         _characterCtr = this.GetComponent<CharacterController>();
         moveDirection = Vector3.zero;
+        sprintTimeLimit = sprintTime;
     }
 
     // Use this for initialization
@@ -46,20 +50,19 @@ public class PlayerController : MonoBehaviour {
             return;
         }
         MoveCharacter();
+        SprintLevel();
     }
 
     private void MoveCharacter() {
         currentSpeed = walkSpeed;
+
+        OnSprint();
 
         if (_characterCtr.isGrounded) {
             moveDirection = ControllerManager.instacne.OnMove();
             moveDirection = playerCamera.transform.TransformDirection(moveDirection);
             moveDirection.y = 0;
             moveDirection.Normalize();
-            if (ControllerManager.instacne.OnSprint() == true) {
-                currentSpeed = runSpeed;
-            }
-
             moveDirection *= currentSpeed;
 
             if (ControllerManager.instacne.OnJump() == true) {
@@ -92,5 +95,24 @@ public class PlayerController : MonoBehaviour {
         if (ControllerManager.instacne.OnAim() == true || ControllerManager.instacne.OnFire() == true) {
             rotationPivot.rotation = Quaternion.Slerp(rotationPivot.rotation, Quaternion.Euler(new Vector3(0, cameraPivot.transform.localEulerAngles.y + this.transform.eulerAngles.y, 0)), aimRotationSpeed * Time.deltaTime);
         }
+    }
+
+    private void OnSprint() {
+        if (ControllerManager.instacne.OnSprint() == true) {
+            if (sprintTime >= 0) {
+                sprintTime -= Time.deltaTime;
+                currentSpeed = runSpeed;
+            }
+        } else {
+            if (sprintTime < sprintTimeLimit) {
+                sprintTime += Time.deltaTime;
+            } else if (sprintTime >= sprintTimeLimit) {
+                sprintTime = sprintTimeLimit;
+            }
+        }
+    }
+
+    private void SprintLevel() {
+        MultiplayerGameManager.instance.staminaLevel = sprintTime / sprintTimeLimit;
     }
 }

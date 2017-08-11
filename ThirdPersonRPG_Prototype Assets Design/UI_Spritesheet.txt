@@ -1,0 +1,44 @@
+{"frames": {
+
+"Bar_Background.png":
+{
+	"frame": {"x":3,"y":3,"w":42,"h":242},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":42,"h":242},
+	"sourceSize": {"w":42,"h":242}
+},
+"Bar_Foreground.png":
+{
+	"frame": {"x":48,"y":3,"w":42,"h":242},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":42,"h":242},
+	"sourceSize": {"w":42,"h":242}
+},
+"Sprint_Icon.png":
+{
+	"frame": {"x":93,"y":3,"w":47,"h":37},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":47,"h":37},
+	"sourceSize": {"w":47,"h":37}
+},
+"Timer_Icon.png":
+{
+	"frame": {"x":143,"y":3,"w":36,"h":42},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":36,"h":42},
+	"sourceSize": {"w":36,"h":42}
+}},
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker ",
+	"version": "1.0",
+	"image": "UI_Spritesheet.png",
+	"format": "RGBA8888",
+	"size": {"w":256,"h":256},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:3015bfb2a5a2badbb49855efd5cb477c:1/1$"
+}
+}

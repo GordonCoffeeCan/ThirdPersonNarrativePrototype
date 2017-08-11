@@ -20,6 +20,12 @@ public class MultiplayerGameManager : NetworkBehaviour {
     [HideInInspector]
     public bool isPlayerInGame = false;
 
+    [HideInInspector]
+    public float staminaLevel;
+
+    [HideInInspector]
+    public float coolDownLevel;
+
     private const string PLAYER_NAME_PREFIX = "Player ";
     private const string OBSTACLE_NAME_PREFIX = "Obstacle";
 

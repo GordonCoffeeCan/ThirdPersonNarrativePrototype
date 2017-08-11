@@ -15,6 +15,12 @@ public class MultiplayerUIManager : NetworkBehaviour {
     [SerializeField]
     private Image menuPanel;
 
+    [SerializeField]
+    private Image staminaRefill;
+
+    [SerializeField]
+    private Image coolDownRefill;
+
     //[SerializeField]
     //private Text timerUI;
 
@@ -63,6 +69,8 @@ public class MultiplayerUIManager : NetworkBehaviour {
 
         //timerUI.text = Mathf.Floor(MultiplayerGameManager.instance.gameTime).ToString();
 
+        staminaRefill.fillAmount = MultiplayerGameManager.instance.staminaLevel;
+        coolDownRefill.fillAmount = MultiplayerGameManager.instance.coolDownLevel;
     }
 
     public void LeaveRoom() {

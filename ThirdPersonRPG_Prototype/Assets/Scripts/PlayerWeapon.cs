@@ -7,8 +7,8 @@ using System;
 public class PlayerWeapon{
 
     public enum Weapon {
-        Glock,
-        ObstacleCrate
+        Freezer,
+        ObstacleCreator
     }
 
     public Weapon currentWeapon;
@@ -17,4 +17,16 @@ public class PlayerWeapon{
     public float range = 100;
 
     public int obstacleNumberLimit = 3;
+
+    public float coolDownTime = 0;
+
+    public float SetupCoolDownTime(Weapon _weapon) {
+        if(currentWeapon == Weapon.Freezer) {
+            coolDownTime = 0.5f;
+        } else if (currentWeapon == Weapon.ObstacleCreator) {
+            coolDownTime = 1;
+        }
+
+        return coolDownTime;
+    }
 }
