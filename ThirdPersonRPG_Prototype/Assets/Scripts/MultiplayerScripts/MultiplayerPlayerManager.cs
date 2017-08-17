@@ -5,6 +5,7 @@ using UnityEngine.Networking;
 
 public class MultiplayerPlayerManager : NetworkBehaviour {
     public string pickedUpKeyName;
+    public string pickedUpCarogoName;
 
     [SyncVar]
     public bool hasCargo = false;
@@ -32,7 +33,6 @@ public class MultiplayerPlayerManager : NetworkBehaviour {
 
     private Camera sceneCamera;
     private Transform rotationPivot;
-    private string cargoNameID;
 
     private bool[] wasEnabled;
 
@@ -137,6 +137,7 @@ public class MultiplayerPlayerManager : NetworkBehaviour {
             _cargo.transform.parent = null;
             _cargo.transform.position = _cargo.originalPosition;
         }*/
+        
 
         Debug.Log(this.transform.name + " is Dead!");
 
@@ -155,21 +156,29 @@ public class MultiplayerPlayerManager : NetworkBehaviour {
     }
 
     [ClientRpc]
-    public void RpcTakeCargo() {
+    public void RpcTakeCargo(string _name) {
         if(cargoCrate != null) {
             CargoScript _cargoClone = (CargoScript)Instantiate(cargoCrate, new Vector3(this.transform.position.x, this.transform.position.y + 2, this.transform.position.z), Quaternion.identity);
             _cargoClone.transform.parent = this.transform;
-            _cargoClone.name += this.transform.name;
-            cargoNameID = _cargoClone.name;
+            _cargoClone.name = _name;
+            pickedUpCarogoName = _name;
             MultiplayerGameManager.StoreCargo(_cargoClone.name, _cargoClone);
+            MultiplayerGameManager.StoreEnvCargo(pickedUpCarogoName, GameObject.Find(pickedUpCarogoName).GetComponent<CargoScript>());
         }
     }
 
     [ClientRpc]
     public void RpcDestroyCargo() {
         if (hasCargo == true) {
-            MultiplayerGameManager.UnstoreCargo(cargoNameID);
-            Destroy(this.transform.Find(cargoNameID).gameObject);
+            MultiplayerGameManager.UnstoreCargo(pickedUpCarogoName);
+
+            if (currentHealth <= 0) {
+                MultiplayerGameManager.GetEnvCargo(pickedUpCarogoName).gameObject.SetActive(true);
+                MultiplayerGameManager.UnstoreEnvCargo(pickedUpCarogoName);
+            }
+            
+            Destroy(this.transform.Find(pickedUpCarogoName).gameObject);
+            pickedUpCarogoName = null;
             hasCargo = false;
         }
     }

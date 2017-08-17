@@ -23,22 +23,19 @@ public class CargoScript : NetworkBehaviour {
             if (_player.hasCargo == false) {
                 CmdTakeCargo(_playerName);
                 _player.hasCargo = true;
-                this.gameObject.SetActive(false);
             }
         }
-
-        
     }
 
     [Command]
     private void CmdTakeCargo(string _playerName) {
         MultiplayerPlayerManager _player = MultiplayerGameManager.GetPlayer(_playerName);
-        _player.RpcTakeCargo();
+        _player.RpcTakeCargo(this.transform.name);
+        RpcDeactivateObject();
     }
 
     [ClientRpc]
     public void RpcDeactivateObject() {
-        this.transform.parent = null;
         this.gameObject.SetActive(false);
     }
 }

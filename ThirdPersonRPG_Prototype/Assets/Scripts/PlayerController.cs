@@ -56,7 +56,7 @@ public class PlayerController : MonoBehaviour {
     private void MoveCharacter() {
         currentSpeed = walkSpeed;
 
-        OnSprint();
+        OnSprint(moveDirection.magnitude);
 
         if (_characterCtr.isGrounded) {
             moveDirection = ControllerManager.instacne.OnMove();
@@ -97,8 +97,8 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    private void OnSprint() {
-        if (ControllerManager.instacne.OnSprint() == true) {
+    private void OnSprint(float _speed) {
+        if (ControllerManager.instacne.OnSprint() == true && _speed >= (walkSpeed - 0.1f)) {
             if (sprintTime >= 0) {
                 sprintTime -= Time.deltaTime;
                 currentSpeed = runSpeed;

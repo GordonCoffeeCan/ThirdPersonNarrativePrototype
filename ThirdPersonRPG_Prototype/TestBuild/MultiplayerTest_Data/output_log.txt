@@ -21,18 +21,17 @@ Platform assembly: D:\Documents\ThirdPersonNarrativePrototype\ThirdPersonRPG_Pro
 desktop: 1920x1080 60Hz; virtual: 1920x2160 at 0,-1080
 <RI> Initializing input.
 <RI> Input initialized.
-desktop: 1920x1080 60Hz; virtual: 1920x2160 at 0,-1080
 <RI> Initialized touch support.
-UnloadTime: 2.015208 ms
+UnloadTime: 1.395751 ms
 MatchMakingClient ListMatches :https://mm.unet.unity3d.com/json/reply/ListMatchRequest
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
 Setting up 4 worker threads for Enlighten.
-  Thread -> id: facc -> priority: 1 
-  Thread -> id: 89f8 -> priority: 1 
-  Thread -> id: ce68 -> priority: 1 
-  Thread -> id: f864 -> priority: 1 
+  Thread -> id: 13378 -> priority: 1 
+  Thread -> id: 1379c -> priority: 1 
+  Thread -> id: 14698 -> priority: 1 
+  Thread -> id: 13e58 -> priority: 1 
 MatchMakingClient ListMatches :https://mm.unet.unity3d.com/json/reply/ListMatchRequest
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
@@ -57,15 +56,15 @@ CRC Local Dump CargoScript : 0
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
+CRC Remote Dump MultiplayerPlayerManager : 0
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
 CRC Remote Dump CargoScript : 0
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
 CRC Remote Dump MultiplayerShoot : 0
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-CRC Remote Dump MultiplayerPlayerManager : 0
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
@@ -77,15 +76,23 @@ CRC Remote Dump MultiplayerTouchToDie : 0
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
+CRC Remote Dump WareHouseScript : 0
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
 CRC Remote Dump MultiplayerEnemyAI : 0
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
 Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 5.208489 ms
+UnloadTime: 4.509231 ms
 
-Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 1544.
-Total: 0.886122 ms (FindLiveObjects: 0.160789 ms CreateObjectMapping: 0.093234 ms MarkObjects: 0.601283 ms  DeleteObjects: 0.030419 ms)
+Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 1545.
+Total: 0.485530 ms (FindLiveObjects: 0.075456 ms CreateObjectMapping: 0.026469 ms MarkObjects: 0.364641 ms  DeleteObjects: 0.018567 ms)
+
+Trying to send command for object without authority.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
 Trying to send command for object without authority.
  
@@ -95,13 +102,34 @@ Trying to send command for object without authority.
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-NullReferenceException: Object reference not set to an instance of an object
-  at WareHouseScript.OnTriggerEnter (UnityEngine.Collider _col) [0x00000] in <filename unknown>:0 
+Player 19 is Dead!
  
-(Filename:  Line: -1)
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-NullReferenceException: Object reference not set to an instance of an object
-  at WareHouseScript.OnTriggerEnter (UnityEngine.Collider _col) [0x00000] in <filename unknown>:0 
+Player 19 is hit! Current health is -900
  
-(Filename:  Line: -1)
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Log: connection {1} has been disconnected by timeout; address {::ffff:52.86.7.189:9999} time {53127}, last rec time {51048} rtt {30} timeout {2000}
+MatchMakingClient DropConnection :https://mm.unet.unity3d.com/json/reply/DropConnectionRequest
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
+MatchMakingClient DropConnection :https://mm.unet.unity3d.com/json/reply/DropConnectionRequest
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+ClientDisconnected due to error: Timeout
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+UnloadTime: 0.959999 ms
+
+Unloading 37 unused Assets to reduce memory usage. Loaded Objects now: 521.
+Total: 0.487110 ms (FindLiveObjects: 0.017777 ms CreateObjectMapping: 0.016197 ms MarkObjects: 0.338172 ms  DeleteObjects: 0.114962 ms)
+
+MatchMakingClient ListMatches :https://mm.unet.unity3d.com/json/reply/ListMatchRequest
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
