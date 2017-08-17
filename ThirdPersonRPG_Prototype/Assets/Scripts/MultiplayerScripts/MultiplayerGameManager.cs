@@ -33,6 +33,10 @@ public class MultiplayerGameManager : NetworkBehaviour {
 
     private static Dictionary<string, MultiplayerObstacleCrateScript> obstacles = new Dictionary<string, MultiplayerObstacleCrateScript>();
 
+    private static Dictionary<string, CargoScript> cargos = new Dictionary<string, CargoScript>();
+
+    private static Dictionary<string, CargoScript> envCargos = new Dictionary<string, CargoScript>();
+
     [HideInInspector]
     public MultiplayerGameSettings gameSettings;
 
@@ -81,6 +85,25 @@ public class MultiplayerGameManager : NetworkBehaviour {
     }
     //Store and Unstore Obstacles --- end
 
+    //Store and Unstore Cargos
+    public static void StoreCargo(string _nameID, CargoScript _cargo) {
+        cargos.Add(_nameID, _cargo);
+        _cargo.transform.name = _nameID;
+    }
+
+    public static void UnstoreCargo(string _nameID) {
+        cargos.Remove(_nameID);
+    }
+    //Store and Unstore Cargos --- end
+
+    public static void StoreEnvCargo(string _nameID, CargoScript _cargo) {
+        envCargos.Add(_nameID, _cargo);
+    }
+
+    public static void UnstoreEnvCargo(string _nameID) {
+        envCargos.Remove(_nameID);
+    }
+
     public static MultiplayerPlayerManager GetPlayer(string _playerNameID) {
         return players[_playerNameID];
     }
@@ -88,4 +111,12 @@ public class MultiplayerGameManager : NetworkBehaviour {
     public static MultiplayerObstacleCrateScript GetObstacle(string _obstacleNameID) {
         return obstacles[_obstacleNameID];
     }
+
+    public static CargoScript GetCargo(string _cargoNameID) {
+        return cargos[_cargoNameID];
+    }
+
+    public static CargoScript GetEnvCargo(string _nameID) {
+        return envCargos[_nameID];
+    } 
 }

@@ -322,6 +322,7 @@ public class MultiplayerShoot : NetworkBehaviour {
     private void RpcDestroyObstacle(string _obstacleName)
     {
         MultiplayerObstacleCrateScript _obstacle = MultiplayerGameManager.GetObstacle(_obstacleName);
+        MultiplayerGameManager.UnstoreObstacle(_obstacleName);
         Destroy(_obstacle.gameObject);
     }
 

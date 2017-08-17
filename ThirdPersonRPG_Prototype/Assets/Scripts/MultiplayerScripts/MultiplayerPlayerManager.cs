@@ -5,7 +5,13 @@ using UnityEngine.Networking;
 
 public class MultiplayerPlayerManager : NetworkBehaviour {
     public string pickedUpKeyName;
+    public string pickedUpCarogoName;
+
+    [SyncVar]
     public bool hasCargo = false;
+
+    [SerializeField]
+    private CargoScript cargoCrate;
 
     [SerializeField]
     private Behaviour[] componentsToDisable;
@@ -126,11 +132,12 @@ public class MultiplayerPlayerManager : NetworkBehaviour {
     private void Die() {
         isDead = true;
 
-        if (hasCargo == true) {
+        /*if (hasCargo == true) {
             CargoScript _cargo = this.transform.Find("CargoCrate").GetComponent<CargoScript>();
             _cargo.transform.parent = null;
             _cargo.transform.position = _cargo.originalPosition;
-        }
+        }*/
+        
 
         Debug.Log(this.transform.name + " is Dead!");
 
@@ -146,6 +153,34 @@ public class MultiplayerPlayerManager : NetworkBehaviour {
 
         //Call respawn method after a few seconds;
         StartCoroutine(Respawn(MultiplayerGameManager.instance.gameSettings.respawnDelayTime));
+    }
+
+    [ClientRpc]
+    public void RpcTakeCargo(string _name) {
+        if(cargoCrate != null) {
+            CargoScript _cargoClone = (CargoScript)Instantiate(cargoCrate, new Vector3(this.transform.position.x, this.transform.position.y + 2, this.transform.position.z), Quaternion.identity);
+            _cargoClone.transform.parent = this.transform;
+            _cargoClone.name = _name;
+            pickedUpCarogoName = _name;
+            MultiplayerGameManager.StoreCargo(_cargoClone.name, _cargoClone);
+            MultiplayerGameManager.StoreEnvCargo(pickedUpCarogoName, GameObject.Find(pickedUpCarogoName).GetComponent<CargoScript>());
+        }
+    }
+
+    [ClientRpc]
+    public void RpcDestroyCargo() {
+        if (hasCargo == true) {
+            MultiplayerGameManager.UnstoreCargo(pickedUpCarogoName);
+
+            if (currentHealth <= 0) {
+                MultiplayerGameManager.GetEnvCargo(pickedUpCarogoName).gameObject.SetActive(true);
+                MultiplayerGameManager.UnstoreEnvCargo(pickedUpCarogoName);
+            }
+            
+            Destroy(this.transform.Find(pickedUpCarogoName).gameObject);
+            pickedUpCarogoName = null;
+            hasCargo = false;
+        }
     }
 
     //Respawn player;
