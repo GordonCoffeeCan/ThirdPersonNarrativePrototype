@@ -5,7 +5,12 @@ using UnityEngine.Networking;
 
 public class MultiplayerPlayerManager : NetworkBehaviour {
     public string pickedUpKeyName;
+
+    [SyncVar]
     public bool hasCargo = false;
+
+    [SerializeField]
+    private CargoScript cargoCrate;
 
     [SerializeField]
     private Behaviour[] componentsToDisable;
@@ -27,6 +32,7 @@ public class MultiplayerPlayerManager : NetworkBehaviour {
 
     private Camera sceneCamera;
     private Transform rotationPivot;
+    private string cargoNameID;
 
     private bool[] wasEnabled;
 
@@ -126,11 +132,11 @@ public class MultiplayerPlayerManager : NetworkBehaviour {
     private void Die() {
         isDead = true;
 
-        if (hasCargo == true) {
+        /*if (hasCargo == true) {
             CargoScript _cargo = this.transform.Find("CargoCrate").GetComponent<CargoScript>();
             _cargo.transform.parent = null;
             _cargo.transform.position = _cargo.originalPosition;
-        }
+        }*/
 
         Debug.Log(this.transform.name + " is Dead!");
 
@@ -146,6 +152,26 @@ public class MultiplayerPlayerManager : NetworkBehaviour {
 
         //Call respawn method after a few seconds;
         StartCoroutine(Respawn(MultiplayerGameManager.instance.gameSettings.respawnDelayTime));
+    }
+
+    [ClientRpc]
+    public void RpcTakeCargo() {
+        if(cargoCrate != null) {
+            CargoScript _cargoClone = (CargoScript)Instantiate(cargoCrate, new Vector3(this.transform.position.x, this.transform.position.y + 2, this.transform.position.z), Quaternion.identity);
+            _cargoClone.transform.parent = this.transform;
+            _cargoClone.name += this.transform.name;
+            cargoNameID = _cargoClone.name;
+            MultiplayerGameManager.StoreCargo(_cargoClone.name, _cargoClone);
+        }
+    }
+
+    [ClientRpc]
+    public void RpcDestroyCargo() {
+        if (hasCargo == true) {
+            MultiplayerGameManager.UnstoreCargo(cargoNameID);
+            Destroy(this.transform.Find(cargoNameID).gameObject);
+            hasCargo = false;
+        }
     }
 
     //Respawn player;

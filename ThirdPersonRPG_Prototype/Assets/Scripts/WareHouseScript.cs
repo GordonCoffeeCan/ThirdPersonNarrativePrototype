@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class WareHouseScript : MonoBehaviour {
+public class WareHouseScript : NetworkBehaviour {
 
 	// Use this for initialization
 	void Start () {
@@ -16,12 +17,17 @@ public class WareHouseScript : MonoBehaviour {
 
     private void OnTriggerEnter(Collider _col) {
         if (_col.tag == "Player") {
-            MultiplayerPlayerManager _player = _col.GetComponent<MultiplayerPlayerManager>();
+            string _playerName = _col.transform.name;
+            MultiplayerPlayerManager _player = MultiplayerGameManager.GetPlayer(_playerName);
             if (_player.hasCargo == true) {
-                CargoScript _cargo = _col.transform.Find("CargoCrate").GetComponent<CargoScript>();
-                _cargo.RpcDeactivateObject();
-                _player.hasCargo = false;
+                CmdDestroyCargo(_playerName);
             }
         }
+    }
+    
+    [Command]
+    private void CmdDestroyCargo(string _playerName) {
+        MultiplayerPlayerManager _player = MultiplayerGameManager.GetPlayer(_playerName);
+        _player.RpcDestroyCargo();
     }
 }
