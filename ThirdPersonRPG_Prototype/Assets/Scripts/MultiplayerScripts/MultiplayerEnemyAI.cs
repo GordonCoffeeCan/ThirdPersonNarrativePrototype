@@ -6,8 +6,8 @@ using UnityEngine.Networking;
 
 public class MultiplayerEnemyAI : NetworkBehaviour {
 
-    [SerializeField]
-    private float speed = 4.5f;
+  
+    public float speed = 4.5f;
 
     private NavMeshAgent navigator;
     // Use this for initialization

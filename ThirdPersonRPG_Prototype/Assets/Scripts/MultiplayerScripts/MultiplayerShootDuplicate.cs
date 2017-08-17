@@ -4,10 +4,10 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 
-public class MultiplayerShoot : NetworkBehaviour {
+public class MultiplayerShootDuplicate : NetworkBehaviour {
     private const string PLAYER_TAG = "Player";
     private const string OBSTACLE_TAG = "DynamicObstacle";
-    private const string ENEMY_TAG = "Enemy"; //Mostafa- Enemy Tag
+    private const string ENEMY_TAG = "Enemy";
 
     public PlayerWeapon weapon;
 
@@ -18,7 +18,7 @@ public class MultiplayerShoot : NetworkBehaviour {
 
     [SerializeField]
     private Transform firePoint;
-
+    
     [SerializeField]
     private BulletScript bulletEX;
 
@@ -37,28 +37,21 @@ public class MultiplayerShoot : NetworkBehaviour {
     private bool isFired = false;
 
     // Use this for initialization
-    void Start()
-    {
-        if (playerCamera == null)
-        {
+    void Start () {
+        if (playerCamera == null) {
             Debug.LogError("No Player Camera referenced!");
             this.enabled = false;
-        }
-        else
-        {
+        } else {
             rotationPivot = this.GetComponent<PlayerController>().rotationPivot;
             cameraPivot = this.GetComponent<PlayerController>().cameraPivot.transform;
             obstacleNumLimit = weapon.obstacleNumberLimit;
 
             currentFirePointPosition = firePoint.localPosition;
 
-            if (weapon.currentWeapon == PlayerWeapon.Weapon.Freezer)
-            {
+            if (weapon.currentWeapon == PlayerWeapon.Weapon.Freezer) {
                 firePoint.localPosition = currentFirePointPosition;
-
-            }
-            else if (weapon.currentWeapon == PlayerWeapon.Weapon.ObstacleCreator)
-            {
+                
+            } else if (weapon.currentWeapon == PlayerWeapon.Weapon.ObstacleCreator) {
                 firePoint.localPosition = new Vector3(currentFirePointPosition.x, 0.35f, currentFirePointPosition.z + 1);
             }
 
@@ -67,34 +60,27 @@ public class MultiplayerShoot : NetworkBehaviour {
         }
     }
 
-    public override void OnStartClient()
-    {
+    public override void OnStartClient() {
         base.OnStartClient();
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update () {
         //If in Game menu panel is on, player cannot shoot;
-        if (MultiplayerUIManager.isMenuPanelOn)
-        {
+        if (MultiplayerUIManager.isMenuPanelOn) {
             return;
         }
 
-        if (!isLocalPlayer)
-        {
+        if (!isLocalPlayer) {
             return;
         }
 
-        if (Input.GetKeyUp(KeyCode.Alpha1))
-        {
+        if (Input.GetKeyUp(KeyCode.Alpha1)) {
             weapon.currentWeapon = PlayerWeapon.Weapon.Freezer;
             firePoint.localPosition = currentFirePointPosition;
             coolDownTime = weapon.SetupCoolDownTime(weapon.currentWeapon);
             coolDownTimeLimit = coolDownTime;
-        }
-        else if (Input.GetKeyUp(KeyCode.Alpha2))
-        {
+        } else if (Input.GetKeyUp(KeyCode.Alpha2)) {
             weapon.currentWeapon = PlayerWeapon.Weapon.ObstacleCreator;
             firePoint.localPosition = new Vector3(currentFirePointPosition.x, 0.35f, currentFirePointPosition.z + 1);
             coolDownTime = weapon.SetupCoolDownTime(weapon.currentWeapon);
@@ -103,25 +89,19 @@ public class MultiplayerShoot : NetworkBehaviour {
 
         coolDownTime += Time.deltaTime;
 
-        if (coolDownTime >= coolDownTimeLimit)
-        {
+        if (coolDownTime >= coolDownTimeLimit) {
             coolDownTime = coolDownTimeLimit;
             readyToFire = true;
-        }
-        else
-        {
+        } else {
             readyToFire = false;
         }
 
         SetCoolDownLevel();
 
-        if (ControllerManager.instacne.OnFire() && isFired == false)
-        {
-            switch (weapon.currentWeapon)
-            {
+        if (ControllerManager.instacne.OnFire() && isFired == false) {
+            switch (weapon.currentWeapon) {
                 case PlayerWeapon.Weapon.Freezer:
-                    if (readyToFire == true)
-                    {
+                    if(readyToFire == true) {
                         shoot();
                         coolDownTime = 0;
                     }
@@ -133,9 +113,7 @@ public class MultiplayerShoot : NetworkBehaviour {
                     break;
             }
             isFired = true;
-        }
-        else if (ControllerManager.instacne.OnFire() == false)
-        {
+        } else if (ControllerManager.instacne.OnFire() == false) {
             isFired = false;
         }
     }
@@ -143,13 +121,11 @@ public class MultiplayerShoot : NetworkBehaviour {
     //Shoot bullet
     //this method only runing on the client;
     [Client]
-    private void shoot()
-    {
+    private void shoot() {
         Vector3 _rayPostion;
         Vector3 _rayDirection;
 
-        if (rotationPivot == null)
-        {
+        if (rotationPivot == null) {
             Debug.LogError("No Roation Pivot referenced!");
             return;
         }
@@ -157,28 +133,21 @@ public class MultiplayerShoot : NetworkBehaviour {
         RaycastHit _hit;
 
         //adjust ray cast position on Aim or not;
-        if (ControllerManager.instacne.OnAim())
-        {
+        if (ControllerManager.instacne.OnAim()) {
             _rayPostion = playerCamera.transform.position;
             _rayDirection = playerCamera.transform.forward;
-        }
-        else
-        {
+        } else {
             _rayPostion = new Vector3(this.transform.position.x, this.transform.position.y + 1.39f, this.transform.position.z);
             _rayDirection = rotationPivot.transform.forward;
         }
         //End ------ adjust ray cast position on Aim or not;
 
-        if (Physics.Raycast(_rayPostion, _rayDirection, out _hit, weapon.range, layerMask))
-        {
-
-            Debug.Log(_hit.collider.name);
-            if (_hit.collider.tag == PLAYER_TAG)
-            {
+        if (Physics.Raycast(_rayPostion, _rayDirection, out _hit, weapon.range, layerMask)) {
+            if (_hit.collider.tag == PLAYER_TAG) {
                 CmdPlayerShot(_hit.collider.name, weapon.damage);
             }
 
-            if (_hit.collider.tag == ENEMY_TAG) //If it hits enemy tag
+            if (_hit.collider.tag == ENEMY_TAG)
             {
                 CmdEnemyFreeze(_hit.collider.name);
             }
@@ -190,81 +159,59 @@ public class MultiplayerShoot : NetworkBehaviour {
 
     //Shoot Bullet runing on Server
     [Command]
-    private void CmdOnShoot(Quaternion _bulletRotation, float _distance)
-    {
+    private void CmdOnShoot(Quaternion _bulletRotation, float _distance) {
         RpcShootEX(_bulletRotation, _distance);
     }
 
     ////Shoot Bullet Response effect on clients
     [ClientRpc]
-    private void RpcShootEX(Quaternion _bulletRotation, float _distance)
-    {
-        if (bulletEX != null)
-        {
+    private void RpcShootEX(Quaternion _bulletRotation, float _distance) {
+        if (bulletEX != null) {
             BulletScript _bullet = (BulletScript)Instantiate(bulletEX, firePoint.position, _bulletRotation);
-            if (_distance <= 0)
-            {
+            if (_distance <= 0) {
                 _distance = 200;
             }
             _bullet.shootDistance = _distance;
-        }
-        else
-        {
+        } else {
             Debug.LogError("No Bullet Effect game object reference!");
         }
     }
 
     //Create and Destory Obstacle
     [Client]
-    private void OnObstacleAction()
-    {
+    private void OnObstacleAction() {
         RaycastHit _hit;
 
-        if (ControllerManager.instacne.OnAim())
-        {
-            if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out _hit, weapon.range, layerMask))
-            {
-                if (_hit.collider.tag == OBSTACLE_TAG)
-                {
+        if (ControllerManager.instacne.OnAim()) {
+            if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out _hit, weapon.range, layerMask)) {
+                if (_hit.collider.tag == OBSTACLE_TAG) {
                     CmdDestroyObstacle(_hit.collider.name);
-                }
-                else
-                {
+                } else {
                     CreateObstacle();
                 }
-            }
-            else
-            {
+            } else {
                 CreateObstacle();
             }
-        }
-        else
-        {
+        } else {
             CreateObstacle();
         }
     }
 
-    private void CreateObstacle()
-    {
-        if (readyToFire == true)
-        {
+    private void CreateObstacle() {
+        if (readyToFire == true) {
             CmdCreateObstacle();
         }
     }
 
     [Command]
-    private void CmdCreateObstacle()
-    {
+    private void CmdCreateObstacle() {
         RpcCreateObstacle();
     }
 
     [ClientRpc]
-    private void RpcCreateObstacle()
-    {
-        if (obstacleCrate != null)
-        {
-            if (obstacleNumLimit > 0)
-            {
+    private void RpcCreateObstacle() {
+        if(obstacleCrate != null) {
+            if(obstacleNumLimit > 0) {
                 MultiplayerObstacleCrateScript _obstacle = (MultiplayerObstacleCrateScript)Instantiate(obstacleCrate, firePoint.position, firePoint.rotation);
                 string _nameID = this.transform.name + obstacleID;
                 MultiplayerGameManager.StoreObstacle(_nameID, _obstacle);
@@ -273,17 +220,14 @@ public class MultiplayerShoot : NetworkBehaviour {
                 coolDownTime = 0;
                 _obstacle.playerName = this.transform.name;
             }
-        }
-        else
-        {
+        } else {
             Debug.LogError("No Obstacle Crate game object reference!");
         }
     }
 
     //this method only runing on the server;
-    [Command] //Mostafa - Sets speed to 0, saves original speed
-    private void CmdPlayerShot(string _playerName, int _damage)
-    {
+    [Command]
+    private void CmdPlayerShot(string _playerName, int _damage) {
         MultiplayerPlayerManager _player = MultiplayerGameManager.GetPlayer(_playerName);
         _player.RpcTakeDamage(_damage);
     }
@@ -291,42 +235,40 @@ public class MultiplayerShoot : NetworkBehaviour {
     [Command]
     private void CmdEnemyFreeze(string _enemyName)
     {
-
+      
         Collider enemyCollider = GameObject.Find(_enemyName).GetComponent<Collider>();
         float enemyOriginalSpeed = enemyCollider.GetComponent<MultiplayerEnemyAI>().speed;
 
         enemyCollider.GetComponent<MultiplayerEnemyAI>().speed = 0;
         enemyCollider.tag = "FrozenEnemy";
-        enemyCollider.GetComponent<SphereCollider>().enabled = false;
-        StartCoroutine(CmdUnfreeze(4, enemyCollider, enemyOriginalSpeed));
+        StartCoroutine(CmdUnfreeze(2,enemyCollider, enemyOriginalSpeed));
     }
 
-    private IEnumerator CmdUnfreeze(float _timer, Collider _enemyCollider, float _enemyOriginalSpeed) //Mostafa - Unfreeze Enemy, inherits original speed
+    private IEnumerator CmdUnfreeze(float _timer, Collider _enemyCollider, float _enemyOriginalSpeed)
     {
         yield return new WaitForSeconds(_timer);
 
         _enemyCollider.GetComponent<MultiplayerEnemyAI>().speed = _enemyOriginalSpeed;
         _enemyCollider.tag = ENEMY_TAG;
 
-        _enemyCollider.GetComponent<SphereCollider>().enabled = true;
-
     }
 
+
+
+
+
     [Command]
-    private void CmdDestroyObstacle(string _obstacleName)
-    {
+    private void CmdDestroyObstacle(string _obstacleName) {
         RpcDestroyObstacle(_obstacleName);
     }
 
     [ClientRpc]
-    private void RpcDestroyObstacle(string _obstacleName)
-    {
+    private void RpcDestroyObstacle(string _obstacleName) {
         MultiplayerObstacleCrateScript _obstacle = MultiplayerGameManager.GetObstacle(_obstacleName);
         Destroy(_obstacle.gameObject);
     }
 
-    private void SetCoolDownLevel()
-    {
+    private void SetCoolDownLevel() {
         MultiplayerGameManager.instance.coolDownLevel = coolDownTime / coolDownTimeLimit;
     }
 }
