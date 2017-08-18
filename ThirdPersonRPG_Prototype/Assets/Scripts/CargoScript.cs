@@ -6,6 +6,8 @@ using UnityEngine.Networking;
 public class CargoScript : NetworkBehaviour {
     public Vector3 originalPosition;
 
+    public Collider objectTrigger;
+
 	// Use this for initialization
 	void Start () {
         originalPosition = this.transform.position;

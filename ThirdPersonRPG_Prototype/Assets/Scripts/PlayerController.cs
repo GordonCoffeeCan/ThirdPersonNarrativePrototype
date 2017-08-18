@@ -98,7 +98,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void OnSprint(float _speed) {
-        if (ControllerManager.instacne.OnSprint() == true && _speed >= (walkSpeed - 0.1f)) {
+        if (ControllerManager.instacne.OnSprint() == true && _speed >= walkSpeed) {
             if (sprintTime >= 0) {
                 sprintTime -= Time.deltaTime;
                 currentSpeed = runSpeed;

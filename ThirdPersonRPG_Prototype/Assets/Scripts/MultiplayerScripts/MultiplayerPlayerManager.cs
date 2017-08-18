@@ -4,10 +4,13 @@ using UnityEngine;
 using UnityEngine.Networking;
 
 public class MultiplayerPlayerManager : NetworkBehaviour {
+    [HideInInspector]
     public string pickedUpKeyName;
+
+    [HideInInspector]
     public string pickedUpCarogoName;
 
-    [SyncVar]
+    [HideInInspector][SyncVar]
     public bool hasCargo = false;
 
     [SerializeField]
@@ -160,6 +163,7 @@ public class MultiplayerPlayerManager : NetworkBehaviour {
         if(cargoCrate != null) {
             CargoScript _cargoClone = (CargoScript)Instantiate(cargoCrate, new Vector3(this.transform.position.x, this.transform.position.y + 2, this.transform.position.z), Quaternion.identity);
             _cargoClone.transform.parent = this.transform;
+            _cargoClone.objectTrigger.enabled = false;
             _cargoClone.name = _name;
             pickedUpCarogoName = _name;
             MultiplayerGameManager.StoreCargo(_cargoClone.name, _cargoClone);

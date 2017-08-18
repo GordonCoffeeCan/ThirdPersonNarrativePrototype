@@ -2,10 +2,10 @@ Initialize engine version: 5.6.2f1 (a2913c821e27)
 GfxDevice: creating device client; threaded=1
 Direct3D:
     Version:  Direct3D 11.0 [level 11.1]
-    Renderer: NVIDIA GeForce GTX 1060 (ID=0x1c20)
+    Renderer: NVIDIA GeForce GTX 980 Ti (ID=0x17c8)
     Vendor:   NVIDIA
-    VRAM:     6084 MB
-    Driver:   22.21.13.8165
+    VRAM:     6103 MB
+    Driver:   21.21.13.7866
 Begin MonoManager ReloadAssembly
 Platform assembly: D:\Documents\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\UnityEngine.dll (this message is harmless)
 Loading D:\Documents\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\UnityEngine.dll into Unity Child Domain
@@ -15,121 +15,16 @@ Platform assembly: D:\Documents\ThirdPersonNarrativePrototype\ThirdPersonRPG_Pro
 Loading D:\Documents\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
 Platform assembly: D:\Documents\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
 Loading D:\Documents\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
-- Completed reload, in  0.018 seconds
+- Completed reload, in  0.014 seconds
 Platform assembly: D:\Documents\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: D:\Documents\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\System.dll (this message is harmless)
-desktop: 1920x1080 60Hz; virtual: 1920x2160 at 0,-1080
+desktop: 1920x1080 60Hz; virtual: 3840x2160 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
 <RI> Initialized touch support.
-UnloadTime: 1.395751 ms
-MatchMakingClient ListMatches :https://mm.unet.unity3d.com/json/reply/ListMatchRequest
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
+UnloadTime: 0.682495 ms
 Setting up 4 worker threads for Enlighten.
-  Thread -> id: 13378 -> priority: 1 
-  Thread -> id: 1379c -> priority: 1 
-  Thread -> id: 14698 -> priority: 1 
-  Thread -> id: 13e58 -> priority: 1 
-MatchMakingClient ListMatches :https://mm.unet.unity3d.com/json/reply/ListMatchRequest
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-MatchMakingClient Join :https://mm.unet.unity3d.com/json/reply/JoinMatchRequest
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Network configuration mismatch detected. The number of networked scripts on the client does not match the number of networked scripts on the server. This could be caused by lazy loading of scripts on the client. This warning can be disabled by the checkbox in NetworkManager Script CRC Check.
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-CRC Local Dump MultiplayerPlayerManager : 0
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-CRC Local Dump MultiplayerShoot : 0
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-CRC Local Dump CargoScript : 0
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-CRC Remote Dump MultiplayerPlayerManager : 0
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-CRC Remote Dump CargoScript : 0
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-CRC Remote Dump MultiplayerShoot : 0
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-CRC Remote Dump MultiplayerKeyScript : 0
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-CRC Remote Dump MultiplayerTouchToDie : 0
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-CRC Remote Dump WareHouseScript : 0
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-CRC Remote Dump MultiplayerEnemyAI : 0
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 4.509231 ms
-
-Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 1545.
-Total: 0.485530 ms (FindLiveObjects: 0.075456 ms CreateObjectMapping: 0.026469 ms MarkObjects: 0.364641 ms  DeleteObjects: 0.018567 ms)
-
-Trying to send command for object without authority.
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Trying to send command for object without authority.
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Trying to send command for object without authority.
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Player 19 is Dead!
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Player 19 is hit! Current health is -900
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Log: connection {1} has been disconnected by timeout; address {::ffff:52.86.7.189:9999} time {53127}, last rec time {51048} rtt {30} timeout {2000}
-MatchMakingClient DropConnection :https://mm.unet.unity3d.com/json/reply/DropConnectionRequest
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
-MatchMakingClient DropConnection :https://mm.unet.unity3d.com/json/reply/DropConnectionRequest
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-ClientDisconnected due to error: Timeout
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-UnloadTime: 0.959999 ms
-
-Unloading 37 unused Assets to reduce memory usage. Loaded Objects now: 521.
-Total: 0.487110 ms (FindLiveObjects: 0.017777 ms CreateObjectMapping: 0.016197 ms MarkObjects: 0.338172 ms  DeleteObjects: 0.114962 ms)
-
-MatchMakingClient ListMatches :https://mm.unet.unity3d.com/json/reply/ListMatchRequest
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
+  Thread -> id: 3914 -> priority: 1 
+  Thread -> id: 2f84 -> priority: 1 
+  Thread -> id: 1838 -> priority: 1 
+  Thread -> id: 1af0 -> priority: 1 
