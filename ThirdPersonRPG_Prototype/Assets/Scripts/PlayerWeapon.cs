@@ -7,8 +7,9 @@ using System;
 public class PlayerWeapon{
 
     public enum Weapon {
-        Freezer,
-        ObstacleCreator
+        none,
+        freezer,
+        obstacleCreator
     }
 
     public Weapon currentWeapon;
@@ -21,9 +22,9 @@ public class PlayerWeapon{
     public float coolDownTime = 0;
 
     public float SetupCoolDownTime(Weapon _weapon) {
-        if(currentWeapon == Weapon.Freezer) {
+        if(currentWeapon == Weapon.freezer) {
             coolDownTime = 0.5f;
-        } else if (currentWeapon == Weapon.ObstacleCreator) {
+        } else if (currentWeapon == Weapon.obstacleCreator) {
             coolDownTime = 1;
         }
 

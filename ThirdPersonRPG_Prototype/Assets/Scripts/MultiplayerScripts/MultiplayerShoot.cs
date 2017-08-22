@@ -52,16 +52,6 @@ public class MultiplayerShoot : NetworkBehaviour {
 
             currentFirePointPosition = firePoint.localPosition;
 
-            if (weapon.currentWeapon == PlayerWeapon.Weapon.Freezer)
-            {
-                firePoint.localPosition = currentFirePointPosition;
-
-            }
-            else if (weapon.currentWeapon == PlayerWeapon.Weapon.ObstacleCreator)
-            {
-                firePoint.localPosition = new Vector3(currentFirePointPosition.x, 0.35f, currentFirePointPosition.z + 1);
-            }
-
             coolDownTime = weapon.SetupCoolDownTime(weapon.currentWeapon);
             coolDownTimeLimit = coolDownTime;
         }
@@ -86,16 +76,14 @@ public class MultiplayerShoot : NetworkBehaviour {
             return;
         }
 
-        if (Input.GetKeyUp(KeyCode.Alpha1))
+        if (weapon.currentWeapon == PlayerWeapon.Weapon.freezer)
         {
-            weapon.currentWeapon = PlayerWeapon.Weapon.Freezer;
             firePoint.localPosition = currentFirePointPosition;
             coolDownTime = weapon.SetupCoolDownTime(weapon.currentWeapon);
             coolDownTimeLimit = coolDownTime;
         }
-        else if (Input.GetKeyUp(KeyCode.Alpha2))
+        else if (weapon.currentWeapon == PlayerWeapon.Weapon.obstacleCreator)
         {
-            weapon.currentWeapon = PlayerWeapon.Weapon.ObstacleCreator;
             firePoint.localPosition = new Vector3(currentFirePointPosition.x, 0.35f, currentFirePointPosition.z + 1);
             coolDownTime = weapon.SetupCoolDownTime(weapon.currentWeapon);
             coolDownTimeLimit = coolDownTime;
@@ -119,14 +107,14 @@ public class MultiplayerShoot : NetworkBehaviour {
         {
             switch (weapon.currentWeapon)
             {
-                case PlayerWeapon.Weapon.Freezer:
+                case PlayerWeapon.Weapon.freezer:
                     if (readyToFire == true)
                     {
                         shoot();
                         coolDownTime = 0;
                     }
                     break;
-                case PlayerWeapon.Weapon.ObstacleCreator:
+                case PlayerWeapon.Weapon.obstacleCreator:
                     OnObstacleAction();
                     break;
                 default:
