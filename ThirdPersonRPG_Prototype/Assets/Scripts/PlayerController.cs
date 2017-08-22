@@ -56,20 +56,22 @@ public class PlayerController : MonoBehaviour {
     private void MoveCharacter() {
         currentSpeed = walkSpeed;
 
-        OnSprint(moveDirection.magnitude);
+        OnSprint();
 
         if (_characterCtr.isGrounded) {
             moveDirection = ControllerManager.instacne.OnMove();
+            
             moveDirection = playerCamera.transform.TransformDirection(moveDirection);
             moveDirection.y = 0;
             moveDirection.Normalize();
+
             moveDirection *= currentSpeed;
 
             if (ControllerManager.instacne.OnJump() == true) {
                 moveDirection.y = jumpSpeed;
             }
-            
         }
+
         moveDirection.y -= gravity * Time.deltaTime;
         _characterCtr.Move(moveDirection * Time.deltaTime);
         RotateCharacter(moveDirection);
@@ -97,8 +99,8 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    private void OnSprint(float _speed) {
-        if (ControllerManager.instacne.OnSprint() == true && _speed >= walkSpeed) {
+    private void OnSprint() {
+        if (ControllerManager.instacne.OnSprint() == true && ControllerManager.instacne.OnMove().magnitude >= 1) {
             if (sprintTime >= 0) {
                 sprintTime -= Time.deltaTime;
                 currentSpeed = runSpeed;
