@@ -48,5 +48,6 @@ public class MultiplayerEnemyAI : NetworkBehaviour {
         navigator.ResetPath();
         MultiplayerPlayerManager _player = MultiplayerGameManager.GetPlayer(_playerName);
         _player.RpcTakeDamage(_damage);
+        _player.RpcDestroyCargo();
     }
 }

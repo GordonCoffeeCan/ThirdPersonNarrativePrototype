@@ -84,7 +84,6 @@ public class CameraDynamicOrbit : MonoBehaviour {
 
     private float AngleClamp(float _angle, float _min, float _max) {
         if (_angle >= 0 && _angle <= 90) {
-
             _angle = Mathf.Clamp(_angle, 0, _max);
         } else if (_angle >= 270 && _angle < 360) {
             _angle = Mathf.Clamp(_angle, 360 + _min, 360);
