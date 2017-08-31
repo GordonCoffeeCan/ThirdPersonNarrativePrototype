@@ -21,6 +21,7 @@ public class ControllerManager : MonoBehaviour {
     private void Awake() {
         instacne = this;
 
+#if UNITY_EDITOR
         moveHorizontalAxis = "Horizontal";
         moveVerticalAxis = "Vertical";
 
@@ -38,16 +39,31 @@ public class ControllerManager : MonoBehaviour {
 
         MenuButton = "Menu";
         BackButton = "Back";
-
-#if UNITY_EDITOR
-
 #endif
 
 #if UNITY_STANDALONE
+        moveHorizontalAxis = "Horizontal";
+        moveVerticalAxis = "Vertical";
 
+        jumpButton = "Jump";
+
+        cameraHorizontalAxis = "CamHorizontal";
+        cameraVerticalAxis = "CamVertical";
+
+        fireButton = "Fire";
+        fireTrigger = "Right_Trigger";
+        aimButton = "Aim";
+        aimTrigger = "Left_Trigger";
+
+        sprintButton = "Sprint";
+
+        MenuButton = "Menu";
+        BackButton = "Back";
 #endif
 
 #if UNITY_ANDROID
+        fireButton = "AndroidFakeFire";
+        aimButton = "AndroidFakeAim";
         aimTrigger = "L_2_Aim";
         fireTrigger = "R_2_Fire";
         cameraHorizontalAxis = "Android_R_Stick_H";

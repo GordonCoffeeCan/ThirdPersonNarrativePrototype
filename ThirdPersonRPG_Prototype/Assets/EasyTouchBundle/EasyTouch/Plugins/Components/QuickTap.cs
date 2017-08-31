@@ -33,7 +33,7 @@ public class QuickTap : QuickBase {
 
 	#region Monobehavior CallBack
 	public QuickTap(){
-		quickActionName = "QuickTap"+ GetInstanceID().ToString();
+			quickActionName = "QuickTap"+ System.Guid.NewGuid().ToString().Substring(0,7);
 	}
 
 	void Update(){

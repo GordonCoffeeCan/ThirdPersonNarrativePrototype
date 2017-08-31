@@ -59,8 +59,13 @@ public class PlayerController : MonoBehaviour {
         OnSprint();
 
         if (_characterCtr.isGrounded) {
-            moveDirection = ControllerManager.instacne.OnMove();
-            
+
+            if(MobileInputManager.instance.enabled == true) {
+                moveDirection = MobileInputManager.instance.OnJoystickMove();
+            } else {
+                moveDirection = ControllerManager.instacne.OnMove();
+            }
+
             moveDirection = playerCamera.transform.TransformDirection(moveDirection);
             moveDirection.y = 0;
             moveDirection.Normalize();
