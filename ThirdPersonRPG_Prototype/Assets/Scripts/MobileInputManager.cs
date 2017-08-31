@@ -7,6 +7,9 @@ public class MobileInputManager : MonoBehaviour {
 
     public static MobileInputManager instance;
 
+    [HideInInspector]
+    public bool isGamepadConnected = false;
+
     [SerializeField]
     private ETCTouchPad touchPad;
     [SerializeField]
@@ -46,16 +49,16 @@ public class MobileInputManager : MonoBehaviour {
             if(Input.GetJoystickNames()[0] != "") { //There is a controller connected to the game!
                 debugInfo.text = Input.GetJoystickNames()[0];
                 virtualControlPad.gameObject.SetActive(false);
-                this.enabled = false;
+                isGamepadConnected = true;
             } else {
                 debugInfo.text = "No GamePad connected!"; //There is no controller connected to the game!
                 virtualControlPad.gameObject.SetActive(true);
-                this.enabled = true;
+                isGamepadConnected = false;
             }
         } else {
             debugInfo.text = "No GamePad connected!"; //There is no controller connected to the game!
             virtualControlPad.gameObject.SetActive(true);
-            this.enabled = true;
+            isGamepadConnected = false;
         }
 #endif
 

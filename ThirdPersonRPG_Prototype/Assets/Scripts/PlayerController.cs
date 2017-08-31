@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour {
 
         if (_characterCtr.isGrounded) {
 
-            if(MobileInputManager.instance.enabled == true) {
+            if(MobileInputManager.instance.isGamepadConnected == false) {
                 moveDirection = MobileInputManager.instance.OnJoystickMove();
             } else {
                 moveDirection = ControllerManager.instance.OnMove();
@@ -95,7 +95,7 @@ public class PlayerController : MonoBehaviour {
 
             
 
-            if (MobileInputManager.instance.enabled == true) {
+            if (MobileInputManager.instance.isGamepadConnected == false) {
                 if (MobileInputManager.instance.isAim == false && MobileInputManager.instance.OnFire() == false) {
                     rotationPivot.rotation = Quaternion.Slerp(rotationPivot.rotation, Quaternion.Euler(new Vector3(0, (Mathf.Atan2(_direction.x, _direction.z) * Mathf.Rad2Deg), 0)), rotationSpeed * Time.deltaTime);
                 }
@@ -107,7 +107,7 @@ public class PlayerController : MonoBehaviour {
         }
 
         //On Aiming, Player rotation follow along with camera direction;
-        if (MobileInputManager.instance.enabled == true) {
+        if (MobileInputManager.instance.isGamepadConnected == false) {
             if (MobileInputManager.instance.isAim == true || MobileInputManager.instance.OnFire() == true) {
                 rotationPivot.rotation = Quaternion.Slerp(rotationPivot.rotation, Quaternion.Euler(new Vector3(0, cameraPivot.transform.localEulerAngles.y + this.transform.eulerAngles.y, 0)), aimRotationSpeed * Time.deltaTime);
             }
@@ -120,7 +120,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void OnSprint() {
-        if (MobileInputManager.instance.enabled == true) {
+        if (MobileInputManager.instance.isGamepadConnected == false) {
             SprintStamina(MobileInputManager.instance.OnSprint(), MobileInputManager.instance.OnJoystickMove());
         } else {
             SprintStamina(ControllerManager.instance.OnSprint(), ControllerManager.instance.OnMove());

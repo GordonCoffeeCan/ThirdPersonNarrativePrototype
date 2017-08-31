@@ -84,7 +84,7 @@ public class MultiplayerShoot : NetworkBehaviour {
 
         SetCoolDownLevel();
 
-        if (MobileInputManager.instance.enabled == true) {
+        if (MobileInputManager.instance.isGamepadConnected == false) {
             if (MobileInputManager.instance.OnFire() && isFired == false) {
                 OnWeaponSelect();
                 isFired = true;
@@ -148,7 +148,7 @@ public class MultiplayerShoot : NetworkBehaviour {
         RaycastHit _hit;
 
         //adjust ray cast position on Aim or not;
-        if (MobileInputManager.instance.enabled == true) {
+        if (MobileInputManager.instance.isGamepadConnected == false) {
             if (MobileInputManager.instance.isAim == true) {
                 _rayPostion = playerCamera.transform.position;
                 _rayDirection = playerCamera.transform.forward;
@@ -213,7 +213,7 @@ public class MultiplayerShoot : NetworkBehaviour {
     private void OnObstacleAction(){
         RaycastHit _hit;
 
-        if (MobileInputManager.instance.enabled == true) {
+        if (MobileInputManager.instance.isGamepadConnected == false) {
             if (MobileInputManager.instance.isAim) {
                 if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out _hit, weapon.range, layerMask)) {
                     if (_hit.collider.tag == OBSTACLE_TAG) {

@@ -61,7 +61,7 @@ public class CameraDynamicOrbit : MonoBehaviour {
 
     private void CameraRotate() {
         
-        if (MobileInputManager.instance.enabled == true) {
+        if (MobileInputManager.instance.isGamepadConnected == false) {
             this.transform.Rotate(-MobileInputManager.instance.OnTouchPadMove().y * cameraRotationSpeed * Time.deltaTime * 0.2f, MobileInputManager.instance.OnTouchPadMove().x * cameraRotationSpeed * Time.deltaTime * 0.2f, 0);
         } else {
             this.transform.Rotate(Input.GetAxis(ControllerManager.instance.cameraVerticalAxis) * cameraRotationSpeed * Time.deltaTime, Input.GetAxis(ControllerManager.instance.cameraHorizontalAxis) * cameraRotationSpeed * Time.deltaTime, 0);
