@@ -7,9 +7,16 @@ public class MobileInputManager : MonoBehaviour {
 
     public static MobileInputManager instance;
 
-    public ETCTouchPad touchPad;
-    public ETCJoystick moveJoystick;
-    public Canvas virtualControlPad;
+    [SerializeField]
+    private ETCTouchPad touchPad;
+    [SerializeField]
+    private ETCJoystick moveJoystick;
+    [SerializeField]
+    private Canvas virtualControlPad;
+
+    [HideInInspector]
+    public bool isAim;
+    
     public Text debugInfo;
 
     private void Awake() {
@@ -18,8 +25,8 @@ public class MobileInputManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-		
-	}
+        isAim = false;
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -35,15 +42,29 @@ public class MobileInputManager : MonoBehaviour {
 #endif
 
 #if UNITY_ANDROID
-        //debugInfo.text = "No GamePad connected!";
-        virtualControlPad.gameObject.SetActive(true);
-        this.enabled = true;
+        if (Input.GetJoystickNames().Length > 0) {
+            if(Input.GetJoystickNames()[0] != "") { //There is a controller connected to the game!
+                debugInfo.text = Input.GetJoystickNames()[0];
+                virtualControlPad.gameObject.SetActive(false);
+                this.enabled = false;
+            } else {
+                debugInfo.text = "No GamePad connected!"; //There is no controller connected to the game!
+                virtualControlPad.gameObject.SetActive(true);
+                this.enabled = true;
+            }
+        } else {
+            debugInfo.text = "No GamePad connected!"; //There is no controller connected to the game!
+            virtualControlPad.gameObject.SetActive(true);
+            this.enabled = true;
+        }
 #endif
 
 #if UNITY_IOS
         virtualControlPad.gameObject.SetActive(true);
         this.enabled = true;
 #endif
+
+        OnAim();
     }
 
     public Vector2 OnTouchPadMove() {
@@ -54,5 +75,21 @@ public class MobileInputManager : MonoBehaviour {
     public Vector3 OnJoystickMove() {
         Vector3 joystickAxis = new Vector3(moveJoystick.axisX.axisValue, 0, moveJoystick.axisY.axisValue);
         return joystickAxis;
+    }
+
+    public bool OnFire() {
+        return ETCInput.GetButton("ShootButton");
+    }
+
+    public bool OnSprint() {
+        return ETCInput.GetButton("SprintButton");
+    }
+
+    private bool OnAim() {
+        if (ETCInput.GetButtonDown("AimButton")) {
+            isAim = !isAim;
+        }
+
+        return isAim;
     }
 }

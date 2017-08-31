@@ -1,11 +1,12 @@
 ﻿/***********************************************
 				EasyTouch Controls
-	Copyright © 2016 The Hedgehog Team
-      http://www.thehedgehogteam.com/Forum/
+	Copyright © 2014-2015 The Hedgehog Team
+  http://www.blitz3dfr.com/teamtalk/index.php
 		
 	  The.Hedgehog.Team@gmail.com
 		
 **********************************************/
+
 using UnityEngine;
 using System.Collections;
 
@@ -13,9 +14,9 @@ using System.Collections;
 public class ETCAxis {
 
 	#region Enumeration
-	public enum DirectAction {Rotate, RotateLocal,Translate, TranslateLocal, Scale, Force,RelativeForce, Torque,RelativeTorque, Jump};
+	public enum DirectAction {Rotate, RotateLocal,Translate, TranslateLocal, Scale, Force,RelativeForce, Torque,RelativeTorque};
 	public enum AxisInfluenced{X,Y,Z};
-	public enum AxisValueMethod {Classical, Curve};
+	public enum AxisRange {Classical, Positif};
 	public enum AxisState {None,Down,Press,Up, DownUp,DownDown,DownLeft,DownRight, PressUp, PressDown, PressLeft, PressRight};
 	public enum ActionOn {Down,Press};
 	#endregion
@@ -23,18 +24,11 @@ public class ETCAxis {
 	#region Members
 	public string name;
 
-	public bool autoLinkTagPlayer = false;
-	public string autoTag ="Player";
-	public GameObject player;
-
 	public bool enable;
+	public AxisRange range;
 	public bool invertedAxis;
 	public float speed;
-
-	//
 	public float deadValue;
-	public AxisValueMethod valueMethod;
-	public AnimationCurve curveValue;
 
 	public bool isEnertia;
 	public float inertia;
@@ -60,8 +54,6 @@ public class ETCAxis {
 	public float axisValue;
 	public float axisSpeedValue;
 	public float axisThreshold;
-	public bool isLockinJump=false;
-	private Vector3 lastMove;
 
 	public AxisState axisState;
 
@@ -77,7 +69,6 @@ public class ETCAxis {
 			if (_directTransform!=null){
 				directCharacterController = _directTransform.GetComponent<CharacterController>();
 				directRigidBody = _directTransform.GetComponent<Rigidbody>();
-
 			}
 			else{
 				directCharacterController=null;	
@@ -92,24 +83,17 @@ public class ETCAxis {
 
 	public CharacterController directCharacterController;
 	public Rigidbody directRigidBody;
-
 	public float gravity;
-	public float currentGravity=0;
-	public bool isJump = false;
 
-	// Simulation
-	public string unityAxis;
-
-	public bool showGeneralInspector=false;
-	public bool showDirectInspector=false;
-	public bool showInertiaInspector=false;
-	public bool showSimulatinInspector=false;
+	public KeyCode positivekey;
+	public KeyCode negativeKey;
 	#endregion
 
 	#region Constructeur
 	public ETCAxis(string axisName){
 		name = axisName;
 		enable = true;
+		range = AxisRange.Classical;
 		speed = 15;
 		invertedAxis = false;
 		isEnertia = false;
@@ -135,30 +119,14 @@ public class ETCAxis {
 
 	#region Public method
 	public void InitAxis(){
-
-		if (autoLinkTagPlayer){
-
-			player = GameObject.FindGameObjectWithTag(autoTag);
-			if (player){
-				directTransform = player.transform;
-			}
-		}
 		startAngle = GetAngle();
 	}
 
 	public void UpdateAxis(float realValue, bool isOnDrag, ETCBase.ControlType type,bool deltaTime=true){
 
-		// Auto link
-		if (autoLinkTagPlayer && player==null || ( player && !player.activeSelf)){
-			player = GameObject.FindGameObjectWithTag(autoTag);
-			if (player){
-				directTransform = player.transform;
-			}
-		}
-
 
 		// Auto stabilization
-		if (isAutoStab && axisValue ==0 && _directTransform){
+		if (isAutoStab && axisValue ==0){
 			DoAutoStabilisation();
 		}
 
@@ -184,14 +152,6 @@ public class ETCAxis {
 
 	public void UpdateButton(){
 
-		// Auto link
-		if (autoLinkTagPlayer && player==null || ( player && !player.activeSelf)){
-			player = GameObject.FindGameObjectWithTag(autoTag);
-			if (player){
-				directTransform = player.transform;
-			}
-		}
-
 		if (isValueOverTime){
 			axisValue += overTimeStep * Time.deltaTime;
 			axisValue = Mathf.Clamp( axisValue,0,maxOverTimeValue);
@@ -204,16 +164,15 @@ public class ETCAxis {
 				axisValue = 0;
 			}
 		}
+		axisSpeedValue = axisValue * speed * Time.deltaTime;
 
 		switch (actionOn){
 			case ActionOn.Down:
-				axisSpeedValue = axisValue * speed ;
 				if (axisState == AxisState.Down){
 					DoDirectAction();
 				}
 				break;
 			case ActionOn.Press:
-				axisSpeedValue = axisValue * speed * Time.deltaTime;
 				if (axisState == AxisState.Press){
 					DoDirectAction();
 				}
@@ -245,18 +204,11 @@ public class ETCAxis {
 				
 			case ETCAxis.DirectAction.Translate:
 				if ( directCharacterController==null){
-
 					directTransform.Translate(localAxis *  axisSpeedValue,Space.World);
 				}
 				else{
-					if (directCharacterController.isGrounded || !isLockinJump){
-						Vector3 direction = localAxis *  axisSpeedValue;
-						directCharacterController.Move( direction  );
-						lastMove = localAxis *  (axisSpeedValue/Time.deltaTime);
-					}
-					else{
-						directCharacterController.Move( lastMove * Time.deltaTime);
-					}
+					Vector3 direction = localAxis *  axisSpeedValue;
+					directCharacterController.Move( direction  );
 				}
 				break;
 				
@@ -266,14 +218,8 @@ public class ETCAxis {
 					directTransform.Translate(localAxis *  axisSpeedValue,Space.Self);
 				}
 				else{
-					if (directCharacterController.isGrounded || !isLockinJump){
-						Vector3 direction =  directCharacterController.transform.TransformDirection(localAxis) *  axisSpeedValue;
-						directCharacterController.Move( direction );
-						lastMove =directCharacterController.transform.TransformDirection(localAxis) *  (axisSpeedValue/Time.deltaTime);
-					}
-					else{
-						directCharacterController.Move( lastMove * Time.deltaTime );
-					}
+					Vector3 direction =  directCharacterController.transform.TransformDirection(localAxis) *  axisSpeedValue;
+					directCharacterController.Move( direction );
 				}
 				break;	
 				
@@ -316,47 +262,22 @@ public class ETCAxis {
 					Debug.LogWarning("ETCAxis : "+ name + " No rigidbody on gameobject : "+ _directTransform.name); 
 				}
 				break;
-
-			case ETCAxis.DirectAction.Jump:
-				if ( directCharacterController!=null){
-
-					if (!isJump){
-						isJump = true;
-						currentGravity = speed;
-					}
-				}
-				break;
-			}
-
-			if (isClampRotation &&  directAction == DirectAction.RotateLocal){
-				DoAngleLimitation();
 			}
 		}
 
+		if (isClampRotation &&  directAction == DirectAction.RotateLocal){
+			DoAngleLimitation();
+		}
+
 	}
-	
+
 	public void DoGravity(){
-
 		if (directCharacterController != null && gravity!=0){
-		
-			if (!isJump){
-				Vector3 move = new Vector3(0,-gravity,0);
-				directCharacterController.Move( move * Time.deltaTime);
-			}
-			else{
-				currentGravity -= gravity*Time.deltaTime;
-				Vector3 move = new Vector3(0,currentGravity,0);
-				directCharacterController.Move( move * Time.deltaTime);
-			}
-
-			if (directCharacterController.isGrounded){
-				isJump = false;
-				currentGravity =0;
-			}
-
-
+			directCharacterController.Move( Vector3.down*gravity*Time.deltaTime);	
 		}
 	}
+
+
 	#endregion
 
 	#region Private methods
@@ -366,17 +287,9 @@ public class ETCAxis {
 		if (enable){
 
 			if (type == ETCBase.ControlType.Joystick){
-
-				if (valueMethod == AxisValueMethod.Classical){
-					float dist = Mathf.Max(Mathf.Abs(realValue),0.001f);
-					float dead = Mathf.Max(dist - deadValue, 0)/(1f - deadValue)/dist;
-					realValue *= dead;
-
-				}
-				else{
-					//realValue = deadCurve.Evaluate( Mathf.Abs(realValue)) * Mathf.Sign( realValue);
-					realValue = curveValue.Evaluate( realValue);
-				}
+				float dist = Mathf.Max(Mathf.Abs(realValue),0.001f);
+				float dead = Mathf.Max(dist - deadValue, 0)/(1f - deadValue)/dist;
+				realValue *= dead;
 			}
 
 			if (isEnertia){
@@ -489,47 +402,24 @@ public class ETCAxis {
 	}
 
 	private void DoAngleLimitation(){
+		
+		float angle= GetAngle();
 
-		Quaternion q = _directTransform.localRotation;
-		
-		q.x /= q.w;
-		q.y /= q.w;
-		q.z /= q.w;
-		q.w = 1.0f;
-		
-		float newAngle = 0;
-		
+		angle = Mathf.Clamp (angle, -minAngle, maxAngle);
+
 		switch(axisInfluenced){
 		case AxisInfluenced.X:
-			newAngle = 2.0f * Mathf.Rad2Deg * Mathf.Atan (q.x);
-			newAngle = Mathf.Clamp (newAngle, -minAngle, maxAngle);
-			q.x = Mathf.Tan (0.5f * Mathf.Deg2Rad * newAngle);
-			break;
+			_directTransform.localEulerAngles = new Vector3( angle,_directTransform.localEulerAngles.y, _directTransform.localEulerAngles.z);
+			break;	
 		case AxisInfluenced.Y:
-			newAngle = 2.0f * Mathf.Rad2Deg * Mathf.Atan (q.y);
-			newAngle = Mathf.Clamp (newAngle, -minAngle, maxAngle);
-			q.y = Mathf.Tan (0.5f * Mathf.Deg2Rad * newAngle);
+			_directTransform.localEulerAngles = new Vector3( _directTransform.localEulerAngles.x,angle, _directTransform.localEulerAngles.z);
 			break;
 		case AxisInfluenced.Z:
-			newAngle = 2.0f * Mathf.Rad2Deg * Mathf.Atan (q.z);
-			newAngle = Mathf.Clamp (newAngle, -minAngle, maxAngle);
-			q.z = Mathf.Tan (0.5f * Mathf.Deg2Rad * newAngle);
-			break;
+			_directTransform.localEulerAngles = new Vector3( _directTransform.localEulerAngles.x,_directTransform.localEulerAngles.y,angle);
+			break;	
+			
 		}
-		
-		
-		
-		_directTransform.localRotation = q;
 		
 	}
 	#endregion
-
-	public void InitDeadCurve(){
-
-		curveValue = AnimationCurve.EaseInOut(0,0,1,1);
-		curveValue.postWrapMode = WrapMode.PingPong;
-		curveValue.preWrapMode = WrapMode.PingPong;
-	}
-
-
 }

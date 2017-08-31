@@ -26,6 +26,8 @@ public class PlayerWeapon{
             coolDownTime = 0.5f;
         } else if (currentWeapon == Weapon.obstacleCreator) {
             coolDownTime = 1;
+        } else {
+            coolDownTime = 0;
         }
 
         return coolDownTime;

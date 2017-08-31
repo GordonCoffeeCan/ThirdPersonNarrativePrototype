@@ -1,7 +1,7 @@
 /***********************************************
 				EasyTouch Controls
-	Copyright © 2016 The Hedgehog Team
-      http://www.thehedgehogteam.com/Forum/
+	Copyright © 2014-2015 The Hedgehog Team
+  http://www.blitz3dfr.com/teamtalk/index.php
 		
 	  The.Hedgehog.Team@gmail.com
 		
@@ -57,8 +57,12 @@ public class ETCButton : ETCBase, IPointerEnterHandler, IPointerDownHandler, IPo
 		isOnTouch = false;
 
 		enableKeySimulation = true;
+		#if !UNITY_EDITOR
+			enableKeySimulation = false;
+		#endif
 
-		axis.unityAxis = "Jump";
+		axis.positivekey = KeyCode.Space;
+
 		showPSInspector = true; 
 		showSpriteInspector = false;
 		showBehaviourInspector = false;
@@ -70,38 +74,28 @@ public class ETCButton : ETCBase, IPointerEnterHandler, IPointerDownHandler, IPo
 	protected override void Awake (){
 		base.Awake ();
 
-		cachedImage = GetComponent<UnityEngine.UI.Image>();
+		cachedImage = GetComponent<Image>();
 
 	}
 
-	public override void Start(){
-		axis.InitAxis();
-		base.Start();
+	void Start(){
 		isOnPress = false;
-
-		if (allowSimulationStandalone && enableKeySimulation && !Application.isEditor){
-			SetVisible(visibleOnStandalone);
-		}
 	}
-	
-	protected override void UpdateControlState (){
+
+
+	protected override void UpdateControlState ()
+	{
 		UpdateButton();
-	}
-
-	protected override void DoActionBeforeEndOfFrame (){
-		axis.DoGravity();
 	}
 	#endregion
 
 	#region UI Callback
 	public void OnPointerEnter(PointerEventData eventData){
-
-		if (isSwipeIn && !isOnTouch){
+		if (isSwipeIn &&  axis.axisState == ETCAxis.AxisState.None){
 
 			if (eventData.pointerDrag != null){
 				if (eventData.pointerDrag.GetComponent<ETCBase>() && eventData.pointerDrag!= gameObject){
 					previousDargObject=eventData.pointerDrag;
-					//ExecuteEvents.Execute<IPointerUpHandler> (previousDargObject, eventData, ExecuteEvents.pointerUpHandler);
 				}
 			}
 
@@ -113,9 +107,7 @@ public class ETCButton : ETCBase, IPointerEnterHandler, IPointerDownHandler, IPo
 
 	public void OnPointerDown(PointerEventData eventData){
 
-		if (_activated && !isOnTouch){
-			pointId = eventData.pointerId;
-
+		if (_activated){
 			axis.ResetAxis();
 			axis.axisState = ETCAxis.AxisState.Down;
 
@@ -124,31 +116,27 @@ public class ETCButton : ETCBase, IPointerEnterHandler, IPointerDownHandler, IPo
 
 			onDown.Invoke();
 			ApllyState();
-			axis.UpdateButton();
 		}
 	}
 
 	public void OnPointerUp(PointerEventData eventData){
-		if (pointId == eventData.pointerId){
-			isOnPress = false;
-			isOnTouch = false;
-			axis.axisState = ETCAxis.AxisState.Up;
-			axis.axisValue = 0;
-			onUp.Invoke();
-			ApllyState();
+	
+		isOnPress = false;
+		isOnTouch = false;
+		axis.axisState = ETCAxis.AxisState.Up;
+		axis.axisValue = 0;
+		onUp.Invoke();
+		ApllyState();
 
-			if (previousDargObject){
-				ExecuteEvents.Execute<IPointerUpHandler> (previousDargObject, eventData, ExecuteEvents.pointerUpHandler);
-				previousDargObject = null;
-			}
+		if (previousDargObject){
+			ExecuteEvents.Execute<IPointerUpHandler> (previousDargObject, eventData, ExecuteEvents.pointerUpHandler);
+			previousDargObject = null;
 		}
 	}
 
 	public void OnPointerExit(PointerEventData eventData){
-		if (pointId == eventData.pointerId){
-			if (axis.axisState == ETCAxis.AxisState.Press && !isSwipeOut){
-				OnPointerUp(eventData);
-			}
+		if (axis.axisState == ETCAxis.AxisState.Press && !isSwipeOut){
+			OnPointerUp(eventData);
 		}
 	}
 	#endregion
@@ -157,7 +145,6 @@ public class ETCButton : ETCBase, IPointerEnterHandler, IPointerDownHandler, IPo
 	private void UpdateButton(){
 
 		if (axis.axisState == ETCAxis.AxisState.Down){
-
 			isOnPress = true;
 			axis.axisState = ETCAxis.AxisState.Press;
 		}
@@ -176,64 +163,42 @@ public class ETCButton : ETCBase, IPointerEnterHandler, IPointerDownHandler, IPo
 
 
 		if (enableKeySimulation && _activated && _visible && !isOnTouch){
-
-			if (Input.GetButton( axis.unityAxis)&& axis.axisState ==ETCAxis.AxisState.None ){	
-				axis.ResetAxis();
-				onDown.Invoke();
+			
+			
+			if (Input.GetKey( axis.positivekey) && axis.axisState ==ETCAxis.AxisState.None  ){
 				axis.axisState = ETCAxis.AxisState.Down;
 			}
-
-			if (!Input.GetButton(axis.unityAxis )&& axis.axisState == ETCAxis.AxisState.Press){
+			
+			if (!Input.GetKey(axis.positivekey) && axis.axisState == ETCAxis.AxisState.Press){
 				axis.axisState = ETCAxis.AxisState.Up;
-				axis.axisValue = 0;
-				
 				onUp.Invoke();
 			}
-
-			axis.UpdateButton();
-			ApllyState();
 		}
-
 
 	}	
 	#endregion
 
 	#region Private Method
-	protected override void SetVisible (bool forceUnvisible=false){
-		bool localVisible = _visible;
-		if (!visible){
-			localVisible = visible;
-		}
-		GetComponent<Image>().enabled = localVisible;
+	protected override void SetVisible (){
+		GetComponent<Image>().enabled = _visible;
 	}
 
 	private void ApllyState(){
 
-		if (cachedImage){
-			switch (axis.axisState){
-			case ETCAxis.AxisState.Down:
+		switch (axis.axisState){
+		case ETCAxis.AxisState.Down:
 			case ETCAxis.AxisState.Press:
-					cachedImage.sprite = pressedSprite;
-					cachedImage.color = pressedColor;
-					break;
-				default:
-					cachedImage.sprite = normalSprite;
-					cachedImage.color = normalColor;
-					break;
-			}
+				cachedImage.sprite = pressedSprite;
+				cachedImage.color = pressedColor;
+				break;
+			default:
+				cachedImage.sprite = normalSprite;
+				cachedImage.color = normalColor;
+				break;
 		}
 
-	}
 
-	protected override void SetActivated(){
-
-		if (!_activated){
-			isOnPress = false;
-			isOnTouch = false;
-			axis.axisState = ETCAxis.AxisState.None;
-			axis.axisValue = 0;
-			ApllyState();
-		}
+	
 	}
 	#endregion
 }

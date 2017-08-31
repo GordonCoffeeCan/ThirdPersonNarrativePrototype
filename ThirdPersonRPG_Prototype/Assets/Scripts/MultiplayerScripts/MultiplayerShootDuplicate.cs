@@ -98,7 +98,7 @@ public class MultiplayerShootDuplicate : NetworkBehaviour {
 
         SetCoolDownLevel();
 
-        if (ControllerManager.instacne.OnFire() && isFired == false) {
+        if (ControllerManager.instance.OnFire() && isFired == false) {
             switch (weapon.currentWeapon) {
                 case PlayerWeapon.Weapon.freezer:
                     if(readyToFire == true) {
@@ -113,7 +113,7 @@ public class MultiplayerShootDuplicate : NetworkBehaviour {
                     break;
             }
             isFired = true;
-        } else if (ControllerManager.instacne.OnFire() == false) {
+        } else if (ControllerManager.instance.OnFire() == false) {
             isFired = false;
         }
     }
@@ -133,7 +133,7 @@ public class MultiplayerShootDuplicate : NetworkBehaviour {
         RaycastHit _hit;
 
         //adjust ray cast position on Aim or not;
-        if (ControllerManager.instacne.OnAim()) {
+        if (ControllerManager.instance.OnAim()) {
             _rayPostion = playerCamera.transform.position;
             _rayDirection = playerCamera.transform.forward;
         } else {
@@ -182,7 +182,7 @@ public class MultiplayerShootDuplicate : NetworkBehaviour {
     private void OnObstacleAction() {
         RaycastHit _hit;
 
-        if (ControllerManager.instacne.OnAim()) {
+        if (ControllerManager.instance.OnAim()) {
             if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out _hit, weapon.range, layerMask)) {
                 if (_hit.collider.tag == OBSTACLE_TAG) {
                     CmdDestroyObstacle(_hit.collider.name);

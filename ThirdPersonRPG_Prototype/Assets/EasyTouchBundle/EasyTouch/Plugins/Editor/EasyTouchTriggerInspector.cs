@@ -4,10 +4,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
-using HedgehogTeam.EasyTouch;
-#if UNITY_5_3_OR_NEWER
-using UnityEditor.SceneManagement;
-#endif
 
 [CustomEditor(typeof(EasyTouchTrigger))]
 public class EasyTouchTriggerInspector : Editor {
@@ -16,14 +12,14 @@ public class EasyTouchTriggerInspector : Editor {
 
 		EasyTouchTrigger t = (EasyTouchTrigger)target;
 
-		string[] eventNames = Enum.GetNames( typeof(EasyTouch.EvtType) ) ;
+		string[] eventNames = Enum.GetNames( typeof(EasyTouch.EventName) ) ;
 		eventNames[0] = "Add new event";
 
 		#region Event properties
 		GUILayout.Space(5f);
 		for (int i=1;i<eventNames.Length;i++){
 
-			EasyTouch.EvtType ev = (EasyTouch.EvtType)Enum.Parse( typeof(EasyTouch.EvtType), eventNames[i]);
+			EasyTouch.EventName ev = (EasyTouch.EventName)Enum.Parse( typeof(EasyTouch.EventName), eventNames[i]);
 			int result = t.receivers.FindIndex(
 				delegate(EasyTouchTrigger.EasyTouchReceiver e){
 				return  e.eventName == ev;
@@ -43,20 +39,14 @@ public class EasyTouchTriggerInspector : Editor {
 
 		if (index!=0){
 			//AddEvent((EasyTouch.EventName)Enum.Parse( typeof(EasyTouch.EventName), eventNames[index]),t );
-			t.AddTrigger( (EasyTouch.EvtType)Enum.Parse( typeof(EasyTouch.EvtType), eventNames[index]));
+			t.AddTrigger( (EasyTouch.EventName)Enum.Parse( typeof(EasyTouch.EventName), eventNames[index]));
 			EditorPrefs.SetBool( eventNames[index], true); 
 		}
 		#endregion
 
-		if (GUI.changed){
-			EditorUtility.SetDirty(t);
-			#if UNITY_5_3_OR_NEWER
-			EditorSceneManager.MarkSceneDirty( EditorSceneManager.GetActiveScene());
-			#endif
-		}
 	}
 
-	private void TriggerInspector(EasyTouch.EvtType ev, EasyTouchTrigger t){
+	private void TriggerInspector(EasyTouch.EventName ev, EasyTouchTrigger t){
 
 		bool folding = EditorPrefs.GetBool( ev.ToString() );
 		folding = HTGuiTools.BeginFoldOut( ev.ToString(),folding,false);
@@ -92,22 +82,10 @@ public class EasyTouchTriggerInspector : Editor {
 					EditorGUILayout.Space();
 
 					// Restriced
-					//t.receivers[i].restricted = HTGuiTools.Toggle("Restricted to gameobject",t.receivers[i].restricted,true);
-
-					t.receivers[i].triggerType = (EasyTouchTrigger.ETTType)EditorGUILayout.EnumPopup("Testing on",t.receivers[i].triggerType );
-
-					EditorGUILayout.BeginHorizontal();
-					t.receivers[i].restricted = EditorGUILayout.Toggle("",t.receivers[i].restricted ,(GUIStyle)"Radio" ,GUILayout.Width(15));
-					EditorGUILayout.LabelField("Only if on me (requiered a collider)");
-					EditorGUILayout.EndHorizontal();
-
-					EditorGUILayout.BeginHorizontal();
-					t.receivers[i].restricted = !EditorGUILayout.Toggle("",!t.receivers[i].restricted ,(GUIStyle)"Radio",GUILayout.Width(15));				
-					EditorGUILayout.LabelField("All the time, or other object");
-					EditorGUILayout.EndHorizontal();
+					t.receivers[i].restricted = HTGuiTools.Toggle("Restricted to gameobject",t.receivers[i].restricted,true);
 
 					if (!t.receivers[i].restricted){
-						t.receivers[i].gameObject = (GameObject)EditorGUILayout.ObjectField("Other object",t.receivers[i].gameObject,typeof(GameObject),true);
+						t.receivers[i].gameObject = (GameObject)EditorGUILayout.ObjectField("GameObject",t.receivers[i].gameObject,typeof(GameObject),true);
 					}
 					EditorGUILayout.Space();
 					EditorGUILayout.Space();
@@ -158,7 +136,7 @@ public class EasyTouchTriggerInspector : Editor {
 
 	}
 
-	private void AddEvent(EasyTouch.EvtType ev, EasyTouchTrigger t){
+	private void AddEvent(EasyTouch.EventName ev, EasyTouchTrigger t){
 		EasyTouchTrigger.EasyTouchReceiver r = new EasyTouchTrigger.EasyTouchReceiver();
 		r.enable = true;
 		r.restricted = true;

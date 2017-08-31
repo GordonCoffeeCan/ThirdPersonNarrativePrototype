@@ -2,28 +2,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using UnityEditor;
-#if UNITY_5_3_OR_NEWER
-using UnityEditor.SceneManagement;
-#endif
 
 [CustomEditor(typeof(ETCButton))]
 public class ETCButtonInspector : Editor {
-
-	public string[] unityAxes;
-	
-	void OnEnable(){
-		var inputManager = AssetDatabase.LoadAllAssetsAtPath("ProjectSettings/InputManager.asset")[0];
-		SerializedObject obj = new SerializedObject(inputManager);
-		SerializedProperty axisArray = obj.FindProperty("m_Axes");
-		if (axisArray.arraySize > 0){
-			unityAxes = new string[axisArray.arraySize];
-			for( int i = 0; i < axisArray.arraySize; ++i ){
-				var axis = axisArray.GetArrayElementAtIndex(i);
-				unityAxes[i] = axis.FindPropertyRelative("m_Name").stringValue;
-			}
-		}
-		
-	}
 
 	public override void OnInspectorGUI(){
 		
@@ -38,10 +19,7 @@ public class ETCButtonInspector : Editor {
 
 		t.activated = ETCGuiTools.Toggle("Activated",t.activated,true);
 		t.visible = ETCGuiTools.Toggle("Visible",t.visible,true);
-
-		EditorGUILayout.Space();
-		t.useFixedUpdate = ETCGuiTools.Toggle("Use Fixed Update",t.useFixedUpdate,true);
-		t.isUnregisterAtDisable = ETCGuiTools.Toggle("Unregister at disabling time",t.isUnregisterAtDisable,true);
+		t.useFixedUpdate = ETCGuiTools.Toggle("Use Fixed Updae",t.useFixedUpdate,true);
 
 		#region Position & Size
 		t.showPSInspector = ETCGuiTools.BeginFoldOut( "Position & Size",t.showPSInspector);
@@ -82,93 +60,39 @@ public class ETCButtonInspector : Editor {
 			ETCGuiTools.BeginGroup();{
 
 				EditorGUILayout.Space();
-				ETCGuiTools.BeginGroup(5);{
-					t.enableKeySimulation = ETCGuiTools.Toggle("Enable Unity axes",t.enableKeySimulation,true);
-					if (t.enableKeySimulation){
-						t.allowSimulationStandalone = ETCGuiTools.Toggle("Allow Unity axes on standalone",t.allowSimulationStandalone,true);
-						t.visibleOnStandalone = ETCGuiTools.Toggle("Force visible",t.visibleOnStandalone,true);
-					}
-				}ETCGuiTools.EndGroup();
-
-				#region General propertie
-				EditorGUI.indentLevel++;
-				t.axis.showGeneralInspector = EditorGUILayout.Foldout(t.axis.showGeneralInspector,"General setting");
-				if (t.axis.showGeneralInspector){
-					ETCGuiTools.BeginGroup(20);{
-						EditorGUI.indentLevel--;
-
-						t.isSwipeIn = ETCGuiTools.Toggle("Swipe in",t.isSwipeIn,true);
-						t.isSwipeOut = ETCGuiTools.Toggle("Swipe out",t.isSwipeOut,true);
-
-						t.axis.isValueOverTime = ETCGuiTools.Toggle("Value over the time",t.axis.isValueOverTime,true);
-						if (t.axis.isValueOverTime){
-
-							ETCGuiTools.BeginGroup(5);{
-								t.axis.overTimeStep = EditorGUILayout.FloatField("Step",t.axis.overTimeStep);
-								t.axis.maxOverTimeValue = EditorGUILayout.FloatField("Max value",t.axis.maxOverTimeValue);
-							}ETCGuiTools.EndGroup();
-
-						}
-						t.axis.speed = EditorGUILayout.FloatField("Value",t.axis.speed);
-
-						EditorGUI.indentLevel++;
-					}ETCGuiTools.EndGroup();
+				t.enableKeySimulation = ETCGuiTools.Toggle("Enable key simulation",t.enableKeySimulation,true);
+				if (t.enableKeySimulation){
+					t.allowSimulationStandalone = ETCGuiTools.Toggle("Allow simulation on standalone",t.allowSimulationStandalone,true);
 				}
-				EditorGUI.indentLevel--;
-				#endregion
+				EditorGUILayout.Space();
 
-				#region Direct Action
-				EditorGUI.indentLevel++;
-				t.axis.showDirectInspector = EditorGUILayout.Foldout(t.axis.showDirectInspector,"Direction ation");
-				if (t.axis.showDirectInspector){
-					ETCGuiTools.BeginGroup(20);{
-						EditorGUI.indentLevel--;
+				t.isSwipeIn = ETCGuiTools.Toggle("Swipe in",t.isSwipeIn,true);
+				t.isSwipeOut = ETCGuiTools.Toggle("Swipe out",t.isSwipeOut,true);
 
-						t.axis.autoLinkTagPlayer = EditorGUILayout.ToggleLeft("Auto link on tag",t.axis.autoLinkTagPlayer, GUILayout.Width(200));
-						if (t.axis.autoLinkTagPlayer){
-							t.axis.autoTag = EditorGUILayout.TagField("",t.axis.autoTag);
-						}
-						else{
-							t.axis.directTransform = (Transform)EditorGUILayout.ObjectField("Direct action to",t.axis.directTransform,typeof(Transform),true);
-						}
-
-						EditorGUILayout.Space();
-	
-						t.axis.actionOn = (ETCAxis.ActionOn)EditorGUILayout.EnumPopup("Action on",t.axis.actionOn);
-
-						t.axis.directAction = (ETCAxis.DirectAction ) EditorGUILayout.EnumPopup( "Action",t.axis.directAction);
-
-						if (t.axis.directAction != ETCAxis.DirectAction.Jump){
-							t.axis.axisInfluenced = (ETCAxis.AxisInfluenced) EditorGUILayout.EnumPopup("Affected axis",t.axis.axisInfluenced);
-						}
-						else{
-							EditorGUILayout.HelpBox("Required character controller", MessageType.Info);
-							t.axis.gravity = EditorGUILayout.FloatField("Gravity",t.axis.gravity);
-						}
-						EditorGUI.indentLevel++;
+				t.axis.isValueOverTime = ETCGuiTools.Toggle("Value over the time",t.axis.isValueOverTime,true);
+				if (t.axis.isValueOverTime){
+					//EditorGUI.indentLevel--;
+					ETCGuiTools.BeginGroup(5);{
+						t.axis.overTimeStep = EditorGUILayout.FloatField("Step",t.axis.overTimeStep);
+						t.axis.maxOverTimeValue = EditorGUILayout.FloatField("Max value",t.axis.maxOverTimeValue);
 					}ETCGuiTools.EndGroup();
-				}
-				EditorGUI.indentLevel--;
-				#endregion
-
-				#region Unity axis
-				EditorGUI.indentLevel++;
-				t.axis.showSimulatinInspector = EditorGUILayout.Foldout(t.axis.showSimulatinInspector,"Unity axes");
-				if (t.axis.showSimulatinInspector){
-					ETCGuiTools.BeginGroup(20);{
-						EditorGUI.indentLevel--;
-						int index = System.Array.IndexOf(unityAxes,t.axis.unityAxis );
-						int tmpIndex = EditorGUILayout.Popup(index,unityAxes);
-						if (tmpIndex != index){
-							t.axis.unityAxis = unityAxes[tmpIndex];
-						}
-						EditorGUI.indentLevel++;
-					}ETCGuiTools.EndGroup();
-					
+					//EditorGUI.indentLevel++;
 				}
 
-				EditorGUI.indentLevel--;
-				#endregion
+				EditorGUILayout.Space();
+
+				t.axis.speed = EditorGUILayout.FloatField("Speed",t.axis.speed);
+
+				EditorGUILayout.Space();
+
+				t.axis.actionOn = (ETCAxis.ActionOn)EditorGUILayout.EnumPopup("Action on",t.axis.actionOn);
+				t.axis.directTransform = (Transform)EditorGUILayout.ObjectField("Direct action to",t.axis.directTransform,typeof(Transform),true);
+				
+				t.axis.directAction = (ETCAxis.DirectAction ) EditorGUILayout.EnumPopup( "Action",t.axis.directAction);
+				t.axis.axisInfluenced = (ETCAxis.AxisInfluenced) EditorGUILayout.EnumPopup("Affected axis",t.axis.axisInfluenced);
+
+				EditorGUILayout.Space();
+				t.axis.positivekey = (UnityEngine.KeyCode)EditorGUILayout.EnumPopup("Positive key",t.axis.positivekey);
 
 			}ETCGuiTools.EndGroup();
 
@@ -266,17 +190,12 @@ public class ETCButtonInspector : Editor {
 		}
 		#endregion
 
+		if (GUI.changed){
+			EditorUtility.SetDirty(t);
+		}
+
 		if (t.anchor != ETCBase.RectAnchor.UserDefined){
 			t.SetAnchorPosition();
 		}
-
-		if (GUI.changed){
-			EditorUtility.SetDirty(t);
-			#if UNITY_5_3_OR_NEWER
-			EditorSceneManager.MarkSceneDirty( EditorSceneManager.GetActiveScene());
-			#endif
-		}
-
-
 	}
 }

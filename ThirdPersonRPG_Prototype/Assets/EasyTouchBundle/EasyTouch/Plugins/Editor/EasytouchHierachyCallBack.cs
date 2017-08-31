@@ -4,7 +4,6 @@
 using UnityEngine;
 using UnityEditor;
 using System;
-using HedgehogTeam.EasyTouch;
 
 [InitializeOnLoad]
 public class EasytouchHierachyCallBack{
@@ -19,18 +18,6 @@ public class EasytouchHierachyCallBack{
 			return EasytouchHierachyCallBack.hierarchyIcon;
 		}
 	}	
-
-	private static Texture2D hierarchyEventIcon;
-	private static Texture2D HierarchyEventIcon {
-		get {
-			if (EasytouchHierachyCallBack.hierarchyEventIcon==null){
-				EasytouchHierachyCallBack.hierarchyEventIcon = (Texture2D)Resources.Load( "EasyTouchTrigger_Icon");
-			}
-			return EasytouchHierachyCallBack.hierarchyEventIcon;
-		}
-	}
-
-
 	// constructor
 	static EasytouchHierachyCallBack()
 	{
@@ -42,20 +29,10 @@ public class EasytouchHierachyCallBack{
 	private static void DrawHierarchyIcon(int instanceID, Rect selectionRect)
 	{
 		GameObject gameObject = EditorUtility.InstanceIDToObject(instanceID) as GameObject;
-
-		if (gameObject != null){
+		if (gameObject != null && gameObject.GetComponent<EasyTouch>() != null)
+		{
 			Rect rect = new Rect(selectionRect.x + selectionRect.width - 16f, selectionRect.y, 16f, 16f);
-			if ( gameObject.GetComponent<EasyTouch>() != null){
-				GUI.DrawTexture( rect,EasytouchHierachyCallBack.HierarchyIcon);
-			}
-			else if (gameObject.GetComponent<QuickBase>() != null){
-				GUI.DrawTexture( rect,EasytouchHierachyCallBack.HierarchyEventIcon);
-			}
-#if FALSE
-			else if (gameObject.GetComponent<EasyTouchSceneProxy>() != null){
-				GUI.DrawTexture( rect,EasytouchHierachyCallBack.HierarchyIcon);
-			}
-#endif
+			GUI.DrawTexture( rect,EasytouchHierachyCallBack.HierarchyIcon);
 		}
 	}
 		

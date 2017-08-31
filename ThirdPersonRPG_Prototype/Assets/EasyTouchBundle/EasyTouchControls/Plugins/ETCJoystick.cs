@@ -1,7 +1,7 @@
 /***********************************************
 				EasyTouch Controls
-	Copyright © 2016 The Hedgehog Team
-      http://www.thehedgehogteam.com/Forum/
+	Copyright © 2014-2015 The Hedgehog Team
+  http://www.blitz3dfr.com/teamtalk/index.php
 		
 	  The.Hedgehog.Team@gmail.com
 		
@@ -57,7 +57,7 @@ public class ETCJoystick : ETCBase,IPointerEnterHandler,IDragHandler, IBeginDrag
 	#region Enumeration
 	public enum JoystickArea { UserDefined,FullScreen, Left,Right,Top, Bottom, TopLeft, TopRight, BottomLeft, BottomRight};
 	public enum JoystickType {Dynamic, Static};
-	public enum RadiusBase {Width, Height, UserDefined};
+	public enum RadiusBase {Width, Height};
 	#endregion
 
 	#region Members
@@ -66,21 +66,12 @@ public class ETCJoystick : ETCBase,IPointerEnterHandler,IDragHandler, IBeginDrag
 	public JoystickType joystickType;
 	public bool allowJoystickOverTouchPad;
 	public RadiusBase radiusBase;
-	public float radiusBaseValue;
 	public ETCAxis axisX;
 	public ETCAxis axisY;
 	public RectTransform thumb;
 	
 	public JoystickArea joystickArea;
 	public RectTransform userArea;
-
-	public bool isTurnAndMove = false;
-	public float tmSpeed = 10;
-	public float tmAdditionnalRotation = 0;
-	public AnimationCurve tmMoveCurve;
-	public bool tmLockInJump = false;
-	private Vector3 tmLastMove;
-
 	#endregion
 		
 	#region Private members
@@ -89,35 +80,6 @@ public class ETCJoystick : ETCBase,IPointerEnterHandler,IDragHandler, IBeginDrag
 	private Vector2 tmpAxis;
 	private Vector2 OldTmpAxis;
 	private bool isOnTouch;
-
-
-	#endregion
-
-	#region Joystick behavior option
-	[SerializeField]
-	private bool isNoReturnThumb;
-	public bool IsNoReturnThumb {
-		get {
-			return isNoReturnThumb;
-		}
-		set {
-			isNoReturnThumb = value;
-		}
-	}	
-
-	private Vector2 noReturnPosition;
-	private Vector2 noReturnOffset;
-
-	[SerializeField]
-	private bool isNoOffsetThumb;
-	public bool IsNoOffsetThumb {
-		get {
-			return isNoOffsetThumb;
-		}
-		set {
-			isNoOffsetThumb = value;
-		}
-	}
 	#endregion
 
 	#region Inspector
@@ -145,14 +107,15 @@ public class ETCJoystick : ETCBase,IPointerEnterHandler,IDragHandler, IBeginDrag
 		isOnDrag = false;
 		isOnTouch = false;
 
-		axisX.unityAxis = "Horizontal";
-		axisY.unityAxis = "Vertical";
+		axisX.positivekey = KeyCode.RightArrow;
+		axisX.negativeKey = KeyCode.LeftArrow;
+
+		axisY.positivekey = KeyCode.UpArrow;
+		axisY.negativeKey = KeyCode.DownArrow;
 
 		enableKeySimulation = true;
 
-		isNoReturnThumb = false;
-
-		showPSInspector = false;
+		showPSInspector = true;
 		showAxesInspector = false;
 		showEventInspector = false;
 		showSpriteInspector = false;
@@ -161,7 +124,6 @@ public class ETCJoystick : ETCBase,IPointerEnterHandler,IDragHandler, IBeginDrag
 
 	#region Monobehaviours Callback
 	protected override void Awake (){
-
 		base.Awake ();
 
 		if (joystickType == JoystickType.Dynamic){
@@ -170,124 +132,20 @@ public class ETCJoystick : ETCBase,IPointerEnterHandler,IDragHandler, IBeginDrag
 			this.rectTransform().SetAsLastSibling();
 			visible = false;
 		}
-
-		if (allowSimulationStandalone && enableKeySimulation && !Application.isEditor && joystickType!=JoystickType.Dynamic){
-			SetVisible(visibleOnStandalone);
-		}
 	}
 
-	public override void Start(){
-	
-		axisX.InitAxis();
-		axisY.InitAxis();
-
-		if (enableCamera){
-			InitCameraLookAt();
-		}
-
+	void Start(){
 		tmpAxis = Vector2.zero;
 		OldTmpAxis = Vector2.zero;
 
-		noReturnPosition = thumb.position;
-
-		pointId = -1;
-
-		if (joystickType == JoystickType.Dynamic){
-			visible = false;
-		}
-
-		base.Start();
-
-		// Init Camera position
-		if (enableCamera && cameraMode == CameraMode.SmoothFollow){
-			if (cameraTransform && cameraLookAt){
-				cameraTransform.position = cameraLookAt.TransformPoint( new Vector3(0,followHeight,-followDistance));
-				cameraTransform.LookAt( cameraLookAt);
-			}
-		}
-
-		if (enableCamera && cameraMode == CameraMode.Follow){
-			if (cameraTransform && cameraLookAt){
-				cameraTransform.position = cameraLookAt.position + followOffset;
-				cameraTransform.LookAt( cameraLookAt.position);
-			}
-		}
+		axisX.InitAxis();
+		axisY.InitAxis();
 	}
 
 
-	public override void Update (){
-
-		base.Update ();
-
-		#region dynamic joystick
-		if (joystickType == JoystickType.Dynamic && !_visible && _activated){
-			Vector2 localPosition = Vector2.zero;
-			Vector2 screenPosition = Vector2.zero;
-			
-			if (isTouchOverJoystickArea(ref localPosition, ref screenPosition)){
-				
-				GameObject overGO = GetFirstUIElement( screenPosition);
-				
-				if (overGO == null || (allowJoystickOverTouchPad && overGO.GetComponent<ETCTouchPad>()) || (overGO != null && overGO.GetComponent<ETCArea>() ) ) {
-
-					cachedRectTransform.anchoredPosition = localPosition;
-					visible = true;
-				}
-			}
-		}
-
-
-		if (joystickType == JoystickType.Dynamic && _visible){
-			if (GetTouchCount()==0){
-				visible = false;
-
-			}
-		}
-		#endregion
-
-	}
-
-	public override void LateUpdate (){
-
-		if (enableCamera && !cameraLookAt ){
-			InitCameraLookAt();
-		}
-		base.LateUpdate ();
-
-	}
-
-	private void InitCameraLookAt(){
-
-		if (cameraTargetMode == CameraTargetMode.FromDirectActionAxisX){
-			cameraLookAt = axisX.directTransform;
-		}
-		else if (cameraTargetMode == CameraTargetMode.FromDirectActionAxisY){
-			cameraLookAt = axisY.directTransform;
-			if (isTurnAndMove){
-				cameraLookAt = axisX.directTransform;
-			}
-		}
-		else if (cameraTargetMode == CameraTargetMode.LinkOnTag){
-			GameObject tmpobj = GameObject.FindGameObjectWithTag(camTargetTag);
-			if (tmpobj){
-				cameraLookAt = tmpobj.transform;
-			}
-		}
-
-		if (cameraLookAt)
-			cameraLookAtCC = cameraLookAt.GetComponent<CharacterController>();
-	}
-
-	protected override void UpdateControlState (){
-	
-		if (_visible){
-			UpdateJoystick();
-		}
-		else{
-			if (joystickType == JoystickType.Dynamic){
-				OnUp( false);
-			}
-		}
+	protected override void UpdateControlState ()
+	{
+		UpdateJoystick();
 	}
 
 	#endregion
@@ -295,12 +153,11 @@ public class ETCJoystick : ETCBase,IPointerEnterHandler,IDragHandler, IBeginDrag
 	#region UI Callback
 	public void OnPointerEnter(PointerEventData eventData){
 
-		if (joystickType == JoystickType.Dynamic && !isDynamicActif && _activated &&  pointId==-1){
+		if (joystickType == JoystickType.Dynamic && !isDynamicActif && _activated){
 			eventData.pointerDrag = gameObject;
 			eventData.pointerPress = gameObject;
 
 			isDynamicActif = true;
-			pointId = eventData.pointerId;
 		}
 
 		if (joystickType == JoystickType.Dynamic &&  !eventData.eligibleForClick){
@@ -311,137 +168,113 @@ public class ETCJoystick : ETCBase,IPointerEnterHandler,IDragHandler, IBeginDrag
 
 	public void OnPointerDown(PointerEventData eventData){
 		onTouchStart.Invoke();
-		pointId = eventData.pointerId;
-		if (isNoOffsetThumb){
-			OnDrag( eventData);
-		}
 	}
 
 	public void OnBeginDrag(PointerEventData eventData){
-
-
+		//center = cachedRectTransform.anchoredPosition;
 	}
 	
 	public void OnDrag(PointerEventData eventData){
 
-		if (pointId == eventData.pointerId){
-			isOnDrag = true;
-			isOnTouch = true;
+		isOnDrag = true;
+		isOnTouch = true;
 
-			float radius =  GetRadius();
+		float radius =  GetRadius();
 
-
-			if (!isNoReturnThumb){
-				thumbPosition =  (eventData.position - eventData.pressPosition);// / (cachedRootCanvas.rectTransform().localScale.x  ) ;
-			}
-			else{
-				thumbPosition =((eventData.position - noReturnPosition) /cachedRootCanvas.rectTransform().localScale.x) + noReturnOffset;
-			}
-
-			if (isNoOffsetThumb){
-			    thumbPosition =  (eventData.position - (Vector2)cachedRectTransform.position) / cachedRootCanvas.rectTransform().localScale.x;
-			}
-
-			thumbPosition.x = Mathf.FloorToInt( thumbPosition.x);
-			thumbPosition.y = Mathf.FloorToInt( thumbPosition.y);
+		thumbPosition =  (eventData.position - eventData.pressPosition) / cachedRootCanvas.rectTransform().localScale.x;
 
 
-			if (!axisX.enable){
-				thumbPosition.x=0;
-			}
+		thumbPosition.x = Mathf.FloorToInt( thumbPosition.x);
+		thumbPosition.y = Mathf.FloorToInt( thumbPosition.y);
 
-			if (!axisY.enable){
-				thumbPosition.y=0;
-			}
 
-			if (thumbPosition.magnitude > radius){
-				if (!isNoReturnThumb){
-					thumbPosition = thumbPosition.normalized * radius ;
-				}
-				else{
-					thumbPosition = thumbPosition.normalized * radius;
-				}
-			}
-
-			thumb.anchoredPosition =  thumbPosition; 
+		if (!axisX.enable){
+			thumbPosition.x=0;
 		}
+
+		if (!axisY.enable){
+			thumbPosition.y=0;
+		}
+
+		if (thumbPosition.magnitude > radius){
+
+			thumbPosition = thumbPosition.normalized * radius;
+		}
+
+		thumb.anchoredPosition =  thumbPosition; 
+
 	}
 
 	public void OnPointerUp (PointerEventData eventData){
-		if (pointId == eventData.pointerId){
-			OnUp();
-		}
-	}
-
-	private void OnUp(bool real=true){
 
 		isOnDrag = false;
 		isOnTouch = false;
-		
-		if (isNoReturnThumb){
-			noReturnPosition = thumb.position;
-			noReturnOffset = thumbPosition;
-		}
-		
-		if (!isNoReturnThumb){
-			thumbPosition =  Vector2.zero;
-			thumb.anchoredPosition = Vector2.zero;
-			
-			axisX.axisState = ETCAxis.AxisState.None;
-			axisY.axisState = ETCAxis.AxisState.None;
-		}
-		
+		thumbPosition =  Vector2.zero;
+		thumb.anchoredPosition = Vector2.zero;
+
+		axisX.axisState = ETCAxis.AxisState.None;
+		axisY.axisState = ETCAxis.AxisState.None;
+	
 		if (!axisX.isEnertia && !axisY.isEnertia){
 			axisX.ResetAxis();
 			axisY.ResetAxis();
 			tmpAxis = Vector2.zero;
 			OldTmpAxis = Vector2.zero;
-			if (real){
-				onMoveEnd.Invoke();
-			}
+			onMoveEnd.Invoke();
 		}
-		
+
 		if (joystickType == JoystickType.Dynamic){
 			visible = false;
 			isDynamicActif = false;
 		}
 
-		pointId=-1;
+		onTouchUp.Invoke();
 
-		if (real){
-			onTouchUp.Invoke();
-		}
 	}
+
 	#endregion
 
 	#region Joystick Update
-	protected override void DoActionBeforeEndOfFrame (){
-		axisX.DoGravity();
-		axisY.DoGravity();
-	}
-
 	private void UpdateJoystick(){
 
-		#region Unity axes
-		if (enableKeySimulation && !isOnTouch && _activated && _visible ){
+		#region dynamic joystick
+		if (joystickType == JoystickType.Dynamic && !_visible && _activated){
+			Vector2 localPosition = Vector2.zero;
+			Vector2 screenPosition = Vector2.zero;
 
-			float x = Input.GetAxis(axisX.unityAxis);
-			float y= Input.GetAxis(axisY.unityAxis);
+			if (isTouchOverJoystickArea(ref localPosition, ref screenPosition)){
 
-			if (!isNoReturnThumb){
-				thumb.localPosition = Vector2.zero;
+				GameObject overGO = GetFirstUIElement( screenPosition);
+
+				if (overGO == null || (allowJoystickOverTouchPad && overGO.GetComponent<ETCTouchPad>()) || (overGO != null && overGO.GetComponent<ETCArea>() ) ) {
+					cachedRectTransform.anchoredPosition = localPosition;
+					visible = true;
+				}
 			}
+		}
+		#endregion
 
+		#region Key simulation
+		if (enableKeySimulation && !isOnTouch && _activated && _visible){
+			thumb.localPosition = Vector2.zero;
 			isOnDrag = false;
 
-			if (x!=0){
+			if (Input.GetKey( axisX.positivekey)){
 				isOnDrag = true;
-				thumb.localPosition = new Vector2(GetRadius()*x, thumb.localPosition.y);
+				thumb.localPosition = new Vector2(GetRadius(), thumb.localPosition.y);
+			}
+			else if (Input.GetKey( axisX.negativeKey)){
+				isOnDrag = true;
+				thumb.localPosition = new Vector2(-GetRadius(), thumb.localPosition.y);
 			}
 
-			if (y!=0){
+			if (Input.GetKey( axisY.positivekey)){
 				isOnDrag = true;
-				thumb.localPosition = new Vector2(thumb.localPosition.x,GetRadius()*y );
+				thumb.localPosition = new Vector2(thumb.localPosition.x,GetRadius() );
+			}
+			else if (Input.GetKey( axisY.negativeKey)){
+				isOnDrag = true;
+				thumb.localPosition = new Vector2(thumb.localPosition.x,-GetRadius());
 			}
 
 			thumbPosition = thumb.localPosition;
@@ -457,59 +290,37 @@ public class ETCJoystick : ETCBase,IPointerEnterHandler,IDragHandler, IBeginDrag
 		axisX.UpdateAxis( tmpAxis.x,isOnDrag, ETCBase.ControlType.Joystick,true);
 		axisY.UpdateAxis( tmpAxis.y,isOnDrag, ETCBase.ControlType.Joystick,true);
 
+		axisX.DoGravity();
+		axisY.DoGravity();
+
 		#region Move event
 		if ((axisX.axisValue!=0 ||  axisY.axisValue!=0 ) && OldTmpAxis == Vector2.zero){
 			onMoveStart.Invoke();
 		}
 		if (axisX.axisValue!=0 ||  axisY.axisValue!=0 ){
 
-			if (!isTurnAndMove){
-				// X axis
-				if( axisX.actionOn == ETCAxis.ActionOn.Down && (axisX.axisState == ETCAxis.AxisState.DownLeft || axisX.axisState == ETCAxis.AxisState.DownRight)){
-					axisX.DoDirectAction();
-				}
-				else if (axisX.actionOn == ETCAxis.ActionOn.Press){
-					axisX.DoDirectAction();
-				}
-
-				// Y axis
-				if( axisY.actionOn == ETCAxis.ActionOn.Down && (axisY.axisState == ETCAxis.AxisState.DownUp || axisY.axisState == ETCAxis.AxisState.DownDown)){
-					axisY.DoDirectAction();
-				}
-				else if (axisY.actionOn == ETCAxis.ActionOn.Press){
-					axisY.DoDirectAction();
-				}
+			// X axis
+			if( axisX.actionOn == ETCAxis.ActionOn.Down && (axisX.axisState == ETCAxis.AxisState.DownLeft || axisX.axisState == ETCAxis.AxisState.DownRight)){
+				axisX.DoDirectAction();
 			}
-			else{
-				DoTurnAndMove();
+			else if (axisX.actionOn == ETCAxis.ActionOn.Press){
+				axisX.DoDirectAction();
+			}
+
+			// Y axis
+			if( axisY.actionOn == ETCAxis.ActionOn.Down && (axisY.axisState == ETCAxis.AxisState.DownUp || axisY.axisState == ETCAxis.AxisState.DownDown)){
+				axisY.DoDirectAction();
+			}
+			else if (axisY.actionOn == ETCAxis.ActionOn.Press){
+				axisY.DoDirectAction();
 			}
 			onMove.Invoke( new Vector2(axisX.axisValue,axisY.axisValue));
 			onMoveSpeed.Invoke( new Vector2(axisX.axisSpeedValue,axisY.axisSpeedValue));
 		}
 		else if (axisX.axisValue==0 &&  axisY.axisValue==0  && OldTmpAxis!=Vector2.zero) {
 			onMoveEnd.Invoke();
-		}		
-
-		if (!isTurnAndMove){
-			if (axisX.axisValue==0 &&  axisX.directCharacterController ){
-				if (!axisX.directCharacterController.isGrounded && axisX.isLockinJump)
-					axisX.DoDirectAction();
-			} 
-
-			if (axisY.axisValue==0 &&  axisY.directCharacterController ){
-				if (!axisY.directCharacterController.isGrounded && axisY.isLockinJump)
-					axisY.DoDirectAction();
-			}
 		}
-		else{
-			if ((axisX.axisValue==0 && axisY.axisValue==0) &&  axisX.directCharacterController ){
-				if (!axisX.directCharacterController.isGrounded && tmLockInJump)
-					DoTurnAndMove();
-			}
-		}
-
 		#endregion
-
 
 		#region Down & press event
 		float coef =1;
@@ -584,18 +395,18 @@ public class ETCJoystick : ETCBase,IPointerEnterHandler,IDragHandler, IBeginDrag
 		screenPosition = Vector2.zero;
 		
 		int count = GetTouchCount();
+		
 		int i=0;
 		while (i<count && !touchOverArea){
-			#if ((UNITY_ANDROID || UNITY_IOS || UNITY_WINRT || UNITY_BLACKBERRY) && !UNITY_EDITOR) 
+			#if ((UNITY_ANDROID || UNITY_IPHONE || UNITY_WINRT || UNITY_BLACKBERRY) && !UNITY_EDITOR) 
 			if (Input.GetTouch(i).phase == TouchPhase.Began){
 				screenPosition = Input.GetTouch(i).position;
 				doTest = true;
 			}
 			#else
-			if (Input.GetMouseButtonDown(0)){
+			if (Input.GetMouseButton(0)){
 				screenPosition = Input.mousePosition;
 				doTest = true;
-
 			}
 			#endif
 			
@@ -682,7 +493,7 @@ public class ETCJoystick : ETCBase,IPointerEnterHandler,IDragHandler, IBeginDrag
 	}
 	
 	private int GetTouchCount(){
-		#if ((UNITY_ANDROID || UNITY_IOS || UNITY_WINRT || UNITY_BLACKBERRY) && !UNITY_EDITOR) 
+		#if ((UNITY_ANDROID || UNITY_IPHONE || UNITY_WINRT || UNITY_BLACKBERRY) && !UNITY_EDITOR) 
 		return Input.touchCount;
 		#else
 		if (Input.GetMouseButton(0) || Input.GetMouseButtonUp(0)){
@@ -696,8 +507,8 @@ public class ETCJoystick : ETCBase,IPointerEnterHandler,IDragHandler, IBeginDrag
 	#endregion
 
 	#region Other private method
-	public float GetRadius(){
-
+	private float GetRadius(){
+		
 		float radius =0;
 		
 		switch (radiusBase){
@@ -707,9 +518,6 @@ public class ETCJoystick : ETCBase,IPointerEnterHandler,IDragHandler, IBeginDrag
 		case RadiusBase.Height:
 			radius = cachedRectTransform.sizeDelta.y * 0.5f;
 			break;
-		case RadiusBase.UserDefined:
-			radius = radiusBaseValue;
-			break;
 		}
 		
 		return radius;
@@ -718,63 +526,15 @@ public class ETCJoystick : ETCBase,IPointerEnterHandler,IDragHandler, IBeginDrag
 	protected override void SetActivated (){
 	
 		GetComponent<CanvasGroup>().blocksRaycasts = _activated;
-
-		if (!_activated){
-			OnUp(false);
-		}
 	}
 
-	protected override void SetVisible (bool visible=true){
+	protected override void SetVisible (){
 
-		bool localVisible = _visible;
-		if (!visible){
-			localVisible = visible;
-		}
-		GetComponent<Image>().enabled = localVisible;
-		thumb.GetComponent<Image>().enabled = localVisible;
+		GetComponent<Image>().enabled = _visible;
+		thumb.GetComponent<Image>().enabled = _visible;
 		GetComponent<CanvasGroup>().blocksRaycasts = _activated;
-
-
 	}
 	#endregion
-
-
-	private void DoTurnAndMove(){
-
-		float angle =Mathf.Atan2( axisX.axisValue,axisY.axisValue ) * Mathf.Rad2Deg;
-		float speed = tmMoveCurve.Evaluate( new Vector2(axisX.axisValue,axisY.axisValue).magnitude) * tmSpeed;
-
-		if (axisX.directTransform != null){
-
-			axisX.directTransform.rotation = Quaternion.Euler(new Vector3(0,  angle + tmAdditionnalRotation,0));
-
-			if (axisX.directCharacterController != null){
-				if (axisX.directCharacterController.isGrounded || !tmLockInJump){
-					Vector3 move = axisX.directCharacterController.transform.TransformDirection(Vector3.forward) *  speed;
-					axisX.directCharacterController.Move(move* Time.deltaTime);
-					tmLastMove = move;
-				}
-				else{
-					axisX.directCharacterController.Move(tmLastMove* Time.deltaTime);
-				}
-			}
-			else{
-				axisX.directTransform.Translate(Vector3.forward *  speed * Time.deltaTime,Space.Self);
-			}
-		}
-
-	}
-
-	public void InitCurve(){
-		axisX.InitDeadCurve();
-		axisY.InitDeadCurve();
-		InitTurnMoveCurve();
-	}
-
-	public void InitTurnMoveCurve(){
-		tmMoveCurve = AnimationCurve.EaseInOut(0,0,1,1);
-		tmMoveCurve.postWrapMode = WrapMode.PingPong;
-		tmMoveCurve.preWrapMode = WrapMode.PingPong;
-	}
+	
 }
 

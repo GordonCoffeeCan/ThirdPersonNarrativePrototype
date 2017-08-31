@@ -63,7 +63,7 @@ public class PlayerController : MonoBehaviour {
             if(MobileInputManager.instance.enabled == true) {
                 moveDirection = MobileInputManager.instance.OnJoystickMove();
             } else {
-                moveDirection = ControllerManager.instacne.OnMove();
+                moveDirection = ControllerManager.instance.OnMove();
             }
 
             moveDirection = playerCamera.transform.TransformDirection(moveDirection);
@@ -72,7 +72,7 @@ public class PlayerController : MonoBehaviour {
 
             moveDirection *= currentSpeed;
 
-            if (ControllerManager.instacne.OnJump() == true) {
+            if (ControllerManager.instance.OnJump() == true) {
                 moveDirection.y = jumpSpeed;
             }
         }
@@ -93,19 +93,42 @@ public class PlayerController : MonoBehaviour {
 
             rotationDirection *= (Mathf.Abs(_direction.x) > Mathf.Abs(_direction.z)) ? Mathf.Abs(_direction.x) : Mathf.Abs(_direction.z);
 
-            if(ControllerManager.instacne.OnAim() == false && ControllerManager.instacne.OnFire() == false) {
-                rotationPivot.rotation = Quaternion.Slerp(rotationPivot.rotation, Quaternion.Euler(new Vector3(0, (Mathf.Atan2(_direction.x, _direction.z) * Mathf.Rad2Deg), 0)), rotationSpeed * Time.deltaTime);
+            
+
+            if (MobileInputManager.instance.enabled == true) {
+                if (MobileInputManager.instance.isAim == false && MobileInputManager.instance.OnFire() == false) {
+                    rotationPivot.rotation = Quaternion.Slerp(rotationPivot.rotation, Quaternion.Euler(new Vector3(0, (Mathf.Atan2(_direction.x, _direction.z) * Mathf.Rad2Deg), 0)), rotationSpeed * Time.deltaTime);
+                }
+            } else {
+                if (ControllerManager.instance.OnAim() == false && ControllerManager.instance.OnFire() == false) {
+                    rotationPivot.rotation = Quaternion.Slerp(rotationPivot.rotation, Quaternion.Euler(new Vector3(0, (Mathf.Atan2(_direction.x, _direction.z) * Mathf.Rad2Deg), 0)), rotationSpeed * Time.deltaTime);
+                }
             }
         }
 
         //On Aiming, Player rotation follow along with camera direction;
-        if (ControllerManager.instacne.OnAim() == true || ControllerManager.instacne.OnFire() == true) {
-            rotationPivot.rotation = Quaternion.Slerp(rotationPivot.rotation, Quaternion.Euler(new Vector3(0, cameraPivot.transform.localEulerAngles.y + this.transform.eulerAngles.y, 0)), aimRotationSpeed * Time.deltaTime);
+        if (MobileInputManager.instance.enabled == true) {
+            if (MobileInputManager.instance.isAim == true || MobileInputManager.instance.OnFire() == true) {
+                rotationPivot.rotation = Quaternion.Slerp(rotationPivot.rotation, Quaternion.Euler(new Vector3(0, cameraPivot.transform.localEulerAngles.y + this.transform.eulerAngles.y, 0)), aimRotationSpeed * Time.deltaTime);
+            }
+        } else {
+            if (ControllerManager.instance.OnAim() == true || MobileInputManager.instance.OnFire() == true) {
+                rotationPivot.rotation = Quaternion.Slerp(rotationPivot.rotation, Quaternion.Euler(new Vector3(0, cameraPivot.transform.localEulerAngles.y + this.transform.eulerAngles.y, 0)), aimRotationSpeed * Time.deltaTime);
+            }
         }
+        
     }
 
     private void OnSprint() {
-        if (ControllerManager.instacne.OnSprint() == true && ControllerManager.instacne.OnMove().magnitude >= 1) {
+        if (MobileInputManager.instance.enabled == true) {
+            SprintStamina(MobileInputManager.instance.OnSprint(), MobileInputManager.instance.OnJoystickMove());
+        } else {
+            SprintStamina(ControllerManager.instance.OnSprint(), ControllerManager.instance.OnMove());
+        }
+    }
+
+    private void SprintStamina(bool _isOnSprint, Vector3 _moveDirection) {
+        if (_isOnSprint == true && _moveDirection.magnitude >= 0.8f) {
             if (sprintTime >= 0) {
                 sprintTime -= Time.deltaTime;
                 currentSpeed = runSpeed;

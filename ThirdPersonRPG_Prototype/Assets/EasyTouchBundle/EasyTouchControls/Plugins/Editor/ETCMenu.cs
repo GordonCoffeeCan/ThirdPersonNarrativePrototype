@@ -6,16 +6,10 @@ using UnityEngine.EventSystems;
 
 public static class ETCMenu{
 
-
-	[MenuItem ("GameObject/EasyTouch Controls/InputManager", false, 0)]
-	static void AddInputManager(){
-		ETCInput.instance.Create();
-	}
-
+	
 	[MenuItem ("GameObject/EasyTouch Controls/Joystick", false, 0)]
 	static void  AddJoystick(){
 	
-		ETCInput.instance.Create();
 		GameObject canvas = SetupUI();
 
 		Object[] sprites = Resources.LoadAll("ETCDefaultSprite");
@@ -39,7 +33,6 @@ public static class ETCMenu{
 
 		joystick.GetComponent<ETCJoystick>().thumb = thumb.transform as RectTransform;
 
-		joystick.GetComponent<ETCJoystick>().InitCurve();
 
 
 		Selection.activeGameObject = joystick;
@@ -48,7 +41,6 @@ public static class ETCMenu{
 	[MenuItem ("GameObject/EasyTouch Controls/D-Pad", false, 0)]
 	static void  AddDPad(){
 
-		ETCInput.instance.Create();
 		GameObject canvas = SetupUI();
 		
 		Object[] sprites = Resources.LoadAll("ETCDefaultSprite"); 
@@ -72,8 +64,6 @@ public static class ETCMenu{
 	[MenuItem ("GameObject/EasyTouch Controls/Button", false, 0)]
 	static void  AddButton(){
 
-		ETCInput.instance.Create();
-
 		GameObject canvas = SetupUI();
 
 		Object[] sprites = Resources.LoadAll("ETCDefaultSprite");
@@ -96,7 +86,6 @@ public static class ETCMenu{
 
 	[MenuItem ("GameObject/EasyTouch Controls/TouchPad", false, 0)]
 	static void  AddTouchPad(){
-		ETCInput.instance.Create();
 
 		GameObject canvas = SetupUI();
 
@@ -145,25 +134,19 @@ public static class ETCMenu{
 		}
 
 		// TouchInput
-		/*
-		#if !UNITY_5_3_OR_NEWER
 		if ( GameObject.FindObjectOfType(typeof(TouchInputModule)) ){
 			TouchInputModule tm = (TouchInputModule)GameObject.FindObjectOfType(typeof(TouchInputModule));
-			//tm.allowActivationOnStandalone = true;
 			tm.forceModuleActive = true;
 		}
-		#endif*/
+
 		return canvas;
 
 	}
 	
 	static void AddEventSystem(){
 
-		//#if UNITY_5_3_OR_NEWER
-		new GameObject("EventSystem",typeof(EventSystem), typeof(StandaloneInputModule));
-		//#else
-		//new GameObject("EventSystem",typeof(EventSystem), typeof(TouchInputModule), typeof(StandaloneInputModule));
-		//#endif
+		new GameObject("EventSystem",typeof(EventSystem), typeof(TouchInputModule));
+
 	}
 
 	static GameObject  AddCanvas(bool isSpaceCamera=false){

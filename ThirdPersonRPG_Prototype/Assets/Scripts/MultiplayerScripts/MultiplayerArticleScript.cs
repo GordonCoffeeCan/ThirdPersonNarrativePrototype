@@ -75,12 +75,14 @@ public class MultiplayerArticleScript : NetworkBehaviour {
             case Article.freezGun:
                 if (_col.tag == "Player" && _col.GetComponent<MultiplayerShoot>().weapon.currentWeapon == PlayerWeapon.Weapon.none) {
                     _col.GetComponent<MultiplayerShoot>().weapon.currentWeapon = PlayerWeapon.Weapon.freezer;
+                    _col.GetComponent<MultiplayerShoot>().InitializeWeapon();
                     CmdOnPickUp();
                 }
                 break;
             case Article.obstacleMagic:
                 if (_col.tag == "Player" && _col.GetComponent<MultiplayerShoot>().weapon.currentWeapon == PlayerWeapon.Weapon.none) {
                     _col.GetComponent<MultiplayerShoot>().weapon.currentWeapon = PlayerWeapon.Weapon.obstacleCreator;
+                    _col.GetComponent<MultiplayerShoot>().InitializeWeapon();
                     CmdOnPickUp();
                 }
                 break;

@@ -1,10 +1,6 @@
 using UnityEngine;
 using System.Collections;
 using UnityEditor;
-using HedgehogTeam.EasyTouch;
-#if UNITY_5_3_OR_NEWER
-using UnityEditor.SceneManagement;
-#endif
 
 [CustomEditor(typeof(EasyTouch))]
 public class EasyTouchInspector : Editor {
@@ -17,7 +13,6 @@ public class EasyTouchInspector : Editor {
 		#region General properties
 		EditorGUILayout.Space();
 		t.enable = HTGuiTools.Toggle("Enable EasyTouch", t.enable,true);
-
 		t.enableRemote = HTGuiTools.Toggle("Enable Unity Remote", t.enableRemote,true);
 
 
@@ -146,18 +141,11 @@ public class EasyTouchInspector : Editor {
 				t.StationaryTolerance = EditorGUILayout.FloatField("Stationary tolerance",t.StationaryTolerance);
 				t.longTapTime = EditorGUILayout.FloatField("Long tap time",t.longTapTime);
 
-				EditorGUILayout.Space ();
-
 				t.doubleTapDetection = (EasyTouch.DoubleTapDetection) EditorGUILayout.EnumPopup("Double tap detection",t.doubleTapDetection);
 				if (t.doubleTapDetection == EasyTouch.DoubleTapDetection.ByTime){
 					t.doubleTapTime = EditorGUILayout.Slider("Double tap time",t.doubleTapTime,0.15f,0.4f);
 				}
-
-				EditorGUILayout.Space ();
-
 				t.swipeTolerance = EditorGUILayout.FloatField("Swipe tolerance",t.swipeTolerance);
-				t.alwaysSendSwipe = EditorGUILayout.Toggle("always sent swipe event",t.alwaysSendSwipe);
-
 			}HTGuiTools.EndGroup();
 		}
 
@@ -225,13 +213,6 @@ public class EasyTouchInspector : Editor {
 		}
 
 		#endregion
-
-		if (GUI.changed){
-			EditorUtility.SetDirty(target);
-			#if UNITY_5_3_OR_NEWER
-			EditorSceneManager.MarkSceneDirty( EditorSceneManager.GetActiveScene());
-			#endif
-		}
 	}
 }
 

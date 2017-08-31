@@ -48,21 +48,30 @@ public class MultiplayerUIManager : NetworkBehaviour {
         //Check the current scene is single player mode or multiplayer mode;
         //show reticle when aim;
         if (SceneManager.GetActiveScene().name == "Singleplayer_Level") {
-            if (ControllerManager.instacne.OnAim() && isMenuPanelOn == false) {
+            if (ControllerManager.instance.OnAim() && isMenuPanelOn == false) {
                 reticleUI.gameObject.SetActive(true);
             } else {
                 reticleUI.gameObject.SetActive(false);
             }
         }else if(SceneManager.GetActiveScene().name == "Multiplayer_Level") {
-            if (ControllerManager.instacne.OnAim() && MultiplayerGameManager.instance.isPlayerInGame == true && MultiplayerGameManager.instance.isPlayerDie == false && isMenuPanelOn == false) {
-                reticleUI.gameObject.SetActive(true);
+            if (MobileInputManager.instance.enabled == true) {
+                if (MobileInputManager.instance.isAim && MultiplayerGameManager.instance.isPlayerInGame == true && MultiplayerGameManager.instance.isPlayerDie == false && isMenuPanelOn == false) {
+                    reticleUI.gameObject.SetActive(true);
+                } else {
+                    reticleUI.gameObject.SetActive(false);
+                }
             } else {
-                reticleUI.gameObject.SetActive(false);
+                if (ControllerManager.instance.OnAim() && MultiplayerGameManager.instance.isPlayerInGame == true && MultiplayerGameManager.instance.isPlayerDie == false && isMenuPanelOn == false) {
+                    reticleUI.gameObject.SetActive(true);
+                } else {
+                    reticleUI.gameObject.SetActive(false);
+                }
             }
+            
         }
 
         //Show in game menu;
-        if (ControllerManager.instacne.OnMenu()) {
+        if (ControllerManager.instance.OnMenu()) {
             isMenuPanelOn = !menuPanel.gameObject.activeSelf;
             menuPanel.gameObject.SetActive(!menuPanel.gameObject.activeSelf);
         }

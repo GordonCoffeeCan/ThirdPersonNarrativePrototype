@@ -1,7 +1,7 @@
 /***********************************************
 				EasyTouch Controls
-	Copyright © 2016 The Hedgehog Team
-      http://www.thehedgehogteam.com/Forum/
+	Copyright © 2014-2015 The Hedgehog Team
+  http://www.blitz3dfr.com/teamtalk/index.php
 		
 	  The.Hedgehog.Team@gmail.com
 		
@@ -70,8 +70,6 @@ public class ETCTouchPad : ETCBase,IBeginDragHandler, IDragHandler,IPointerEnter
 
 	private bool isOut;
 	private bool isOnTouch;
-
-	private bool cachedVisible;
 	#endregion
 
 	#region Constructor
@@ -94,10 +92,13 @@ public class ETCTouchPad : ETCBase,IBeginDragHandler, IDragHandler,IPointerEnter
 		tmpAxis = Vector2.zero;
 		isOnDrag = false;
 		isOnTouch = false;
-
-		axisX.unityAxis = "Horizontal";
-		axisY.unityAxis = "Vertical";
-
+		
+		axisX.positivekey = KeyCode.RightArrow;
+		axisX.negativeKey = KeyCode.LeftArrow;
+		
+		axisY.positivekey = KeyCode.UpArrow;
+		axisY.negativeKey = KeyCode.DownArrow;
+		
 		enableKeySimulation = true;
 		#if !UNITY_EDITOR
 		enableKeySimulation = false;
@@ -116,46 +117,48 @@ public class ETCTouchPad : ETCBase,IBeginDragHandler, IDragHandler,IPointerEnter
 	#region Monobehaviour Callback
 	protected override void Awake (){
 		base.Awake ();
-		cachedVisible = _visible;
+		
 		cachedImage = GetComponent<Image>();
 
-	}
-
-	public override void OnEnable (){
-		base.OnEnable ();
-		if (!cachedVisible){
+		if (!_visible){
 			cachedImage.color = new Color(0,0,0,0);
 		}
-
-		if (allowSimulationStandalone && enableKeySimulation && !Application.isEditor){
-			SetVisible(visibleOnStandalone);
-		}
+		
 	}
-	public override void Start(){
-		base.Start();
+
+	void Start(){
 		tmpAxis = Vector2.zero;
 		OldTmpAxis = Vector2.zero;
 		axisX.InitAxis();
 		axisY.InitAxis();
-
 	}
 
+	/*
+	void Update(){
+		
+		if (!useFixedUpdate){
+			UpdateTouchPad();
+		}
+	}
+	
+	void FixedUpdate(){
+		if (useFixedUpdate){
+			UpdateTouchPad();
+		}
+	}*/
 
 	protected override void UpdateControlState ()
 	{
 		UpdateTouchPad();
-	}
-
-	protected override void DoActionBeforeEndOfFrame (){
-		axisX.DoGravity();
-		axisY.DoGravity();
 	}
 	#endregion
 
 	#region UI Callback
 	public void OnPointerEnter(PointerEventData eventData){
 
-		if (isSwipeIn &&  axisX.axisState == ETCAxis.AxisState.None && _activated && !isOnTouch){
+
+
+		if (isSwipeIn &&  axisX.axisState == ETCAxis.AxisState.None && _activated){
 
 			if (eventData.pointerDrag != null && eventData.pointerDrag!= gameObject){
 				previousDargObject=eventData.pointerDrag;
@@ -172,20 +175,17 @@ public class ETCTouchPad : ETCBase,IBeginDragHandler, IDragHandler,IPointerEnter
 	}
 
 	public void OnBeginDrag(PointerEventData eventData){
-		if (pointId == eventData.pointerId){
-			onMoveStart.Invoke();
-		}
+		onMoveStart.Invoke();
 
 	}
 
 	public void OnDrag(PointerEventData eventData){
 
-		if (activated && !isOut && pointId == eventData.pointerId){
+		if (activated && !isOut){
 			isOnTouch = true;
 			isOnDrag = true;
 			if (isDPI){
-				//tmpAxis = new Vector2(eventData.delta.x / Screen.width * 1000 , eventData.delta.y / Screen.height *1000);
-				tmpAxis = new Vector2(eventData.delta.x / Screen.dpi * 100 , eventData.delta.y / Screen.dpi *100);
+				tmpAxis = new Vector2(eventData.delta.x / Screen.width * 1000 , eventData.delta.y / Screen.height *1000);
 			}
 			else{
 				tmpAxis = new Vector2(eventData.delta.x , eventData.delta.y );
@@ -203,12 +203,10 @@ public class ETCTouchPad : ETCBase,IBeginDragHandler, IDragHandler,IPointerEnter
 	
 	public void OnPointerDown(PointerEventData eventData){
 
-		if (_activated && !isOnTouch){
+		if (_activated){
 			axisX.axisState = ETCAxis.AxisState.Down;
 			tmpAxis = eventData.delta;
 			isOut = false;
-			isOnTouch = true;
-			pointId = eventData.pointerId;
 
 			onTouchStart.Invoke();
 		}
@@ -217,41 +215,35 @@ public class ETCTouchPad : ETCBase,IBeginDragHandler, IDragHandler,IPointerEnter
 
 	public void OnPointerUp(PointerEventData eventData){
 
-		if (pointId == eventData.pointerId){
-			isOnDrag = false;
-			isOnTouch = false;
-			tmpAxis = Vector2.zero;
-			OldTmpAxis = Vector2.zero;
-			
-			axisX.axisState = ETCAxis.AxisState.None;
-			axisY.axisState = ETCAxis.AxisState.None;
-			
-			if (!axisX.isEnertia && !axisY.isEnertia){
-				axisX.ResetAxis();
-				axisY.ResetAxis();
-				onMoveEnd.Invoke();
-			}
-			
-			onTouchUp.Invoke();
-			
-			
-			if (previousDargObject){
-				ExecuteEvents.Execute<IPointerUpHandler> (previousDargObject, eventData, ExecuteEvents.pointerUpHandler);
-				previousDargObject = null;
-			}
-			
-			pointId = -1;
+		isOnDrag = false;
+		isOnTouch = false;
+		tmpAxis = Vector2.zero;
+		OldTmpAxis = Vector2.zero;
+		
+		axisX.axisState = ETCAxis.AxisState.None;
+		axisY.axisState = ETCAxis.AxisState.None;
+		
+		if (!axisX.isEnertia && !axisY.isEnertia){
+			axisX.ResetAxis();
+			axisY.ResetAxis();
+			onMoveEnd.Invoke();
+		}
+		
+		onTouchUp.Invoke();
+
+
+		if (previousDargObject){
+			ExecuteEvents.Execute<IPointerUpHandler> (previousDargObject, eventData, ExecuteEvents.pointerUpHandler);
+			previousDargObject = null;
 		}
 
+
 	}
-
-
+	
 	public void OnPointerExit(PointerEventData eventData){
-		if (pointId == eventData.pointerId){
-			if (!isSwipeOut){
-				isOut = true;
-				OnPointerUp( eventData);
-			}
+		if (!isSwipeOut){
+			isOut = true;
+			OnPointerUp( eventData);
 		}
 	}
 	#endregion
@@ -264,18 +256,24 @@ public class ETCTouchPad : ETCBase,IBeginDragHandler, IDragHandler,IPointerEnter
 		if (enableKeySimulation && !isOnTouch && _activated && _visible){
 			isOnDrag = false;
 			tmpAxis = Vector2.zero;
-
-			float x = Input.GetAxis(axisX.unityAxis);
-			float y= Input.GetAxis(axisY.unityAxis);
-
-			if (x!=0){
+			
+			if (Input.GetKey( axisX.positivekey)){
 				isOnDrag = true;
-				tmpAxis = new Vector2(1 * Mathf.Sign(x),tmpAxis.y);
+				tmpAxis = new Vector2(1,tmpAxis.y);
+			}
+			else if (Input.GetKey( axisX.negativeKey)){
+				isOnDrag = true;
+				tmpAxis = new Vector2(-1,tmpAxis.y);
 			}
 			
-			if (y!=0){
+			if (Input.GetKey( axisY.positivekey)){
 				isOnDrag = true;
-				tmpAxis = new Vector2(tmpAxis.x,1 * Mathf.Sign(y));
+				tmpAxis = new Vector2(tmpAxis.x,1);
+				
+			}
+			else if (Input.GetKey( axisY.negativeKey)){
+				isOnDrag = true;
+				tmpAxis = new Vector2(tmpAxis.x,-1);
 			}
 		}
 		#endregion
@@ -285,7 +283,10 @@ public class ETCTouchPad : ETCBase,IBeginDragHandler, IDragHandler,IPointerEnter
 		
 		axisX.UpdateAxis( tmpAxis.x,isOnDrag,ETCBase.ControlType.DPad);
 		axisY.UpdateAxis( tmpAxis.y,isOnDrag, ETCBase.ControlType.DPad);
-
+		
+		axisX.DoGravity();
+		axisY.DoGravity();
+		
 		#region Move event
 		if (axisX.axisValue!=0 ||  axisY.axisValue!=0 ){
 			
@@ -380,7 +381,7 @@ public class ETCTouchPad : ETCBase,IBeginDragHandler, IDragHandler,IPointerEnter
 	#endregion
 
 	#region Private Method
-	protected override void SetVisible (bool forceUnvisible=false){
+	protected override void SetVisible (){
 		if (Application.isPlaying){
 			if (!_visible){
 				cachedImage.color = new Color(0,0,0,0);
@@ -390,26 +391,6 @@ public class ETCTouchPad : ETCBase,IBeginDragHandler, IDragHandler,IPointerEnter
 			}
 		}
 	
-	}
-
-	protected override void SetActivated(){
-
-		if (!_activated){
-			isOnDrag = false;
-			isOnTouch = false;
-			tmpAxis = Vector2.zero;
-			OldTmpAxis = Vector2.zero;
-			
-			axisX.axisState = ETCAxis.AxisState.None;
-			axisY.axisState = ETCAxis.AxisState.None;
-			
-			if (!axisX.isEnertia && !axisY.isEnertia){
-				axisX.ResetAxis();
-				axisY.ResetAxis();
-			}
-
-			pointId = -1;
-		}
 	}
 	#endregion
 }

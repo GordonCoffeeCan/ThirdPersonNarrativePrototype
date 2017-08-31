@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 public class ControllerManager : MonoBehaviour {
-    public static ControllerManager instacne;
+    public static ControllerManager instance;
     public string moveHorizontalAxis;
     public string moveVerticalAxis;
     public string jumpButton;
@@ -19,9 +19,8 @@ public class ControllerManager : MonoBehaviour {
     public string BackButton;
 
     private void Awake() {
-        instacne = this;
+        instance = this;
 
-#if UNITY_EDITOR
         moveHorizontalAxis = "Horizontal";
         moveVerticalAxis = "Vertical";
 
@@ -39,26 +38,13 @@ public class ControllerManager : MonoBehaviour {
 
         MenuButton = "Menu";
         BackButton = "Back";
+
+#if UNITY_EDITOR
+
 #endif
 
 #if UNITY_STANDALONE
-        moveHorizontalAxis = "Horizontal";
-        moveVerticalAxis = "Vertical";
-
-        jumpButton = "Jump";
-
-        cameraHorizontalAxis = "CamHorizontal";
-        cameraVerticalAxis = "CamVertical";
-
-        fireButton = "Fire";
-        fireTrigger = "Right_Trigger";
-        aimButton = "Aim";
-        aimTrigger = "Left_Trigger";
-
-        sprintButton = "Sprint";
-
-        MenuButton = "Menu";
-        BackButton = "Back";
+        
 #endif
 
 #if UNITY_ANDROID
