@@ -58,6 +58,11 @@ public class ControllerManager : MonoBehaviour {
         MenuButton = "Android_Menu";
         BackButton = "Android_Back";
 #endif
+
+#if UNITY_IOS
+        fireButton = "AndroidFakeFire";
+        aimButton = "AndroidFakeAim";
+#endif
     }
 
     public Vector3 OnMove() {

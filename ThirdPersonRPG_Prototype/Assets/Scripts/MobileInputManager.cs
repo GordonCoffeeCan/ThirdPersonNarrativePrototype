@@ -35,7 +35,7 @@ public class MobileInputManager : MonoBehaviour {
 	void Update () {
 
 #if UNITY_EDITOR
-
+        ActivateVirtualGamePad();
 #endif
 
 #if UNITY_STANDALONE
@@ -45,8 +45,19 @@ public class MobileInputManager : MonoBehaviour {
 #endif
 
 #if UNITY_ANDROID
+        ActivateVirtualGamePad();
+#endif
+
+#if UNITY_IOS
+        ActivateVirtualGamePad();
+#endif
+
+        OnAim();
+    }
+
+    private void ActivateVirtualGamePad() {
         if (Input.GetJoystickNames().Length > 0) {
-            if(Input.GetJoystickNames()[0] != "") { //There is a controller connected to the game!
+            if (Input.GetJoystickNames()[0] != "") { //There is a controller connected to the game!
                 debugInfo.text = Input.GetJoystickNames()[0];
                 virtualControlPad.gameObject.SetActive(false);
                 isGamepadConnected = true;
@@ -60,14 +71,6 @@ public class MobileInputManager : MonoBehaviour {
             virtualControlPad.gameObject.SetActive(true);
             isGamepadConnected = false;
         }
-#endif
-
-#if UNITY_IOS
-        virtualControlPad.gameObject.SetActive(true);
-        this.enabled = true;
-#endif
-
-        OnAim();
     }
 
     public Vector2 OnTouchPadMove() {
