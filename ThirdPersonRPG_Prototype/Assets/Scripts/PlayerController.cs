@@ -21,15 +21,19 @@ public class PlayerController : MonoBehaviour {
     private Camera playerCamera;
 
     private float gravity = 20;
+    private float glidingGraivty = 0.5f;
     private float rotationSpeed = 15;
     private float aimRotationSpeed = 40;
     private float currentSpeed = 0;
+    private float currentGravity = 0;
 
     private CharacterController _characterCtr;
     
     private Vector3 moveDirection;
     private Vector3 rotationDirection;
     private float sprintTimeLimit;
+
+    private bool isReadyGlide = false;
 
     private void Awake() {
         _characterCtr = this.GetComponent<CharacterController>();
@@ -55,12 +59,13 @@ public class PlayerController : MonoBehaviour {
 
     private void MoveCharacter() {
         currentSpeed = walkSpeed;
+        currentGravity = gravity;
 
         OnSprint();
 
         if (_characterCtr.isGrounded) {
-
-            if(MobileInputManager.instance.isGamepadConnected == false) {
+            isReadyGlide = false;
+            if (MobileInputManager.instance.isGamepadConnected == false) {
                 moveDirection = MobileInputManager.instance.OnJoystickMove();
             } else {
                 moveDirection = ControllerManager.instance.OnMove();
@@ -75,9 +80,17 @@ public class PlayerController : MonoBehaviour {
             if (ControllerManager.instance.OnJump() == true) {
                 moveDirection.y = jumpSpeed;
             }
+        } else {
+            if (ControllerManager.instance.OnReadyGlide() == true) {
+                isReadyGlide = true;
+            }
+
+            if (isReadyGlide == true && ControllerManager.instance.OnGlide() == true) {
+                currentGravity = glidingGraivty;
+            }
         }
 
-        moveDirection.y -= gravity * Time.deltaTime;
+        moveDirection.y -= currentGravity * Time.deltaTime;
         _characterCtr.Move(moveDirection * Time.deltaTime);
         RotateCharacter(moveDirection);
     }
@@ -140,6 +153,10 @@ public class PlayerController : MonoBehaviour {
                 sprintTime = sprintTimeLimit;
             }
         }
+    }
+
+    private void OnGlide () {
+        currentGravity = glidingGraivty;
     }
 
     private void SprintLevel() {

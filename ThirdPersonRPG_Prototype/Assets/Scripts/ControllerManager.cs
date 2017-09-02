@@ -73,6 +73,14 @@ public class ControllerManager : MonoBehaviour {
         return Input.GetButtonDown(jumpButton);
     }
 
+    public bool OnGlide() {
+        return Input.GetButton(jumpButton);
+    }
+
+    public bool OnReadyGlide() {
+        return Input.GetButtonUp(jumpButton);
+    }
+
     public bool OnAim() {
         return (Input.GetButton(aimButton) || Input.GetAxis(aimTrigger) > 0.2f);
     }
