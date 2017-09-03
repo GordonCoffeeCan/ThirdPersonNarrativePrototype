@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour {
     [SerializeField]
     private float runSpeed = 6;
     [SerializeField]
+    private float glideSpeed = 4;
+    [SerializeField]
     private float jumpSpeed = 8;
     [SerializeField]
     private float sprintTime = 1.65f;
@@ -27,16 +29,17 @@ public class PlayerController : MonoBehaviour {
     private float currentSpeed = 0;
     private float currentGravity = 0;
 
-    private CharacterController _characterCtr;
+    private CharacterController characterCtr;
     
     private Vector3 moveDirection;
     private Vector3 rotationDirection;
     private float sprintTimeLimit;
 
     private bool isReadyGlide = false;
+    private bool isGlide = false;
 
     private void Awake() {
-        _characterCtr = this.GetComponent<CharacterController>();
+        characterCtr = this.GetComponent<CharacterController>();
         moveDirection = Vector3.zero;
         sprintTimeLimit = sprintTime;
     }
@@ -59,12 +62,12 @@ public class PlayerController : MonoBehaviour {
 
     private void MoveCharacter() {
         currentSpeed = walkSpeed;
-        currentGravity = gravity;
-
+        isGlide = false;
         OnSprint();
 
-        if (_characterCtr.isGrounded) {
+        if (characterCtr.isGrounded) {
             isReadyGlide = false;
+            
             if (MobileInputManager.instance.isGamepadConnected == false) {
                 moveDirection = MobileInputManager.instance.OnJoystickMove();
             } else {
@@ -81,17 +84,23 @@ public class PlayerController : MonoBehaviour {
                 moveDirection.y = jumpSpeed;
             }
         } else {
+
             if (ControllerManager.instance.OnReadyGlide() == true) {
                 isReadyGlide = true;
             }
 
             if (isReadyGlide == true && ControllerManager.instance.OnGlide() == true) {
-                currentGravity = glidingGraivty;
+                isGlide = true;
             }
         }
 
-        moveDirection.y -= currentGravity * Time.deltaTime;
-        _characterCtr.Move(moveDirection * Time.deltaTime);
+        if (isGlide) {
+            OnGlide();
+        } else {
+            moveDirection.y -= gravity * Time.deltaTime;
+        }
+
+        characterCtr.Move(moveDirection * Time.deltaTime);
         RotateCharacter(moveDirection);
     }
 
@@ -134,14 +143,14 @@ public class PlayerController : MonoBehaviour {
 
     private void OnSprint() {
         if (MobileInputManager.instance.isGamepadConnected == false) {
-            SprintStamina(MobileInputManager.instance.OnSprint(), MobileInputManager.instance.OnJoystickMove());
+            SprintStamina(MobileInputManager.instance.OnSprint(), MobileInputManager.instance.OnJoystickMove(), characterCtr.isGrounded);
         } else {
-            SprintStamina(ControllerManager.instance.OnSprint(), ControllerManager.instance.OnMove());
+            SprintStamina(ControllerManager.instance.OnSprint(), ControllerManager.instance.OnMove(), characterCtr.isGrounded);
         }
     }
 
-    private void SprintStamina(bool _isOnSprint, Vector3 _moveDirection) {
-        if (_isOnSprint == true && _moveDirection.magnitude >= 0.8f) {
+    private void SprintStamina(bool _isOnSprint, Vector3 _moveDirection, bool _isOnGround) {
+        if (_isOnSprint == true && _moveDirection.magnitude >= 0.8f && _isOnGround == true) {
             if (sprintTime >= 0) {
                 sprintTime -= Time.deltaTime;
                 currentSpeed = runSpeed;
@@ -156,7 +165,17 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void OnGlide () {
-        currentGravity = glidingGraivty;
+        currentSpeed = glideSpeed;
+        if (MobileInputManager.instance.isGamepadConnected == false) {
+            moveDirection = MobileInputManager.instance.OnJoystickMove();
+        } else {
+            moveDirection = ControllerManager.instance.OnMove();
+        }
+        moveDirection = playerCamera.transform.TransformDirection(moveDirection);
+        moveDirection.y = 0;
+        moveDirection.Normalize();
+        moveDirection *= currentSpeed;
+        moveDirection.y = -1;
     }
 
     private void SprintLevel() {
