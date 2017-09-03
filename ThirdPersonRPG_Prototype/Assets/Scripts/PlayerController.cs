@@ -22,8 +22,13 @@ public class PlayerController : MonoBehaviour {
     [SerializeField]
     private Camera playerCamera;
 
+
+    private float glidingGraivty = 2;
+
+    [HideInInspector]
+    public float currentGlidingGraivity;
+
     private float gravity = 20;
-    private float glidingGraivty = 0.5f;
     private float rotationSpeed = 15;
     private float aimRotationSpeed = 40;
     private float currentSpeed = 0;
@@ -47,6 +52,8 @@ public class PlayerController : MonoBehaviour {
     // Use this for initialization
     void Start () {
         //Cursor.lockState = CursorLockMode.Locked;
+
+        currentGlidingGraivity = glidingGraivty;
     }
 
     // Update is called once per frame
@@ -165,6 +172,13 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void OnGlide () {
+
+        if (currentGlidingGraivity < glidingGraivty) {
+            currentGlidingGraivity += 0.2f;
+        } else if(currentGlidingGraivity >= glidingGraivty) {
+            currentGlidingGraivity = glidingGraivty;
+        }
+
         currentSpeed = glideSpeed;
         if (MobileInputManager.instance.isGamepadConnected == false) {
             moveDirection = MobileInputManager.instance.OnJoystickMove();
@@ -175,7 +189,9 @@ public class PlayerController : MonoBehaviour {
         moveDirection.y = 0;
         moveDirection.Normalize();
         moveDirection *= currentSpeed;
-        moveDirection.y = -1;
+        moveDirection.y = -currentGlidingGraivity;
+
+        Debug.Log(currentGlidingGraivity);
     }
 
     private void SprintLevel() {

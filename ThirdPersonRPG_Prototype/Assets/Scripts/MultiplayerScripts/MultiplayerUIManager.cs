@@ -44,7 +44,6 @@ public class MultiplayerUIManager : NetworkBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
         //Check the current scene is single player mode or multiplayer mode;
         //show reticle when aim;
         if (SceneManager.GetActiveScene().name == "Singleplayer_Level") {
@@ -53,7 +52,7 @@ public class MultiplayerUIManager : NetworkBehaviour {
             } else {
                 reticleUI.gameObject.SetActive(false);
             }
-        }else if(SceneManager.GetActiveScene().name == "Multiplayer_Level") {
+        }else if(SceneManager.GetActiveScene().name == "Multiplayer_Level" || SceneManager.GetActiveScene().name == "Multiplayer_Gliding_BasicLevel") {
             if (MobileInputManager.instance.isGamepadConnected == false) {
                 if (MobileInputManager.instance.isAim && MultiplayerGameManager.instance.isPlayerInGame == true && MultiplayerGameManager.instance.isPlayerDie == false && isMenuPanelOn == false) {
                     reticleUI.gameObject.SetActive(true);

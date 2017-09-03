@@ -35,12 +35,13 @@ public class MobileInputManager : MonoBehaviour {
 	void Update () {
 
 #if UNITY_EDITOR
-        ActivateVirtualGamePad();
+        //ActivateVirtualGamePad();
+        SetUpStandaloneControllScheme();
+        return;
 #endif
 
 #if UNITY_STANDALONE
-        virtualControlPad.gameObject.SetActive(false);
-        this.enabled = false;
+        SetUpStandaloneControllScheme();
         return;
 #endif
 
@@ -53,6 +54,11 @@ public class MobileInputManager : MonoBehaviour {
 #endif
 
         OnAim();
+    }
+
+    private void SetUpStandaloneControllScheme() {
+        virtualControlPad.gameObject.SetActive(false);
+        isGamepadConnected = true;
     }
 
     private void ActivateVirtualGamePad() {

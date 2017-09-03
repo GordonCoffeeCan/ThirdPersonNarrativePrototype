@@ -1,4 +1,4 @@
-Initialize engine version: 5.6.2f1 (a2913c821e27)
+Initialize engine version: 2017.1.0f3 (472613c02cf7)
 GfxDevice: creating device client; threaded=1
 Direct3D:
     Version:  Direct3D 11.0 [level 11.1]
@@ -15,24 +15,25 @@ Platform assembly: D:\Documents\ThirdPersonNarrativePrototype\ThirdPersonRPG_Pro
 Loading D:\Documents\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
 Platform assembly: D:\Documents\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
 Loading D:\Documents\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
-- Completed reload, in  0.019 seconds
-Platform assembly: D:\Documents\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: D:\Documents\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\UnityEngine.Timeline.dll (this message is harmless)
+Loading D:\Documents\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\UnityEngine.Timeline.dll into Unity Child Domain
 Platform assembly: D:\Documents\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\System.dll (this message is harmless)
-desktop: 1920x1080 60Hz; virtual: 1920x2160 at 0,0
+Platform assembly: D:\Documents\ThirdPersonNarrativePrototype\ThirdPersonRPG_Prototype\TestBuild\MultiplayerTest_Data\Managed\System.Core.dll (this message is harmless)
+- Completed reload, in  0.018 seconds
 <RI> Initializing input.
 <RI> Input initialized.
 <RI> Initialized touch support.
-UnloadTime: 1.066666 ms
+UnloadTime: 0.843456 ms
 MatchMakingClient ListMatches :https://mm.unet.unity3d.com/json/reply/ListMatchRequest
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
 Setting up 4 worker threads for Enlighten.
-  Thread -> id: 8840 -> priority: 1 
-  Thread -> id: 92ec -> priority: 1 
-  Thread -> id: 9218 -> priority: 1 
-  Thread -> id: 6874 -> priority: 1 
-Creating Room: jljljlj with room for 4 players
+  Thread -> id: 3310 -> priority: 1 
+  Thread -> id: 3300 -> priority: 1 
+  Thread -> id: 3048 -> priority: 1 
+  Thread -> id: 19dc -> priority: 1 
+Creating Room: awdawd with room for 4 players
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
@@ -41,8 +42,8 @@ MatchMakingClient Create :https://mm.unet.unity3d.com/json/reply/CreateMatchRequ
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
 Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 4.356343 ms
+UnloadTime: 4.014219 ms
 
-Unloading 26 unused Assets to reduce memory usage. Loaded Objects now: 1726.
-Total: 0.787357 ms (FindLiveObjects: 0.088493 ms CreateObjectMapping: 0.033580 ms MarkObjects: 0.639604 ms  DeleteObjects: 0.025283 ms)
+Unloading 26 unused Assets to reduce memory usage. Loaded Objects now: 1784.
+Total: 0.751406 ms (FindLiveObjects: 0.071901 ms CreateObjectMapping: 0.053728 ms MarkObjects: 0.602073 ms  DeleteObjects: 0.023703 ms)
 
