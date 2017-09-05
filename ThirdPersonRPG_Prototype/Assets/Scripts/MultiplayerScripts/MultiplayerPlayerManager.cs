@@ -175,13 +175,13 @@ public class MultiplayerPlayerManager : NetworkBehaviour {
     public void RpcDestroyCargo() {
         if (hasCargo == true) {
             MultiplayerGameManager.UnstoreCargo(pickedUpCarogoName);
-
             if (currentHealth <= 0) {
                 MultiplayerGameManager.GetEnvCargo(pickedUpCarogoName).gameObject.SetActive(true);
                 MultiplayerGameManager.UnstoreEnvCargo(pickedUpCarogoName);
             }
             
             Destroy(this.transform.Find(pickedUpCarogoName).gameObject);
+            
             pickedUpCarogoName = null;
             hasCargo = false;
         }
