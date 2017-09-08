@@ -190,8 +190,6 @@ public class PlayerController : MonoBehaviour {
         moveDirection.Normalize();
         moveDirection *= currentSpeed;
         moveDirection.y = -currentGlidingGraivity;
-
-        Debug.Log(currentGlidingGraivity);
     }
 
     private void SprintLevel() {
