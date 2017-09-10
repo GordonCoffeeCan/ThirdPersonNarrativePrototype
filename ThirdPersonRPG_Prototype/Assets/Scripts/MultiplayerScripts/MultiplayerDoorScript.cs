@@ -5,13 +5,14 @@ using UnityEngine.Networking;
 
 public class MultiplayerDoorScript : NetworkBehaviour {
 
-    [SyncVar]
-    [SerializeField]
-    private bool DoorGreen = false;
+    private enum Door {
+        green,
+        red
+    }
 
     [SyncVar]
     [SerializeField]
-    private bool DoorRed = false;
+    private Door door;
 
     private Renderer objectGFX;
    
@@ -25,13 +26,9 @@ public class MultiplayerDoorScript : NetworkBehaviour {
         objectGFX = this.transform.Find("Door_GFX").GetComponent<Renderer>();
         doorAnimator = this.GetComponent<Animator>();
 
-        if ((DoorGreen == true && DoorRed == true) || (DoorGreen == false && DoorRed == false)) {
-            Debug.LogError("Door color is not set correctly! Check one of the boxes mutually-exclusivly");
-        }
-
-        if (DoorGreen == true) {
+        if (door == Door.green) {
             color = new Color32((byte)10, (byte)219, (byte)37, (byte)255);
-        } else if (DoorRed == true) {
+        } else if (door == Door.red) {
             color = new Color32((byte)238, (byte)14, (byte)14, (byte)255);
         }
 
@@ -45,9 +42,9 @@ public class MultiplayerDoorScript : NetworkBehaviour {
 
     private void OnTriggerEnter(Collider _col) {
         if (_col.tag == "Player") {
-            if(DoorGreen == true && _col.GetComponent<MultiplayerPlayerManager>().pickedUpKeyName == "Key_Green") {
+            if(door == Door.green && _col.GetComponent<MultiplayerPlayerManager>().pickedUpKeyName == "Key_Green") {
                 doorAnimator.SetBool("OpenDoor", true);
-            }else if (DoorRed == true && _col.GetComponent<MultiplayerPlayerManager>().pickedUpKeyName == "Key_Red") {
+            }else if (door == Door.red && _col.GetComponent<MultiplayerPlayerManager>().pickedUpKeyName == "Key_Red") {
                 doorAnimator.SetBool("OpenDoor", true);
             }
         }
