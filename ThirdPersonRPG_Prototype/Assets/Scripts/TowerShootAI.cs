@@ -8,13 +8,15 @@ public class TowerShootAI : MonoBehaviour {
     [SerializeField]
     private float stoneSpeed = 30;
     [SerializeField]
+    private float attackRange = 18;
+    [SerializeField]
     private float intervalTimer = 3;
     [SerializeField]
     private Transform firePoint;
     [SerializeField]
-    private List<MultiplayerPlayerManager> players;
+    private Collider poleCollider;
     [SerializeField]
-    private float attackRange = 18;
+    private List<MultiplayerPlayerManager> players;
     [SerializeField]
     private StoneScript stone;
     private SphereCollider trigger;
@@ -32,6 +34,10 @@ public class TowerShootAI : MonoBehaviour {
 
         if(stone == null) {
             Debug.LogError("No Stone reference!");
+        }
+
+        if (poleCollider == null) {
+            Debug.LogError("No Pole Collider reference!");
         }
     }
 
@@ -59,6 +65,8 @@ public class TowerShootAI : MonoBehaviour {
                     _dir.Normalize();
                     StoneScript _stoneClone = Instantiate(stone, firePoint.position, Quaternion.identity) as StoneScript;
                     Rigidbody _stoneRig = _stoneClone.GetComponent<Rigidbody>();
+                    Collider _stoneCollider = _stoneClone.GetComponent<Collider>();
+                    Physics.IgnoreCollision(_stoneCollider, poleCollider);
                     _stoneRig.AddForce(stoneSpeed * _dir, ForceMode.Impulse);
                     //_stoneClone.damage = damage;
                 }

@@ -47,13 +47,12 @@ public class PlayerController : MonoBehaviour {
         characterCtr = this.GetComponent<CharacterController>();
         moveDirection = Vector3.zero;
         sprintTimeLimit = sprintTime;
+        currentGlidingGraivity = glidingGraivty;
     }
 
     // Use this for initialization
     void Start () {
-        //Cursor.lockState = CursorLockMode.Locked;
-
-        currentGlidingGraivity = glidingGraivty;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame

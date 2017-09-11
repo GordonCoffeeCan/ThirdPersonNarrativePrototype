@@ -52,7 +52,7 @@ public class MultiplayerUIManager : NetworkBehaviour {
             } else {
                 reticleUI.gameObject.SetActive(false);
             }
-        }else if(SceneManager.GetActiveScene().name == "Multiplayer_Level" || SceneManager.GetActiveScene().name == "Multiplayer_Gliding_BasicLevel") {
+        }else if(SceneManager.GetActiveScene().buildIndex == 1) {
             if (MobileInputManager.instance.isGamepadConnected == false) {
                 if (MobileInputManager.instance.isAim && MultiplayerGameManager.instance.isPlayerInGame == true && MultiplayerGameManager.instance.isPlayerDie == false && isMenuPanelOn == false) {
                     reticleUI.gameObject.SetActive(true);
