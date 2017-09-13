@@ -119,8 +119,6 @@ public class PlayerController : MonoBehaviour {
 
         }
 
-        Debug.Log(moveDirection.magnitude);
-
         if (isGlide) {
             OnGlide();
         } else {
