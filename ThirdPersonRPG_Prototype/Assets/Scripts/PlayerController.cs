@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour {
     [SerializeField]
     private float runSpeed = 6;
     [SerializeField]
+    private float dashSpeed = 15;
+    [SerializeField]
     private float glideSpeed = 4;
     [SerializeField]
     private float jumpSpeed = 8;
@@ -43,6 +45,8 @@ public class PlayerController : MonoBehaviour {
     private bool isReadyGlide = false;
     private bool isGlide = false;
 
+    Vector3 _currentDirection = Vector3.zero;
+
     private void Awake() {
         characterCtr = this.GetComponent<CharacterController>();
         moveDirection = Vector3.zero;
@@ -56,7 +60,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update () {
+    void Update() {
 
         //If in Game menu panel is on, player cannot be controlled;
         if (MultiplayerUIManager.isMenuPanelOn) {
@@ -64,12 +68,22 @@ public class PlayerController : MonoBehaviour {
         }
         MoveCharacter();
         SprintLevel();
+
+        if (ControllerManager.instance.OnDash()) {
+            Debug.Log("Dash");
+        }
+
     }
 
     private void MoveCharacter() {
-        currentSpeed = walkSpeed;
+
+        currentSpeed = Mathf.Lerp(currentSpeed, walkSpeed, 0.2f);
+
         isGlide = false;
         OnSprint();
+        OnDash();
+
+        
 
         if (characterCtr.isGrounded) {
             isReadyGlide = false;
@@ -84,12 +98,16 @@ public class PlayerController : MonoBehaviour {
             moveDirection.y = 0;
             moveDirection.Normalize();
 
+            _currentDirection = moveDirection;
+
             moveDirection *= currentSpeed;
 
             if (ControllerManager.instance.OnJump() == true) {
                 moveDirection.y = jumpSpeed;
             }
         } else {
+            _currentDirection.Normalize();
+            moveDirection = new Vector3(_currentDirection.x * currentSpeed, moveDirection.y, _currentDirection.z * currentSpeed);
 
             if (ControllerManager.instance.OnReadyGlide() == true) {
                 isReadyGlide = true;
@@ -98,7 +116,10 @@ public class PlayerController : MonoBehaviour {
             if (isReadyGlide == true && ControllerManager.instance.OnGlide() == true) {
                 isGlide = true;
             }
+
         }
+
+        Debug.Log(moveDirection.magnitude);
 
         if (isGlide) {
             OnGlide();
@@ -167,6 +188,12 @@ public class PlayerController : MonoBehaviour {
             } else if (sprintTime >= sprintTimeLimit) {
                 sprintTime = sprintTimeLimit;
             }
+        }
+    }
+
+    private void OnDash() {
+        if (ControllerManager.instance.OnDash()) {
+            currentSpeed = dashSpeed;
         }
     }
 

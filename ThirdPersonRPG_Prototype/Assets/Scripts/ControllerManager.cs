@@ -15,6 +15,7 @@ public class ControllerManager : MonoBehaviour {
     public string aimButton;
     public string aimTrigger;
     public string sprintButton;
+    public string dashButton;
     public string MenuButton;
     public string BackButton;
 
@@ -35,6 +36,7 @@ public class ControllerManager : MonoBehaviour {
         aimTrigger = "Left_Trigger";
 
         sprintButton = "Sprint";
+        dashButton = "Dash";
 
         MenuButton = "Menu";
         BackButton = "Back";
@@ -87,6 +89,10 @@ public class ControllerManager : MonoBehaviour {
 
     public bool OnSprint() {
         return Input.GetButton(sprintButton);
+    }
+
+    public bool OnDash() {
+        return Input.GetButtonDown(dashButton);
     }
 
     public bool OnFire() {

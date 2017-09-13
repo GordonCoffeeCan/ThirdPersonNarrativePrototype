@@ -70,7 +70,6 @@ public class TowerShootAI : MonoBehaviour {
                     _stoneRig.AddForce(stoneSpeed * _dir, ForceMode.Impulse);
                     //_stoneClone.damage = damage;
                 }
-                Debug.Log(this.transform.name + " is watching " + players[i].name + "!");
             }
         }
     }
