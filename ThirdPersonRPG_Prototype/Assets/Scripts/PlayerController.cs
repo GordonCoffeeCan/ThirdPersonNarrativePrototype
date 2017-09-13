@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour {
     private bool isReadyGlide = false;
     private bool isGlide = false;
 
-    Vector3 _currentDirection = Vector3.zero;
+    Vector3 currentDirection = Vector3.zero;
 
     private void Awake() {
         characterCtr = this.GetComponent<CharacterController>();
@@ -81,8 +81,6 @@ public class PlayerController : MonoBehaviour {
 
         isGlide = false;
         OnSprint();
-        OnDash();
-
         
 
         if (characterCtr.isGrounded) {
@@ -98,7 +96,7 @@ public class PlayerController : MonoBehaviour {
             moveDirection.y = 0;
             moveDirection.Normalize();
 
-            _currentDirection = moveDirection;
+            currentDirection = moveDirection;
 
             moveDirection *= currentSpeed;
 
@@ -106,8 +104,8 @@ public class PlayerController : MonoBehaviour {
                 moveDirection.y = jumpSpeed;
             }
         } else {
-            _currentDirection.Normalize();
-            moveDirection = new Vector3(_currentDirection.x * currentSpeed, moveDirection.y, _currentDirection.z * currentSpeed);
+            currentDirection.Normalize();
+            moveDirection = new Vector3(currentDirection.x * currentSpeed, moveDirection.y, currentDirection.z * currentSpeed);
 
             if (ControllerManager.instance.OnReadyGlide() == true) {
                 isReadyGlide = true;
@@ -122,6 +120,7 @@ public class PlayerController : MonoBehaviour {
         if (isGlide) {
             OnGlide();
         } else {
+            OnDash();
             moveDirection.y -= gravity * Time.deltaTime;
         }
 
@@ -190,7 +189,8 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void OnDash() {
-        if (ControllerManager.instance.OnDash()) {
+        if (ControllerManager.instance.OnDash() && sprintTime / sprintTimeLimit >= 1) {
+            sprintTime = 0;
             currentSpeed = dashSpeed;
         }
     }
@@ -212,6 +212,7 @@ public class PlayerController : MonoBehaviour {
         moveDirection = playerCamera.transform.TransformDirection(moveDirection);
         moveDirection.y = 0;
         moveDirection.Normalize();
+        currentDirection = moveDirection;
         moveDirection *= currentSpeed;
         moveDirection.y = -currentGlidingGraivity;
     }
