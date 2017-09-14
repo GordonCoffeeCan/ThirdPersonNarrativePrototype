@@ -15,7 +15,7 @@ public class MultiplayerObstacleCrateScript : NetworkBehaviour {
 
     // Use this for initialization
     void Start () {
-        delayTime = 15;
+        delayTime = 1; //Mostafa - reduced delay from 15 to 1
         StartCoroutine(SelfDestroy(delayTime));
 	}
 

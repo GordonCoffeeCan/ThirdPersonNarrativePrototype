@@ -9,7 +9,8 @@ public class MultiplayerArticleScript : NetworkBehaviour {
         keyGreen,
         keyRed,
         freezGun,
-        obstacleMagic
+        obstacleMagic,
+        windZone
     }
 
     [SerializeField]
@@ -41,10 +42,19 @@ public class MultiplayerArticleScript : NetworkBehaviour {
 
                 objectGFX.material.SetColor("_Color", color);
                 break;
+            case Article.windZone:
+                objectGFX = this.transform.Find("Key_GFX").GetComponent<Renderer>();
+
+                color = new Color32((byte)66, (byte)206, (byte)244, (byte)255);
+
+                objectGFX.material.SetColor("_Color", color);
+                break;
             case Article.freezGun:
                 break;
             case Article.obstacleMagic:
                 break;
+      
+
         }
     }
 	

@@ -12,6 +12,7 @@ public class MultiplayerShoot : NetworkBehaviour {
     public PlayerWeapon weapon;
 
     public int obstacleNumLimit;
+    public int obstacleRange=2; //Mostafa- int to measure how far away from player the obstacle spawns
     public bool weaponInitialized = false;
 
     [SerializeField]
@@ -259,7 +260,10 @@ public class MultiplayerShoot : NetworkBehaviour {
     private void RpcCreateObstacle(){
         if (obstacleCrate != null){
             if (obstacleNumLimit > 0){
-                MultiplayerObstacleCrateScript _obstacle = (MultiplayerObstacleCrateScript)Instantiate(obstacleCrate, firePoint.position, firePoint.rotation);
+                //MultiplayerObstacleCrateScript _obstacle = (MultiplayerObstacleCrateScript)Instantiate(obstacleCrate, (firePoint.position), firePoint.rotation); //Mostafa - original line
+
+                MultiplayerObstacleCrateScript _obstacle = (MultiplayerObstacleCrateScript)Instantiate(obstacleCrate, (firePoint.position+(firePoint.transform.forward* obstacleRange)), firePoint.rotation); //Mostafa - Obstacle spawns a bit ahead of player
+
                 string _nameID = this.transform.name + obstacleID;
                 MultiplayerGameManager.StoreObstacle(_nameID, _obstacle);
                 obstacleID++;
