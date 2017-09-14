@@ -28,6 +28,10 @@ public class TowerStoneScript : MonoBehaviour{
             Debug.Log("Hit Player!");
             MultiplayerShoot _shot = _col.gameObject.GetComponent<MultiplayerShoot>();
             _shot.AIHitPlayer(_col.gameObject.name, damage);
+
+            
         }
+
+        Destroy(this.gameObject);
     }
 }
