@@ -61,7 +61,7 @@ public class TowerShootAI : MonoBehaviour {
             if (Vector3.Distance(players[i].transform.position, firePoint.position) <= attackRange) {
                 if(i == 0) {
                     //Debug.Log(this.transform.name + " is attacking " + players[i].name + "!");
-                    Vector3 _dir = players[i].transform.position - firePoint.position;
+                    Vector3 _dir = new Vector3(players[i].transform.position.x, players[i].transform.position.y + 1.5f, players[i].transform.position.z) - firePoint.position;
                     _dir.Normalize();
                     StoneScript _stoneClone = Instantiate(stone, firePoint.position, Quaternion.identity) as StoneScript;
                     Rigidbody _stoneRig = _stoneClone.GetComponent<Rigidbody>();

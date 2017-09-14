@@ -189,7 +189,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void OnDash() {
-        if (ControllerManager.instance.OnDash() && sprintTime / sprintTimeLimit >= 1) {
+        if (ControllerManager.instance.OnDash() && sprintTime / sprintTimeLimit >= 1 && moveDirection.magnitude >= 0.8f) {
             sprintTime = 0;
             currentSpeed = dashSpeed;
         }

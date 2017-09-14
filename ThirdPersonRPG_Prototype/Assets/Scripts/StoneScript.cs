@@ -20,4 +20,10 @@ public class StoneScript : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    private void OnCollisionEnter(Collision _col) {
+        if(_col.gameObject.tag == "Player") {
+            Debug.Log("Hit Player!");
+        }
+    }
 }
