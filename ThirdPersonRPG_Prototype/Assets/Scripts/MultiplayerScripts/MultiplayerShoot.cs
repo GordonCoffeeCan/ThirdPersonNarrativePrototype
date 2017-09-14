@@ -276,6 +276,11 @@ public class MultiplayerShoot : NetworkBehaviour {
         }
     }
 
+    //Will be called out of the script. To check if the player is hit by AI;
+    public void AIHitPlayer(string _playerName, int _damage) {
+        CmdPlayerShot(_playerName, _damage);
+    }
+
     //this method only runing on the server;
     [Command] //Mostafa - Sets speed to 0, saves original speed
     private void CmdPlayerShot(string _playerName, int _damage){

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TowerShootAI : MonoBehaviour {
     [SerializeField]
-    private float damage = 20;
+    private int damage = 20;
     [SerializeField]
     private float stoneSpeed = 30;
     [SerializeField]
@@ -18,7 +18,7 @@ public class TowerShootAI : MonoBehaviour {
     [SerializeField]
     private List<MultiplayerPlayerManager> players;
     [SerializeField]
-    private StoneScript stone;
+    private TowerStoneScript stone;
     private SphereCollider trigger;
     private float currentIntervalTimer;
 
@@ -63,10 +63,11 @@ public class TowerShootAI : MonoBehaviour {
                     //Debug.Log(this.transform.name + " is attacking " + players[i].name + "!");
                     Vector3 _dir = new Vector3(players[i].transform.position.x, players[i].transform.position.y + 1.5f, players[i].transform.position.z) - firePoint.position;
                     _dir.Normalize();
-                    StoneScript _stoneClone = Instantiate(stone, firePoint.position, Quaternion.identity) as StoneScript;
+                    TowerStoneScript _stoneClone = Instantiate(stone, firePoint.position, Quaternion.identity) as TowerStoneScript;
                     Rigidbody _stoneRig = _stoneClone.GetComponent<Rigidbody>();
                     Collider _stoneCollider = _stoneClone.GetComponent<Collider>();
                     Physics.IgnoreCollision(_stoneCollider, poleCollider);
+                    _stoneClone.damage = damage;
                     _stoneRig.AddForce(stoneSpeed * _dir, ForceMode.Impulse);
                     //_stoneClone.damage = damage;
                 }

@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StoneScript : MonoBehaviour {
+public class TowerStoneScript : MonoBehaviour{
+
+    private const string PLAYER_TAG = "Player";
 
     [HideInInspector]
     public float speed = 0;
     [HideInInspector]
-    public float damage = 0;
+    public int damage = 0;
 
     private float destoryTimer = 8;
 
@@ -22,8 +24,10 @@ public class StoneScript : MonoBehaviour {
 	}
 
     private void OnCollisionEnter(Collision _col) {
-        if(_col.gameObject.tag == "Player") {
+        if (_col.gameObject.tag == PLAYER_TAG) {
             Debug.Log("Hit Player!");
+            MultiplayerShoot _shot = _col.gameObject.GetComponent<MultiplayerShoot>();
+            _shot.AIHitPlayer(_col.gameObject.name, damage);
         }
     }
 }
