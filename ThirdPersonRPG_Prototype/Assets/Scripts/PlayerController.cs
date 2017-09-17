@@ -126,6 +126,8 @@ public class PlayerController : MonoBehaviour {
 
         characterCtr.Move(moveDirection * Time.deltaTime);
         RotateCharacter(moveDirection);
+
+        Debug.Log(characterCtr.isGrounded);
     }
 
     private void RotateCharacter(Vector3 _direction) {
