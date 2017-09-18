@@ -140,13 +140,12 @@ public class MultiplayerShoot : NetworkBehaviour {
     {
         Vector3 _rayPostion;
         Vector3 _rayDirection;
+        RaycastHit _hit;
 
         if (rotationPivot == null){
             Debug.LogError("No Roation Pivot referenced!");
             return;
         }
-
-        RaycastHit _hit;
 
         //adjust ray cast position on Aim or not;
         if (MobileInputManager.instance.isGamepadConnected == false) {

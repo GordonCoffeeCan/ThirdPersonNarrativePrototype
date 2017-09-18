@@ -12,6 +12,8 @@ public class TowerShootAI : MonoBehaviour {
     [SerializeField]
     private float intervalTimer = 3;
     [SerializeField]
+    private LayerMask layerMask;
+    [SerializeField]
     private Transform firePoint;
     [SerializeField]
     private Collider poleCollider;
@@ -22,7 +24,7 @@ public class TowerShootAI : MonoBehaviour {
     private SphereCollider trigger;
     private float currentIntervalTimer;
 
-    private const string PLAYER_PREFIX = "Player";
+    private const string PLAYER_TAG = "Player";
 
     private void Awake() {
         players = new List<MultiplayerPlayerManager>();
@@ -60,30 +62,43 @@ public class TowerShootAI : MonoBehaviour {
         for (int i = 0; i < players.Count; i++) {
             if (Vector3.Distance(players[i].transform.position, firePoint.position) <= attackRange) {
                 if(i == 0) {
-                    //Debug.Log(this.transform.name + " is attacking " + players[i].name + "!");
+                    RaycastHit _hit;
                     Vector3 _dir = new Vector3(players[i].transform.position.x, players[i].transform.position.y + 1.5f, players[i].transform.position.z) - firePoint.position;
                     _dir.Normalize();
-                    TowerStoneScript _stoneClone = Instantiate(stone, firePoint.position, Quaternion.identity) as TowerStoneScript;
-                    Rigidbody _stoneRig = _stoneClone.GetComponent<Rigidbody>();
-                    Collider _stoneCollider = _stoneClone.GetComponent<Collider>();
-                    Physics.IgnoreCollision(_stoneCollider, poleCollider);
-                    _stoneClone.damage = damage;
-                    _stoneRig.AddForce(stoneSpeed * _dir, ForceMode.Impulse);
-                    //_stoneClone.damage = damage;
+
+                    /*If raycast reaches the player, tower will throw stone to the player. 
+                    If there is other object between tower firepoint and the player, raycast cannot reach to the player,
+                    so that tower will not throw stone to the object in between; */
+                    if (Physics.Raycast(firePoint.position, _dir, out _hit, attackRange, layerMask)) {
+                        if(_hit.collider.tag == PLAYER_TAG) {
+                            ShootStone(_dir);
+                        }
+                    }                    
                 }
             }
         }
     }
 
+    private void ShootStone(Vector3 _dir) {
+        //Debug.Log(this.transform.name + " is attacking " + players[i].name + "!");
+        
+        TowerStoneScript _stoneClone = Instantiate(stone, firePoint.position, Quaternion.identity) as TowerStoneScript;
+        Rigidbody _stoneRig = _stoneClone.GetComponent<Rigidbody>();
+        Collider _stoneCollider = _stoneClone.GetComponent<Collider>();
+        Physics.IgnoreCollision(_stoneCollider, poleCollider);
+        _stoneClone.damage = damage;
+        _stoneRig.AddForce(stoneSpeed * _dir, ForceMode.Impulse);
+    }
+
     private void OnTriggerEnter(Collider _col) {
-        if (_col.tag == PLAYER_PREFIX) {
+        if (_col.tag == PLAYER_TAG) {
             MultiplayerPlayerManager _player = _col.GetComponent<MultiplayerPlayerManager>();
             players.Add(_player);
         }
     }
 
     private void OnTriggerExit(Collider _col) {
-        if (_col.tag == PLAYER_PREFIX) {
+        if (_col.tag == PLAYER_TAG) {
             MultiplayerPlayerManager _player = _col.GetComponent<MultiplayerPlayerManager>();
             players.Remove(_player);
         }

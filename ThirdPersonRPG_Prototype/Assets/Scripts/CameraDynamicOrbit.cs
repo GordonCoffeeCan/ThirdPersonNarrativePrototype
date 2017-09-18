@@ -51,7 +51,7 @@ public class CameraDynamicOrbit : MonoBehaviour {
         _cameraDistance = cameraMaxDistance;
 
         if (Physics.Raycast(this.transform.position, -this.transform.forward, out _hit)) {
-            if(_hit.collider.gameObject.layer == 8) {
+            if(_hit.collider.gameObject.layer == 8 || _hit.collider.gameObject.layer == 11) {
                 if (_hit.distance < cameraMaxDistance) {
                     _cameraDistance = _hit.distance - 0.5f;
                 }
