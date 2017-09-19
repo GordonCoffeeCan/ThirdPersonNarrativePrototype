@@ -24,7 +24,6 @@ public class PlayerController : MonoBehaviour {
     [SerializeField]
     private Camera playerCamera;
 
-
     private float glidingGraivty = 2;
 
     [HideInInspector]
@@ -35,6 +34,7 @@ public class PlayerController : MonoBehaviour {
     private float aimRotationSpeed = 40;
     private float currentSpeed = 0;
     private float currentGravity = 0;
+    private const float MINIMUM_SPEED_TO_GLIDE = -7.85f;
 
     private CharacterController characterCtr;
     
@@ -76,16 +76,14 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void MoveCharacter() {
-
         currentSpeed = Mathf.Lerp(currentSpeed, walkSpeed, 0.2f);
-
-        isGlide = false;
         OnSprint();
         
 
         if (characterCtr.isGrounded) {
             isReadyGlide = false;
-            
+            isGlide = false;
+
             if (MobileInputManager.instance.isGamepadConnected == false) {
                 moveDirection = MobileInputManager.instance.OnJoystickMove();
             } else {
@@ -107,14 +105,18 @@ public class PlayerController : MonoBehaviour {
             currentDirection.Normalize();
             moveDirection = new Vector3(currentDirection.x * currentSpeed, moveDirection.y, currentDirection.z * currentSpeed);
 
+            //In the air, the player has to release jump button once.
             if (ControllerManager.instance.OnReadyGlide() == true) {
                 isReadyGlide = true;
             }
 
-            if (isReadyGlide == true && ControllerManager.instance.OnGlide() == true) {
+            //When the player reaches the minimum vertical speed to glide, press jump button again to glide;
+            //While gliding, player can press jump button again to toggle between gliding and falling;
+            if (isReadyGlide == true && ControllerManager.instance.OnGlide() == true && isGlide == false && moveDirection.y < MINIMUM_SPEED_TO_GLIDE) {
                 isGlide = true;
+            }else if(isGlide == true && ControllerManager.instance.OnGlide() == true) {
+                isGlide = false;
             }
-
         }
 
         if (isGlide) {

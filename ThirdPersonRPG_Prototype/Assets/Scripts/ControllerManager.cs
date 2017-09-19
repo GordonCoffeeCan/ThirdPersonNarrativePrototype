@@ -76,7 +76,7 @@ public class ControllerManager : MonoBehaviour {
     }
 
     public bool OnGlide() {
-        return Input.GetButton(jumpButton);
+        return Input.GetButtonDown(jumpButton);
     }
 
     public bool OnReadyGlide() {

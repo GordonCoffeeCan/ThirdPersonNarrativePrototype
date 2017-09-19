@@ -66,14 +66,16 @@ public class TowerShootAI : MonoBehaviour {
                     Vector3 _dir = new Vector3(players[i].transform.position.x, players[i].transform.position.y + 1.5f, players[i].transform.position.z) - firePoint.position;
                     _dir.Normalize();
 
+                    Debug.DrawRay(firePoint.position, _dir * (new Vector3(players[i].transform.position.x, players[i].transform.position.y + 1.5f, players[i].transform.position.z) - firePoint.position).magnitude, Color.yellow, 0.5f);
                     /*If raycast reaches the player, tower will throw stone to the player. 
-                    If there is other object between tower firepoint and the player, raycast cannot reach to the player,
+                    If there is other object between the tower firepoint and the player, raycast cannot reach to the player,
                     so that tower will not throw stone to the object in between; */
                     if (Physics.Raycast(firePoint.position, _dir, out _hit, attackRange, layerMask)) {
                         if(_hit.collider.tag == PLAYER_TAG) {
                             ShootStone(_dir);
                         }
-                    }                    
+                        Debug.Log(_hit.collider.tag == PLAYER_TAG);
+                    }
                 }
             }
         }
