@@ -21,6 +21,9 @@ public class PlayerController : MonoBehaviour {
     public Transform rotationPivot;
     public CameraDynamicOrbit cameraPivot;
 
+    [HideInInspector]
+    public float upSpeed;
+
     [SerializeField]
     private Camera playerCamera;
 
@@ -35,8 +38,7 @@ public class PlayerController : MonoBehaviour {
     private float currentSpeed = 0;
     private float currentGravity = 0;
 
-    [SerializeField]
-    private float MINIMUM_SPEED_TO_GLIDE = -7.85f;
+    private const float MINIMUM_SPEED_TO_GLIDE = -5f;
 
     private CharacterController characterCtr;
     
