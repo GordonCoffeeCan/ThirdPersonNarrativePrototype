@@ -9,10 +9,8 @@ public class MultiplayerGameManager : NetworkBehaviour {
 
     public static int obstacleNumber;
 
-    //public float gameTime;
-
-    //[SyncVar]
-    //private float _gameTime = 300;
+    [HideInInspector]
+    public float cargoesStolen;
 
     [HideInInspector]
     public bool isPlayerDie = false;

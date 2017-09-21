@@ -24,6 +24,9 @@ public class MultiplayerUIManager : NetworkBehaviour {
     [SerializeField]
     private Image healthRefill;
 
+    [SerializeField]
+    private Text cargoesStolen;
+
     //[SerializeField]
     //private Text timerUI;
 
@@ -83,6 +86,8 @@ public class MultiplayerUIManager : NetworkBehaviour {
         staminaRefill.fillAmount = MultiplayerGameManager.instance.staminaLevel;
         coolDownRefill.fillAmount = MultiplayerGameManager.instance.coolDownLevel;
         healthRefill.fillAmount = MultiplayerGameManager.instance.playerHealthLevel;
+
+        cargoesStolen.text = MultiplayerGameManager.instance.cargoesStolen.ToString();
        
     }
 
