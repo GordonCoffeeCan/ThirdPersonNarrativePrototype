@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class MultiplayerTimeManager : NetworkBehaviour {
 
     [SyncVar]
-    private float timer=5;
+    public float timer=5;
     [SyncVar]
     public bool masterTimer = false;
     [SyncVar]

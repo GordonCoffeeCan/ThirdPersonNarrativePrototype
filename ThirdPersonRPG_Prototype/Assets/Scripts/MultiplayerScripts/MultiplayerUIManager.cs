@@ -87,7 +87,7 @@ public class MultiplayerUIManager : NetworkBehaviour {
         coolDownRefill.fillAmount = MultiplayerGameManager.instance.coolDownLevel;
         healthRefill.fillAmount = MultiplayerGameManager.instance.playerHealthLevel;
 
-        cargoesStolen.text = MultiplayerGameManager.instance.cargoesStolen.ToString();
+        cargoesStolen.text = MultiplayerGameManager.instance.cargoesStolen.ToString() + " out of 17";
        
     }
 
