@@ -34,7 +34,9 @@ public class PlayerController : MonoBehaviour {
     private float aimRotationSpeed = 40;
     private float currentSpeed = 0;
     private float currentGravity = 0;
-    private const float MINIMUM_SPEED_TO_GLIDE = -7.85f;
+
+    [SerializeField]
+    private float MINIMUM_SPEED_TO_GLIDE = -7.85f;
 
     private CharacterController characterCtr;
     

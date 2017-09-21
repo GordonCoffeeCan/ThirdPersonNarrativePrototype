@@ -21,6 +21,9 @@ public class MultiplayerUIManager : NetworkBehaviour {
     [SerializeField]
     private Image coolDownRefill;
 
+    [SerializeField]
+    private Image healthRefill;
+
     //[SerializeField]
     //private Text timerUI;
 
@@ -79,6 +82,8 @@ public class MultiplayerUIManager : NetworkBehaviour {
 
         staminaRefill.fillAmount = MultiplayerGameManager.instance.staminaLevel;
         coolDownRefill.fillAmount = MultiplayerGameManager.instance.coolDownLevel;
+        healthRefill.fillAmount = MultiplayerGameManager.instance.playerHealthLevel;
+       
     }
 
     public void LeaveRoom() {

@@ -26,6 +26,9 @@ public class MultiplayerGameManager : NetworkBehaviour {
     [HideInInspector]
     public float coolDownLevel;
 
+    [HideInInspector]
+    public float playerHealthLevel;
+
     private const string PLAYER_NAME_PREFIX = "Player ";
     private const string OBSTACLE_NAME_PREFIX = "Obstacle";
 

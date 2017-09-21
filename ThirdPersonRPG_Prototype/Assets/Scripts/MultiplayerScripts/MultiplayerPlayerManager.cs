@@ -65,9 +65,10 @@ public class MultiplayerPlayerManager : NetworkBehaviour {
     }
 
     // Update is called once per frame
-    /*void Update () {
-        
-	}*/
+    void Update () {
+
+        MultiplayerGameManager.instance.playerHealthLevel = (float)currentHealth / (float)maxHealth;
+	}
 
     public void SetupOnStart() {
 
