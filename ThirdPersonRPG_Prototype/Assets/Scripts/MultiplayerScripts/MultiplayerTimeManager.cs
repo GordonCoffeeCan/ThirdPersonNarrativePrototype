@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class MultiplayerTimeManager : NetworkBehaviour {
 
     [SyncVar]
-    private float timer=30;
+    private float timer=5;
     [SyncVar]
     public bool masterTimer = false;
     [SyncVar]
@@ -31,7 +31,16 @@ public class MultiplayerTimeManager : NetworkBehaviour {
 	// Update is called once per frame
 	void Update () {
         CmdTimer();
-        timerText.text = timer.ToString("F2");
+
+        if (timer > 0) {
+            timerText.text = timer.ToString("F0");
+        }else {
+            timerText.text = "Time's up!";
+        }
+
+        //if(timer>0){ timerText.text = timer.ToString("F0");}
+
+
 	}
 
     [Command]
