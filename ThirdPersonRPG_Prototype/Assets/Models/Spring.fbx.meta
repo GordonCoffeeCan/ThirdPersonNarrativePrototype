@@ -1,0 +1,312 @@
+fileFormatVersion: 2
+guid: 3366a4969e212634fb151860326d4d28
+timeCreated: 1505964268
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 21
+  fileIDToRecycleName:
+    100000: Bottom_Ctr
+    100002: BottomPlank
+    100004: //RootNode
+    100006: Spring1joint1
+    100008: Spring1joint101
+    100010: Spring1joint106
+    100012: Spring1joint11
+    100014: Spring1joint111
+    100016: Spring1joint116
+    100018: Spring1joint121
+    100020: Spring1joint126
+    100022: Spring1joint131
+    100024: Spring1joint136
+    100026: Spring1joint141
+    100028: Spring1joint146
+    100030: Spring1joint151
+    100032: Spring1joint156
+    100034: Spring1joint16
+    100036: Spring1joint161
+    100038: Spring1joint166
+    100040: Spring1joint171
+    100042: Spring1joint176
+    100044: Spring1joint181
+    100046: Spring1joint186
+    100048: Spring1joint191
+    100050: Spring1joint196
+    100052: Spring1joint201
+    100054: Spring1joint206
+    100056: Spring1joint21
+    100058: Spring1joint211
+    100060: Spring1joint216
+    100062: Spring1joint221
+    100064: Spring1joint226
+    100066: Spring1joint231
+    100068: Spring1joint236
+    100070: Spring1joint241
+    100072: Spring1joint246
+    100074: Spring1joint251
+    100076: Spring1joint256
+    100078: Spring1joint26
+    100080: Spring1joint261
+    100082: Spring1joint266
+    100084: Spring1joint271
+    100086: Spring1joint276
+    100088: Spring1joint281
+    100090: Spring1joint286
+    100092: Spring1joint291
+    100094: Spring1joint296
+    100096: Spring1joint301
+    100098: Spring1joint31
+    100100: Spring1joint36
+    100102: Spring1joint41
+    100104: Spring1joint46
+    100106: Spring1joint51
+    100108: Spring1joint56
+    100110: Spring1joint6
+    100112: Spring1joint61
+    100114: Spring1joint66
+    100116: Spring1joint71
+    100118: Spring1joint76
+    100120: Spring1joint81
+    100122: Spring1joint86
+    100124: Spring1joint91
+    100126: Spring1joint96
+    100128: Spring2
+    100130: Top_Ctr
+    100132: TopPlank
+    400000: Bottom_Ctr
+    400002: BottomPlank
+    400004: //RootNode
+    400006: Spring1joint1
+    400008: Spring1joint101
+    400010: Spring1joint106
+    400012: Spring1joint11
+    400014: Spring1joint111
+    400016: Spring1joint116
+    400018: Spring1joint121
+    400020: Spring1joint126
+    400022: Spring1joint131
+    400024: Spring1joint136
+    400026: Spring1joint141
+    400028: Spring1joint146
+    400030: Spring1joint151
+    400032: Spring1joint156
+    400034: Spring1joint16
+    400036: Spring1joint161
+    400038: Spring1joint166
+    400040: Spring1joint171
+    400042: Spring1joint176
+    400044: Spring1joint181
+    400046: Spring1joint186
+    400048: Spring1joint191
+    400050: Spring1joint196
+    400052: Spring1joint201
+    400054: Spring1joint206
+    400056: Spring1joint21
+    400058: Spring1joint211
+    400060: Spring1joint216
+    400062: Spring1joint221
+    400064: Spring1joint226
+    400066: Spring1joint231
+    400068: Spring1joint236
+    400070: Spring1joint241
+    400072: Spring1joint246
+    400074: Spring1joint251
+    400076: Spring1joint256
+    400078: Spring1joint26
+    400080: Spring1joint261
+    400082: Spring1joint266
+    400084: Spring1joint271
+    400086: Spring1joint276
+    400088: Spring1joint281
+    400090: Spring1joint286
+    400092: Spring1joint291
+    400094: Spring1joint296
+    400096: Spring1joint301
+    400098: Spring1joint31
+    400100: Spring1joint36
+    400102: Spring1joint41
+    400104: Spring1joint46
+    400106: Spring1joint51
+    400108: Spring1joint56
+    400110: Spring1joint6
+    400112: Spring1joint61
+    400114: Spring1joint66
+    400116: Spring1joint71
+    400118: Spring1joint76
+    400120: Spring1joint81
+    400122: Spring1joint86
+    400124: Spring1joint91
+    400126: Spring1joint96
+    400128: Spring2
+    400130: Top_Ctr
+    400132: TopPlank
+    2300000: BottomPlank
+    2300002: TopPlank
+    3300000: BottomPlank
+    3300002: TopPlank
+    4300000: TopPlank
+    4300002: BottomPlank
+    4300004: Spring2
+    7400000: Spring_Idle
+    7400002: Spring_Popping
+    7400004: Spring_Released
+    9500000: //RootNode
+    13700000: Spring2
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Spring_Idle
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 5
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Spring_Popping
+      takeName: Take 001
+      firstFrame: 6
+      lastFrame: 25
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Spring_Released
+      takeName: Take 001
+      firstFrame: 26
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 10
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
