@@ -7,6 +7,8 @@ public class WindZoneScript : MonoBehaviour {
     [SerializeField]
     private float windForce = 20;
 
+    private PlayerController playerCtr;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -17,10 +19,16 @@ public class WindZoneScript : MonoBehaviour {
 		
 	}
 
+    private void OnTriggerEnter(Collider _col) {
+        if (_col.tag == "Player") {
+            playerCtr = _col.GetComponent<PlayerController>();
+        }
+    }
+
     private void OnTriggerStay(Collider _col) {
         if (_col.tag == "Player") {
             Debug.Log("Push!");
-            _col.GetComponent<PlayerController>().currentGlidingGraivity = -windForce;
+            playerCtr.currentGlidingGraivity = -windForce;
         }
     }
 }

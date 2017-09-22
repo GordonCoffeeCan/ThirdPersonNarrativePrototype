@@ -22,7 +22,9 @@ public class PlayerController : MonoBehaviour {
     public CameraDynamicOrbit cameraPivot;
 
     [HideInInspector]
-    public float upSpeed;
+    public float popSpeed;
+    [HideInInspector]
+    public bool isPopped = false;
 
     [SerializeField]
     private Camera playerCamera;
@@ -82,7 +84,6 @@ public class PlayerController : MonoBehaviour {
     private void MoveCharacter() {
         currentSpeed = Mathf.Lerp(currentSpeed, walkSpeed, 0.2f);
         OnSprint();
-        
 
         if (characterCtr.isGrounded) {
             isReadyGlide = false;
@@ -104,6 +105,11 @@ public class PlayerController : MonoBehaviour {
 
             if (ControllerManager.instance.OnJump() == true) {
                 moveDirection.y = jumpSpeed;
+            }
+
+            if (isPopped) {
+                moveDirection.y = popSpeed;
+                isPopped = false;
             }
         } else {
             currentDirection.Normalize();

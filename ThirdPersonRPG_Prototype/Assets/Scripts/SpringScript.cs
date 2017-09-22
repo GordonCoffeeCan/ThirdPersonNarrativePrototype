@@ -5,12 +5,25 @@ using UnityEngine;
 public class SpringScript : MonoBehaviour {
 
     private const string PLAYER_TAG = "Player";
-    private PlayerController playerController;
+
+    [SerializeField]
+    private float speedToPlayer = 25;
+
+    [SerializeField]
+    private Animator springAnimController;
+    private Collider triggerCollider;
+    private bool isSpringReleased = false;
+    
+    private PlayerController playerCtr;
 
 	// Use this for initialization
 	void Start () {
-		
-	}
+        if(springAnimController == null) {
+            Debug.LogError("No Spring Animation Controller reference!");
+        }
+
+        triggerCollider = this.GetComponent<Collider>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -19,9 +32,12 @@ public class SpringScript : MonoBehaviour {
 
     private void OnTriggerEnter(Collider _col) {
         if(_col.tag == PLAYER_TAG) {
-            playerController = _col.GetComponent<PlayerController>();
+            playerCtr = _col.GetComponent<PlayerController>();
 
-            playerController.upSpeed = 0;
+            playerCtr.popSpeed = speedToPlayer;
+            playerCtr.isPopped = true;
+            springAnimController.SetTrigger("ReleaseSpring");
+            triggerCollider.enabled = false;
         }
     }
 }
