@@ -8,6 +8,8 @@ public class SpringScript : MonoBehaviour {
 
     [SerializeField]
     private float speedToPlayer = 25;
+    [SerializeField]
+    private float foldDelay = 2;
 
     [SerializeField]
     private Animator springAnimController;
@@ -37,7 +39,15 @@ public class SpringScript : MonoBehaviour {
             playerCtr.popSpeed = speedToPlayer;
             playerCtr.isPopped = true;
             springAnimController.SetTrigger("ReleaseSpring");
+            StartCoroutine(SelfFold(foldDelay));
             triggerCollider.enabled = false;
         }
     }
+
+    private IEnumerator SelfFold(float _delay) {
+        yield return new WaitForSeconds(_delay);
+        triggerCollider.enabled = true;
+        springAnimController.SetTrigger("FoldSpring");
+    }
+
 }

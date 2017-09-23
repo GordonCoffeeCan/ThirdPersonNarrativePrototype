@@ -9,7 +9,8 @@ public class PlayerWeapon{
     public enum Weapon {
         none,
         freezer,
-        obstacleCreator
+        obstacleCreator,
+        spring
     }
 
     public Weapon currentWeapon;

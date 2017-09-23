@@ -154,6 +154,7 @@ public class MultiplayerShoot : NetworkBehaviour {
                 _rayDirection = playerCamera.transform.forward;
             } else {
                 _rayPostion = new Vector3(this.transform.position.x, this.transform.position.y + 1.39f, this.transform.position.z);
+                rotationPivot.transform.rotation = Quaternion.Euler(0, cameraPivot.transform.rotation.eulerAngles.y, 0);
                 _rayDirection = rotationPivot.transform.forward;
             }
         } else {
@@ -162,6 +163,7 @@ public class MultiplayerShoot : NetworkBehaviour {
                 _rayDirection = playerCamera.transform.forward;
             } else {
                 _rayPostion = new Vector3(this.transform.position.x, this.transform.position.y + 1.39f, this.transform.position.z);
+                rotationPivot.transform.rotation = Quaternion.Euler(0, cameraPivot.transform.rotation.eulerAngles.y, 0);
                 _rayDirection = rotationPivot.transform.forward;
             }
         }
@@ -176,10 +178,13 @@ public class MultiplayerShoot : NetworkBehaviour {
             if (_hit.collider.tag == ENEMY_TAG) { //If it hits enemy tag
                 CmdEnemyFreeze(_hit.collider.name);
             }
-            Debug.DrawRay(_rayPostion, _rayDirection, Color.red, 1);
+            _rayDirection.Normalize();
+            Debug.DrawRay(_rayPostion, _rayDirection * _hit.distance , Color.red, 1);
         }
 
-        CmdOnShoot(cameraPivot.transform.rotation, _hit.distance);
+        Debug.Log((_hit.point - this.transform.position).magnitude);
+
+        CmdOnShoot(Quaternion.LookRotation(_rayDirection), _hit.distance);
     }
 
     //Shoot Bullet runing on Server
