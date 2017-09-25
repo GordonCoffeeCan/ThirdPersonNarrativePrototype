@@ -16,6 +16,8 @@ public class MultiplayerTimeManager : NetworkBehaviour {
     public Text timerText;
     private string minSec;
 
+
+
     // Use this for initialization
     void Start () {
         //CmdTimer
@@ -55,5 +57,8 @@ public class MultiplayerTimeManager : NetworkBehaviour {
 
         timer -= Time.deltaTime;
 
+
+
     }
+
 }
