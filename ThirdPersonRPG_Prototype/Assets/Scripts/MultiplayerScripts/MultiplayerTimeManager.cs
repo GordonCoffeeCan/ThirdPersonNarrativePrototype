@@ -14,17 +14,11 @@ public class MultiplayerTimeManager : NetworkBehaviour {
     public float gameTime;
 
     public Text timerText;
-
     private string minSec;
-
-    
 
     // Use this for initialization
     void Start () {
-        //CmdTimer()
-
-   
-
+        //CmdTimer
         if (isServer) {
             if (isLocalPlayer) {
                
