@@ -11,20 +11,19 @@ public class MultiplayerObstacleCrateScript : NetworkBehaviour {
     //private float bulletSpeed = 75;
 
     [SerializeField]
-    private float delayTime;
+    private float lifeSpan = 2;
 
     // Use this for initialization
     void Start () {
-        delayTime = 1; //Mostafa - reduced delay from 15 to 1
-        StartCoroutine(SelfDestroy(delayTime));
+        StartCoroutine(SelfDestroy(lifeSpan));
 	}
 
     // Update is called once per frame
     void Update () {
         
     }
-    private IEnumerator SelfDestroy(float _timer) {
-        yield return new WaitForSeconds(_timer);
+    private IEnumerator SelfDestroy(float _delay) {
+        yield return new WaitForSeconds(_delay);
         Destroy(this.gameObject);
     }
 

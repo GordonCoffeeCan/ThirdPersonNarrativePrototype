@@ -72,6 +72,7 @@ ModelImporter:
     100128: Spring2
     100130: Top_Ctr
     100132: TopPlank
+    100134: Spring
     400000: Bottom_Ctr
     400002: BottomPlank
     400004: //RootNode
@@ -139,6 +140,7 @@ ModelImporter:
     400128: Spring2
     400130: Top_Ctr
     400132: TopPlank
+    400134: Spring
     2300000: BottomPlank
     2300002: TopPlank
     3300000: BottomPlank
@@ -146,11 +148,14 @@ ModelImporter:
     4300000: TopPlank
     4300002: BottomPlank
     4300004: Spring2
+    4300006: Spring
     7400000: Spring_Idle
     7400002: Spring_Popping
     7400004: Spring_Released
+    7400006: Spring_Folding
     9500000: //RootNode
     13700000: Spring2
+    13700002: Spring
   materials:
     importMaterials: 1
     materialName: 0
@@ -243,6 +248,34 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Spring_Folding
+      takeName: Take 001
+      firstFrame: 30
+      lastFrame: 37
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0

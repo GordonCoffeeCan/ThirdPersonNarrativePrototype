@@ -166,7 +166,7 @@ public class PlayerController : MonoBehaviour {
             }
         }
 
-        //On Aiming, Player rotation follow along with camera direction;
+        //On Aiming, Player rotation follows along with camera direction;
         if (MobileInputManager.instance.isGamepadConnected == false) {
             if (MobileInputManager.instance.isAim == true || MobileInputManager.instance.OnFire() == true) {
                 rotationPivot.rotation = Quaternion.Slerp(rotationPivot.rotation, Quaternion.Euler(new Vector3(0, cameraPivot.transform.localEulerAngles.y + this.transform.eulerAngles.y, 0)), aimRotationSpeed * Time.deltaTime);
