@@ -123,7 +123,7 @@ public abstract class ETCBase : MonoBehaviour {
 		if (!isShuttingDown && !Application.isLoadingLevel){
 			ETCInput.instance.UnRegisterControl( this );
 		}
-	}
+    }
 
 	void OnApplicationQuit(){
 		isShuttingDown = true;

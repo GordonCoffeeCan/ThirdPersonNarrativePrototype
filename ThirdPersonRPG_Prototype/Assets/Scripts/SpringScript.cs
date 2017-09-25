@@ -14,7 +14,7 @@ public class SpringScript : MonoBehaviour {
     [SerializeField]
     private Animator springAnimController;
     private Collider triggerCollider;
-    private bool isSpringReleased = false;
+    //private bool isSpringReleased = false;
     
     private PlayerController playerCtr;
 
