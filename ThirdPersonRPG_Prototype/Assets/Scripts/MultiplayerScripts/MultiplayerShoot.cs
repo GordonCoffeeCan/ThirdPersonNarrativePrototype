@@ -85,21 +85,26 @@ public class MultiplayerShoot : NetworkBehaviour {
 
         SetCoolDownLevel();
 
-        if (MobileInputManager.instance.isGamepadConnected == false) {
-            if (MobileInputManager.instance.OnFire() && isFired == false) {
-                OnWeaponSelect();
-                isFired = true;
-            } else if (MobileInputManager.instance.OnFire() == false) {
-                isFired = false;
+        if (weapon.currentWeapon != PlayerWeapon.Weapon.spring) {
+            if (MobileInputManager.instance.isGamepadConnected == false) {
+                if (MobileInputManager.instance.OnFire() && isFired == false) {
+                    OnWeaponSelect();
+                    isFired = true;
+                } else if (MobileInputManager.instance.OnFire() == false) {
+                    isFired = false;
+                }
+            } else {
+                if (ControllerManager.instance.OnFire() && isFired == false) {
+                    OnWeaponSelect();
+                    isFired = true;
+                } else if (ControllerManager.instance.OnFire() == false) {
+                    isFired = false;
+                }
             }
         } else {
-            if (ControllerManager.instance.OnFire() && isFired == false) {
-                OnWeaponSelect();
-                isFired = true;
-            } else if (ControllerManager.instance.OnFire() == false) {
-                isFired = false;
-            }
+            OnWeaponSelect();
         }
+        
     }
 
     private void OnWeaponSelect() {
@@ -113,6 +118,9 @@ public class MultiplayerShoot : NetworkBehaviour {
             case PlayerWeapon.Weapon.obstacleCreator:
                 OnObstacleAction();
                 break;
+            case PlayerWeapon.Weapon.spring:
+                OnBuildPreview();
+                break;
             default:
                 break;
         }
@@ -120,10 +128,17 @@ public class MultiplayerShoot : NetworkBehaviour {
 
     //Initialize weapon ---------------
     public void InitializeWeapon() {
-        if (weapon.currentWeapon == PlayerWeapon.Weapon.freezer) {
-            firePoint.localPosition = currentFirePointPosition;
-        } else if (weapon.currentWeapon == PlayerWeapon.Weapon.obstacleCreator) {
-            firePoint.localPosition = new Vector3(currentFirePointPosition.x, 0.35f, currentFirePointPosition.z + 1);
+        switch (weapon.currentWeapon) {
+            case PlayerWeapon.Weapon.freezer:
+                firePoint.localPosition = currentFirePointPosition;
+                break;
+            case PlayerWeapon.Weapon.obstacleCreator:
+                firePoint.localPosition = new Vector3(currentFirePointPosition.x, 0.35f, currentFirePointPosition.z + 1);
+                break;
+            case PlayerWeapon.Weapon.spring:
+                break;
+            default:
+                break;
         }
 
         coolDownTime = weapon.SetupCoolDownTime(weapon.currentWeapon);
@@ -136,8 +151,7 @@ public class MultiplayerShoot : NetworkBehaviour {
     //Shoot bullet
     //this method only runing on the client;
     [Client]
-    private void shoot()
-    {
+    private void shoot(){
         Vector3 _rayPostion;
         Vector3 _rayDirection;
         RaycastHit _hit;
@@ -211,6 +225,49 @@ public class MultiplayerShoot : NetworkBehaviour {
         {
             Debug.LogError("No Bullet Effect game object reference!");
         }
+    }
+
+    //Preview object before build
+    [Client]
+    private void OnBuildPreview() {
+        if (MobileInputManager.instance.isGamepadConnected == false) {
+            if (MobileInputManager.instance.isAim) {
+                showPreview();
+            }
+        } else {
+            if (ControllerManager.instance.OnAim()) {
+                showPreview();
+            }
+        }
+    }
+
+    private void showPreview() {
+        Vector3 _rayPostion;
+        Vector3 _rayDirection;
+        Vector3 _hitToPlayer;
+        RaycastHit _hit;
+
+        _rayPostion = new Vector3(this.transform.position.x, this.transform.position.y + 1.39f, this.transform.position.z);
+        _rayDirection = playerCamera.transform.forward;
+
+        if (Physics.Raycast(_rayPostion, _rayDirection, out _hit, weapon.range, layerMask)) {
+            int _radialRayCount = 10;
+            _hitToPlayer = _hit.point - this.transform.position;
+
+            Vector3.ClampMagnitude(_hitToPlayer, 3);
+
+            for (int i = 0; i < _radialRayCount; i++) {
+                Vector3 _radialPosition = new Vector3(_hit.point.x, _hit.point.y + 1, _hit.point.z);
+                Vector3 _radialDirection = Vector3.forward;
+                _radialDirection = Quaternion.Euler(0, (i * (360 / _radialRayCount)), 0) * _radialDirection;
+                _radialDirection.Normalize();
+                Debug.DrawRay(_radialPosition, _radialDirection * 2, Color.red, Time.deltaTime);
+            }
+
+            _rayDirection.Normalize();
+            Debug.DrawRay(_rayPostion, _rayDirection * _hit.distance, Color.red, Time.deltaTime);
+        }
+        Debug.Log("Preview...");
     }
 
     //Create and Destory Obstacle
