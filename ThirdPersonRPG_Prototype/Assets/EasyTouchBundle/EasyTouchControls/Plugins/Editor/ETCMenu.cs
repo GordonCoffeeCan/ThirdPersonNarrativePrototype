@@ -133,21 +133,28 @@ public static class ETCMenu{
 			AddEventSystem();
 		}
 
-		// TouchInput
-		if ( GameObject.FindObjectOfType(typeof(TouchInputModule)) ){
-			TouchInputModule tm = (TouchInputModule)GameObject.FindObjectOfType(typeof(TouchInputModule));
-			tm.forceModuleActive = true;
-		}
+        /*// TouchInput
+        if (GameObject.FindObjectOfType(typeof(TouchInputModule))) {
+            TouchInputModule tm = (TouchInputModule)GameObject.FindObjectOfType(typeof(TouchInputModule));
+            tm.forceModuleActive = true;
+        }*/
 
-		return canvas;
+        // TouchInput
+        if (GameObject.FindObjectOfType(typeof(StandaloneInputModule))) {
+            StandaloneInputModule tm = (StandaloneInputModule)GameObject.FindObjectOfType(typeof(StandaloneInputModule));
+            tm.forceModuleActive = true;
+        }
+
+        return canvas;
 
 	}
 	
 	static void AddEventSystem(){
 
-		new GameObject("EventSystem",typeof(EventSystem), typeof(TouchInputModule));
+        //new GameObject("EventSystem", typeof(EventSystem), typeof(TouchInputModule));
+        new GameObject("EventSystem", typeof(EventSystem), typeof(StandaloneInputModule));
 
-	}
+    }
 
 	static GameObject  AddCanvas(bool isSpaceCamera=false){
 
