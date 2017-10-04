@@ -38,6 +38,7 @@ public class PlayerController : MonoBehaviour {
     private float rotationSpeed = 15;
     private float aimRotationSpeed = 40;
     private float currentSpeed = 0;
+    private float currentJumpSpeed = 0;
     //private float currentGravity = 0;
 
     private const float MINIMUM_SPEED_TO_GLIDE = -5f;
@@ -58,6 +59,7 @@ public class PlayerController : MonoBehaviour {
         moveDirection = Vector3.zero;
         sprintTimeLimit = sprintTime;
         currentGlidingGraivity = glidingGraivty;
+        currentJumpSpeed = jumpSpeed;
     }
 
     // Use this for initialization
@@ -85,6 +87,12 @@ public class PlayerController : MonoBehaviour {
         currentSpeed = Mathf.Lerp(currentSpeed, walkSpeed, 0.2f);
         OnSprint();
 
+        /*if (moveDirection.magnitude > 0) {
+            currentJumpSpeed = 0;
+        } else {
+            currentJumpSpeed = jumpSpeed;
+        }*/
+
         if (characterCtr.isGrounded) {
             isReadyGlide = false;
             isGlide = false;
@@ -104,7 +112,13 @@ public class PlayerController : MonoBehaviour {
             moveDirection *= currentSpeed;
 
             if (ControllerManager.instance.OnJump() == true) {
-                moveDirection.y = jumpSpeed;
+                moveDirection.y = currentJumpSpeed;
+
+                if(currentJumpSpeed == 0) {
+                    characterCtr.height = 0.8f;
+                } else {
+                    characterCtr.height = 1.8f;
+                }
             }
 
             if (isPopped) {
