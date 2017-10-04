@@ -28,6 +28,9 @@ public class MultiplayerShoot : NetworkBehaviour {
     private MultiplayerObstacleCrateScript obstacleCrate;
 
     [SerializeField]
+    private GameObject spring;
+
+    [SerializeField]
     private LayerMask layerMask;
     private Transform cameraPivot;
     private Transform rotationPivot;
@@ -37,6 +40,9 @@ public class MultiplayerShoot : NetworkBehaviour {
     private int obstacleID;
     private bool readyToFire;
     private bool isFired = false;
+    private bool isPreviewing = false;
+
+    private GameObject previewClone;
 
     // Use this for initialization
     void Start()
@@ -232,16 +238,21 @@ public class MultiplayerShoot : NetworkBehaviour {
     private void OnBuildPreview() {
         if (MobileInputManager.instance.isGamepadConnected == false) {
             if (MobileInputManager.instance.isAim) {
-                showPreview();
+                ShowPreview();
+            } else {
+                RemovePreview();
             }
         } else {
             if (ControllerManager.instance.OnAim()) {
-                showPreview();
+                ShowPreview();
+            } else {
+                RemovePreview();
             }
         }
     }
 
-    private void showPreview() {
+    //Preview while building object ------
+    private void ShowPreview() {
         Vector3 _rayPostion;
         Vector3 _rayDirection;
         Vector3 _hitToPlayer;
@@ -251,24 +262,56 @@ public class MultiplayerShoot : NetworkBehaviour {
         _rayDirection = playerCamera.transform.forward;
 
         if (Physics.Raycast(_rayPostion, _rayDirection, out _hit, weapon.range, layerMask)) {
+            Vector3 _radialPosition;
             int _radialRayCount = 10;
             _hitToPlayer = _hit.point - this.transform.position;
+            _hitToPlayer = Vector3.ClampMagnitude(new Vector3(_hitToPlayer.x, this.transform.position.y, _hitToPlayer.z), 3);
+            _radialPosition = this.transform.position + _hitToPlayer;
 
-            Vector3.ClampMagnitude(_hitToPlayer, 3);
+            if (isPreviewing == false) {
+                previewClone = Instantiate(spring, _radialPosition, this.rotationPivot.rotation) as GameObject;
+                isPreviewing = true;
+            }
 
             for (int i = 0; i < _radialRayCount; i++) {
-                Vector3 _radialPosition = new Vector3(_hit.point.x, _hit.point.y + 1, _hit.point.z);
+                
                 Vector3 _radialDirection = Vector3.forward;
+
+                _radialPosition = new Vector3(_radialPosition.x, this.transform.position.y + 1, _radialPosition.z);
+                
                 _radialDirection = Quaternion.Euler(0, (i * (360 / _radialRayCount)), 0) * _radialDirection;
                 _radialDirection.Normalize();
-                Debug.DrawRay(_radialPosition, _radialDirection * 2, Color.red, Time.deltaTime);
+
+                if (Physics.Raycast(_radialPosition, _radialDirection, out _hit, 1, layerMask)) {
+                    Debug.Log("Obstacles?");
+                    previewClone.SetActive(false);
+                } else {
+                    previewClone.SetActive(true);
+                }
+
+                Debug.DrawRay(_radialPosition, _radialDirection * 1, Color.red, Time.deltaTime);
             }
+
+            if (isPreviewing == true && previewClone != null) {
+                previewClone.transform.position = new Vector3(_radialPosition.x, this.transform.position.y, _radialPosition.z);
+                previewClone.transform.rotation = this.rotationPivot.rotation;
+
+            }
+
+            Debug.Log(isPreviewing);
 
             _rayDirection.Normalize();
             Debug.DrawRay(_rayPostion, _rayDirection * _hit.distance, Color.red, Time.deltaTime);
+        } else {
+            RemovePreview();
         }
-        Debug.Log("Preview...");
     }
+
+    private void RemovePreview() {
+        Destroy(previewClone);
+        isPreviewing = false;
+    }
+    //Preview while building object ------
 
     //Create and Destory Obstacle
     [Client]
