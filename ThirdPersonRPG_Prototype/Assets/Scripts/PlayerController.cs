@@ -155,7 +155,7 @@ public class PlayerController : MonoBehaviour {
             moveDirection.y -= gravity * Time.deltaTime;
         }
 
-        rotationPivot.transform.localPosition = new Vector3(0, -this.transform.position.y, 0);
+        //rotationPivot.transform.localPosition = new Vector3(0, -this.transform.position.y, 0);
 
         characterCtr.Move(moveDirection * Time.deltaTime);
         RotateCharacter(moveDirection);
