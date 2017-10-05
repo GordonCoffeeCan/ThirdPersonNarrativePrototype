@@ -10,6 +10,7 @@ public class MultiplayerPlayerAnimation : MonoBehaviour {
 
     private Vector2 idleBlend = Vector2.zero;
     private Vector2 currentIdleBlend = Vector2.zero;
+    private Vector2 horizontalSpeed = Vector2.zero;
 
     [SerializeField]private float idleChangeTimer = 3;
     private float currentIdleChangeTimer;
@@ -48,7 +49,8 @@ public class MultiplayerPlayerAnimation : MonoBehaviour {
     }
 
     private void ChangeMotion() {
-        currentSpeed = Mathf.Lerp(currentSpeed, charCtr.velocity.magnitude, 0.5f);
+        horizontalSpeed = new Vector2(charCtr.velocity.x, charCtr.velocity.z);
+        currentSpeed = Mathf.Lerp(currentSpeed, horizontalSpeed.magnitude, 0.5f);
 
         if (currentSpeed < 0.1f) {
             currentSpeed = 0;
@@ -57,10 +59,12 @@ public class MultiplayerPlayerAnimation : MonoBehaviour {
         playerAnimator.SetFloat("Speed", currentSpeed);
         playerAnimator.SetBool("IsGround", charCtr.isGrounded);
 
-        if (charCtr.isGrounded == false) {
-            playerAnimator.SetTrigger("Jump");
+        if (MobileInputManager.instance.isGamepadConnected == false) {
+            
+        } else {
+            playerAnimator.SetBool("Jump", ControllerManager.instance.OnJump());
         }
 
-        Debug.Log(charCtr.velocity.y);
+        //Debug.Log(charCtr.velocity.y);
     }
 }

@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour {
     private float currentJumpSpeed = 0;
     //private float currentGravity = 0;
 
-    private const float MINIMUM_SPEED_TO_GLIDE = -5f;
+    private const float MINIMUM_SPEED_TO_GLIDE = -7.5f;
 
     private CharacterController characterCtr;
     
@@ -87,12 +87,6 @@ public class PlayerController : MonoBehaviour {
         currentSpeed = Mathf.Lerp(currentSpeed, walkSpeed, 0.2f);
         OnSprint();
 
-        /*if (moveDirection.magnitude > 0) {
-            currentJumpSpeed = 0;
-        } else {
-            currentJumpSpeed = jumpSpeed;
-        }*/
-
         if (characterCtr.isGrounded) {
             isReadyGlide = false;
             isGlide = false;
@@ -112,13 +106,14 @@ public class PlayerController : MonoBehaviour {
             moveDirection *= currentSpeed;
 
             if (ControllerManager.instance.OnJump() == true) {
-                moveDirection.y = currentJumpSpeed;
-
-                if(currentJumpSpeed == 0) {
-                    characterCtr.height = 0.8f;
+                if (new Vector2(moveDirection.x, moveDirection.z).magnitude > 0) {
+                    currentSpeed = 0;
+                    currentSpeed = jumpSpeed;
                 } else {
-                    characterCtr.height = 1.8f;
+                    currentSpeed = jumpSpeed;
+                    //currentSpeed = 0;
                 }
+                moveDirection.y = currentSpeed;
             }
 
             if (isPopped) {
@@ -149,6 +144,8 @@ public class PlayerController : MonoBehaviour {
             OnDash();
             moveDirection.y -= gravity * Time.deltaTime;
         }
+
+        //rotationPivot.transform.localPosition = new Vector3(0, -this.transform.position.y, 0);
 
         characterCtr.Move(moveDirection * Time.deltaTime);
         RotateCharacter(moveDirection);
