@@ -29,6 +29,10 @@ public class PlayerController : MonoBehaviour {
     [SerializeField]
     private Camera playerCamera;
 
+    [SerializeField] private Transform headEnd; //Using to calculate dynamic Character controller Height based on head and foot distance;
+    [SerializeField] private Transform leftFoot; //Using to calculate dynamic Character controller Height based on head and foot distance;
+    [SerializeField] private Transform rightFoot; //Using to calculate dynamic Character controller Height based on head and foot distance;
+
     private float glidingGraivty = 2;
 
     [HideInInspector]
@@ -84,6 +88,12 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void MoveCharacter() {
+        //Vector3 _rootPosition = new Vector3(0, foot.position.y, 0);
+
+        characterCtr.height = Vector3.Distance(headEnd.position, ((leftFoot.position + rightFoot.position) / 2));
+
+        Debug.Log(characterCtr.height);
+
         currentSpeed = Mathf.Lerp(currentSpeed, walkSpeed, 0.2f);
         OnSprint();
 
@@ -108,10 +118,10 @@ public class PlayerController : MonoBehaviour {
             if (ControllerManager.instance.OnJump() == true) {
                 if (new Vector2(moveDirection.x, moveDirection.z).magnitude > 0) {
                     currentSpeed = 0;
-                    currentSpeed = jumpSpeed;
+                    //currentSpeed = jumpSpeed;
                 } else {
-                    currentSpeed = jumpSpeed;
-                    //currentSpeed = 0;
+                    //currentSpeed = jumpSpeed;
+                    currentSpeed = 0;
                 }
                 moveDirection.y = currentSpeed;
             }
@@ -145,7 +155,7 @@ public class PlayerController : MonoBehaviour {
             moveDirection.y -= gravity * Time.deltaTime;
         }
 
-        //rotationPivot.transform.localPosition = new Vector3(0, -this.transform.position.y, 0);
+        rotationPivot.transform.localPosition = new Vector3(0, -this.transform.position.y, 0);
 
         characterCtr.Move(moveDirection * Time.deltaTime);
         RotateCharacter(moveDirection);
