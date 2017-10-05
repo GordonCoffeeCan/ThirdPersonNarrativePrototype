@@ -29,25 +29,22 @@ public class PlayerController : MonoBehaviour {
     [SerializeField]
     private Camera playerCamera;
 
-    [SerializeField] private Transform headEnd; //Using to calculate dynamic Character controller Height based on head and foot distance;
-    [SerializeField] private Transform leftFoot; //Using to calculate dynamic Character controller Height based on head and foot distance;
-    [SerializeField] private Transform rightFoot; //Using to calculate dynamic Character controller Height based on head and foot distance;
-
     private float glidingGraivty = 2;
 
     [HideInInspector]
     public float currentGlidingGraivity;
 
-    private float gravity = 20;
+    [HideInInspector]
+    public float gravity = 20;
     private float rotationSpeed = 15;
     private float aimRotationSpeed = 40;
     private float currentSpeed = 0;
     private float currentJumpSpeed = 0;
     //private float currentGravity = 0;
 
-    private const float MINIMUM_SPEED_TO_GLIDE = -7.5f;
+    private const float MINIMUM_SPEED_TO_GLIDE = -6.5f;
 
-    private CharacterController characterCtr;
+    protected CharacterController characterCtr;
     
     private Vector3 moveDirection;
     private Vector3 rotationDirection;
@@ -90,10 +87,6 @@ public class PlayerController : MonoBehaviour {
     private void MoveCharacter() {
         //Vector3 _rootPosition = new Vector3(0, foot.position.y, 0);
 
-        characterCtr.height = Vector3.Distance(headEnd.position, ((leftFoot.position + rightFoot.position) / 2));
-
-        Debug.Log(characterCtr.height);
-
         currentSpeed = Mathf.Lerp(currentSpeed, walkSpeed, 0.2f);
         OnSprint();
 
@@ -120,8 +113,8 @@ public class PlayerController : MonoBehaviour {
                     currentSpeed = 0;
                     //currentSpeed = jumpSpeed;
                 } else {
-                    //currentSpeed = jumpSpeed;
                     currentSpeed = 0;
+                    //currentSpeed = 0;
                 }
                 moveDirection.y = currentSpeed;
             }
@@ -155,7 +148,7 @@ public class PlayerController : MonoBehaviour {
             moveDirection.y -= gravity * Time.deltaTime;
         }
 
-        rotationPivot.transform.localPosition = new Vector3(0, -this.transform.position.y, 0);
+        //rotationPivot.transform.localPosition = new Vector3(0, -this.transform.position.y, 0);
 
         characterCtr.Move(moveDirection * Time.deltaTime);
         RotateCharacter(moveDirection);
