@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour {
 
-    [SerializeField]private Animator playerAnimator;
+    [SerializeField] private Animator playerAnimator;
 
     private CharacterController characterCtr;
     private PlayerController playerController;
@@ -23,6 +23,8 @@ public class PlayerAnimation : MonoBehaviour {
     private float currentLocomotionSpeed = 0;
     private float characterCtrHeight = 0;
     private float playerGravity = 0;
+    private float currentCharacterControllerCenterOffsetY;
+    private float currentCharacterControllerStepOffset;
 
     private void Awake() {
         characterCtr = this.GetComponent<CharacterController>();
@@ -39,6 +41,8 @@ public class PlayerAnimation : MonoBehaviour {
         currentIdleChangeTimer = idleChangeTimer;
         characterCtrHeight = characterCtr.height;
         playerGravity = playerController.gravity;
+        currentCharacterControllerCenterOffsetY = characterCtr.center.y;
+        currentCharacterControllerStepOffset = characterCtr.stepOffset;
     }
 	
 	// Update is called once per frame
@@ -71,17 +75,20 @@ public class PlayerAnimation : MonoBehaviour {
         playerAnimator.SetFloat("Speed", currentLocomotionSpeed);
         playerAnimator.SetBool("IsGround", characterCtr.isGrounded);
 
-        if (MobileInputManager.instance.isGamepadConnected == false) {
+        if (characterCtr.isGrounded) {
+            if (MobileInputManager.instance.isGamepadConnected == false) {
 
-        } else {
-            playerAnimator.SetBool("Jump", ControllerManager.instance.OnJump());
+            } else {
+                playerAnimator.SetBool("Jump", ControllerManager.instance.OnJump());
+            }
         }
 
         if (currentAnimatorState.fullPathHash == jumpingState || currentAnimatorState.fullPathHash == runningJumpingState) {
             if (!playerAnimator.IsInTransition(0)) {
                 characterCtr.height = characterCtrHeight * playerAnimator.GetFloat("CharacterControllerHeight");
                 playerController.gravity = playerGravity * playerAnimator.GetFloat("CharacterGravity");
-                Debug.Log(playerController.gravity);
+                characterCtr.center = new Vector3(0, currentCharacterControllerCenterOffsetY + playerAnimator.GetFloat("CharacterControllerCenterOffsetY"), 0);
+                characterCtr.stepOffset = currentCharacterControllerStepOffset + playerAnimator.GetFloat("CharacterControllerCenterOffsetY");
             }
         }
 

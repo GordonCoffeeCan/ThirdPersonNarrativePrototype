@@ -176,13 +176,13 @@ ModelImporter:
             tangentMode: 0
           - serializedVersion: 2
             time: 0.2393736
-            value: 0.45
+            value: 0.55
             inSlope: 0
             outSlope: 0
             tangentMode: 0
           - serializedVersion: 2
             time: 0.57270694
-            value: 0.45
+            value: 0.55
             inSlope: 0
             outSlope: 0
             tangentMode: 0
@@ -238,6 +238,37 @@ ModelImporter:
           - serializedVersion: 2
             time: 1
             value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 0
+      - name: CharacterControllerCenterOffsetY
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 2
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+          - serializedVersion: 2
+            time: 0.23106061
+            value: 0.45
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+          - serializedVersion: 2
+            time: 0.49621212
+            value: 0.45
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+          - serializedVersion: 2
+            time: 1
+            value: 0
             inSlope: 0
             outSlope: 0
             tangentMode: 0

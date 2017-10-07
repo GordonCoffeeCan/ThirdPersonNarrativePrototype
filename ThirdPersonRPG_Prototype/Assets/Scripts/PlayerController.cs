@@ -39,8 +39,6 @@ public class PlayerController : MonoBehaviour {
     private float rotationSpeed = 15;
     private float aimRotationSpeed = 40;
     private float currentSpeed = 0;
-    private float currentJumpSpeed = 0;
-    //private float currentGravity = 0;
 
     private const float MINIMUM_SPEED_TO_GLIDE = -6.5f;
 
@@ -60,7 +58,6 @@ public class PlayerController : MonoBehaviour {
         moveDirection = Vector3.zero;
         sprintTimeLimit = sprintTime;
         currentGlidingGraivity = glidingGraivty;
-        currentJumpSpeed = jumpSpeed;
     }
 
     // Use this for initialization
@@ -70,25 +67,21 @@ public class PlayerController : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-
         //If in Game menu panel is on, player cannot be controlled;
         if (MultiplayerUIManager.isMenuPanelOn) {
             return;
         }
         MoveCharacter();
         SprintLevel();
-
-        if (ControllerManager.instance.OnDash()) {
-            Debug.Log("Dash");
-        }
-
     }
 
     private void MoveCharacter() {
-        //Vector3 _rootPosition = new Vector3(0, foot.position.y, 0);
 
         currentSpeed = Mathf.Lerp(currentSpeed, walkSpeed, 0.2f);
         OnSprint();
+
+        isReadyGlide = false;
+        isGlide = false;
 
         if (characterCtr.isGrounded) {
             isReadyGlide = false;
@@ -108,17 +101,6 @@ public class PlayerController : MonoBehaviour {
 
             moveDirection *= currentSpeed;
 
-            if (ControllerManager.instance.OnJump() == true) {
-                if (new Vector2(moveDirection.x, moveDirection.z).magnitude > 0) {
-                    currentSpeed = 0;
-                    //currentSpeed = jumpSpeed;
-                } else {
-                    currentSpeed = 0;
-                    //currentSpeed = 0;
-                }
-                moveDirection.y = currentSpeed;
-            }
-
             if (isPopped) {
                 moveDirection.y = popSpeed;
                 isPopped = false;
@@ -136,7 +118,7 @@ public class PlayerController : MonoBehaviour {
             //While gliding, player can press jump button again to toggle between gliding and falling;
             if (isReadyGlide == true && ControllerManager.instance.OnGlide() == true && isGlide == false && moveDirection.y < MINIMUM_SPEED_TO_GLIDE) {
                 isGlide = true;
-            }else if(isGlide == true && ControllerManager.instance.OnGlide() == true) {
+            } else if (isGlide == true && ControllerManager.instance.OnGlide() == true) {
                 isGlide = false;
             }
         }
@@ -146,6 +128,8 @@ public class PlayerController : MonoBehaviour {
         } else {
             OnDash();
             moveDirection.y -= gravity * Time.deltaTime;
+
+            Debug.Log(gravity);
         }
 
         //rotationPivot.transform.localPosition = new Vector3(0, -this.transform.position.y, 0);
@@ -224,7 +208,6 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void OnGlide () {
-
         if (currentGlidingGraivity < glidingGraivty) {
             currentGlidingGraivity += 0.2f;
         } else if(currentGlidingGraivity >= glidingGraivty) {
