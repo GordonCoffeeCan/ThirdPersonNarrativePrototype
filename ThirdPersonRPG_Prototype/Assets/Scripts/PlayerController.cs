@@ -5,39 +5,27 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 
 public class PlayerController : MonoBehaviour {
-    [SerializeField]
-    private float walkSpeed = 2;
-    [SerializeField]
-    private float runSpeed = 6;
-    [SerializeField]
-    private float dashSpeed = 15;
-    [SerializeField]
-    private float glideSpeed = 4;
-    [SerializeField]
-    private float jumpSpeed = 8;
-    [SerializeField]
-    private float sprintTime = 1.65f;
+    [SerializeField] private float walkSpeed = 2;
+    [SerializeField] private float runSpeed = 6;
+    [SerializeField] private float dashSpeed = 15;
+    [SerializeField] private float glideSpeed = 4;
+    [SerializeField] private float jumpSpeed = 8;
+    [SerializeField] private float sprintTime = 1.65f;
 
     public Transform rotationPivot;
     public CameraDynamicOrbit cameraPivot;
 
-    [HideInInspector]
-    public float popSpeed;
-    [HideInInspector]
-    public bool isPopped = false;
-    [HideInInspector]
-    public bool isGrounded = false;
+    [HideInInspector] public float popSpeed;
+    [HideInInspector] public float currentGlidingGraivity;
+    [HideInInspector] public float gravity = 20;
 
-    [SerializeField]
-    private Camera playerCamera;
+    [HideInInspector] public bool isPopped = false;
+    [HideInInspector] public bool isGrounded = false;
+    [HideInInspector] public bool toggleJump = false;
+
+    [SerializeField] private Camera playerCamera;
 
     private float glidingGraivty = 2;
-
-    [HideInInspector]
-    public float currentGlidingGraivity;
-
-    [HideInInspector]
-    public float gravity = 20;
     private float rotationSpeed = 15;
     private float aimRotationSpeed = 40;
     private float currentSpeed = 0;
@@ -100,12 +88,8 @@ public class PlayerController : MonoBehaviour {
 
         if (characterCtr.isGrounded) {
             currentVerticalSpeed = 0;
-            if (MobileInputManager.instance.isGamepadConnected == false) {
-
-            } else {
-                if (ControllerManager.instance.OnJump()) {
-                    currentVerticalSpeed = jumpSpeed;
-                }
+            if (toggleJump) {
+                currentVerticalSpeed = jumpSpeed;
             }
         }
 
