@@ -25,6 +25,8 @@ public class PlayerController : MonoBehaviour {
     public float popSpeed;
     [HideInInspector]
     public bool isPopped = false;
+    [HideInInspector]
+    public bool isGrounded = false;
 
     [SerializeField]
     private Camera playerCamera;
@@ -39,8 +41,7 @@ public class PlayerController : MonoBehaviour {
     private float rotationSpeed = 15;
     private float aimRotationSpeed = 40;
     private float currentSpeed = 0;
-    private float currentJumpSpeed = 0;
-    //private float currentGravity = 0;
+    private float currentVerticalSpeed = 0;
 
     private const float MINIMUM_SPEED_TO_GLIDE = -6.5f;
 
@@ -60,7 +61,6 @@ public class PlayerController : MonoBehaviour {
         moveDirection = Vector3.zero;
         sprintTimeLimit = sprintTime;
         currentGlidingGraivity = glidingGraivty;
-        currentJumpSpeed = jumpSpeed;
     }
 
     // Use this for initialization
@@ -70,27 +70,53 @@ public class PlayerController : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-
         //If in Game menu panel is on, player cannot be controlled;
         if (MultiplayerUIManager.isMenuPanelOn) {
             return;
         }
+        DetectOnGround();
         MoveCharacter();
         SprintLevel();
-
-        if (ControllerManager.instance.OnDash()) {
-            Debug.Log("Dash");
-        }
-
     }
 
     private void MoveCharacter() {
-        //Vector3 _rootPosition = new Vector3(0, foot.position.y, 0);
 
         currentSpeed = Mathf.Lerp(currentSpeed, walkSpeed, 0.2f);
         OnSprint();
 
+        isReadyGlide = false;
+        isGlide = false;
+
+        if (MobileInputManager.instance.isGamepadConnected == false) {
+            moveDirection = MobileInputManager.instance.OnJoystickMove();
+        } else {
+            moveDirection = ControllerManager.instance.OnMove();
+        }
+        moveDirection = playerCamera.transform.TransformDirection(moveDirection);
+        moveDirection.y = 0;
+        moveDirection.Normalize();
+
+        moveDirection *= currentSpeed;
+
         if (characterCtr.isGrounded) {
+            currentVerticalSpeed = 0;
+            if (MobileInputManager.instance.isGamepadConnected == false) {
+
+            } else {
+                if (ControllerManager.instance.OnJump()) {
+                    currentVerticalSpeed = jumpSpeed;
+                }
+            }
+        }
+
+        currentVerticalSpeed -= gravity * Time.deltaTime;
+        moveDirection.y = currentVerticalSpeed;
+        characterCtr.Move(moveDirection * Time.deltaTime);
+        RotateCharacter(moveDirection);
+
+        Debug.Log("Player is on the ground: " + characterCtr.isGrounded + " and Vertical Speed is " + moveDirection.y);
+
+        /*if (characterCtr.isGrounded) {
             isReadyGlide = false;
             isGlide = false;
 
@@ -108,22 +134,11 @@ public class PlayerController : MonoBehaviour {
 
             moveDirection *= currentSpeed;
 
-            if (ControllerManager.instance.OnJump() == true) {
-                if (new Vector2(moveDirection.x, moveDirection.z).magnitude > 0) {
-                    currentSpeed = 0;
-                    //currentSpeed = jumpSpeed;
-                } else {
-                    currentSpeed = 0;
-                    //currentSpeed = 0;
-                }
-                moveDirection.y = currentSpeed;
-            }
-
             if (isPopped) {
                 moveDirection.y = popSpeed;
                 isPopped = false;
             }
-        } else {
+        } /*else {
             currentDirection.Normalize();
             moveDirection = new Vector3(currentDirection.x * currentSpeed, moveDirection.y, currentDirection.z * currentSpeed);
 
@@ -136,24 +151,29 @@ public class PlayerController : MonoBehaviour {
             //While gliding, player can press jump button again to toggle between gliding and falling;
             if (isReadyGlide == true && ControllerManager.instance.OnGlide() == true && isGlide == false && moveDirection.y < MINIMUM_SPEED_TO_GLIDE) {
                 isGlide = true;
-            }else if(isGlide == true && ControllerManager.instance.OnGlide() == true) {
+            } else if (isGlide == true && ControllerManager.instance.OnGlide() == true) {
                 isGlide = false;
             }
-        }
+        }*/
 
-        if (isGlide) {
+        /*if (isGlide) {
             OnGlide();
         } else {
             OnDash();
             moveDirection.y -= gravity * Time.deltaTime;
+
+            Debug.Log(gravity);
+        }*/
+    }
+
+    private void DetectOnGround() {
+        Vector3 _rayPosition = this.transform.position + characterCtr.center;
+        if (Physics.Raycast(_rayPosition, Vector3.down, 1f)) {
+            isGrounded = true;
+        } else {
+            isGrounded = false;
         }
-
-        //rotationPivot.transform.localPosition = new Vector3(0, -this.transform.position.y, 0);
-
-        characterCtr.Move(moveDirection * Time.deltaTime);
-        RotateCharacter(moveDirection);
-
-        //Debug.Log(characterCtr.isGrounded);
+        Debug.DrawRay(_rayPosition, Vector3.down * 1f, Color.cyan);
     }
 
     private void RotateCharacter(Vector3 _direction) {
@@ -224,7 +244,6 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void OnGlide () {
-
         if (currentGlidingGraivity < glidingGraivty) {
             currentGlidingGraivity += 0.2f;
         } else if(currentGlidingGraivity >= glidingGraivty) {
