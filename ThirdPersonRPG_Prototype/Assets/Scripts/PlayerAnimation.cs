@@ -49,7 +49,6 @@ public class PlayerAnimation : MonoBehaviour {
 	void Update () {
         ChangeIdleBlend();
         ChangeMotion();
-
         currentAnimatorState = playerAnimator.GetCurrentAnimatorStateInfo(0);
     }
 
@@ -75,23 +74,10 @@ public class PlayerAnimation : MonoBehaviour {
         playerAnimator.SetFloat("Speed", currentLocomotionSpeed);
         playerAnimator.SetBool("IsGround", characterCtr.isGrounded);
 
-        if (characterCtr.isGrounded) {
-            if (MobileInputManager.instance.isGamepadConnected == false) {
+        if (MobileInputManager.instance.isGamepadConnected == false) {
 
-            } else {
-                playerAnimator.SetBool("Jump", ControllerManager.instance.OnJump());
-            }
+        } else {
+            playerAnimator.SetBool("Jump", ControllerManager.instance.OnJump());
         }
-
-        if (currentAnimatorState.fullPathHash == jumpingState || currentAnimatorState.fullPathHash == runningJumpingState) {
-            if (!playerAnimator.IsInTransition(0)) {
-                characterCtr.height = characterCtrHeight * playerAnimator.GetFloat("CharacterControllerHeight");
-                playerController.gravity = playerGravity * playerAnimator.GetFloat("CharacterGravity");
-                characterCtr.center = new Vector3(0, currentCharacterControllerCenterOffsetY + playerAnimator.GetFloat("CharacterControllerCenterOffsetY"), 0);
-                characterCtr.stepOffset = currentCharacterControllerStepOffset + playerAnimator.GetFloat("CharacterControllerCenterOffsetY");
-            }
-        }
-
-        //Debug.Log(charCtr.velocity.y);
     }
 }
