@@ -62,7 +62,7 @@ public class PlayerController : MonoBehaviour {
         if (MultiplayerUIManager.isMenuPanelOn) {
             return;
         }
-        DetectOnGround();
+        //DetectOnGround();
         MoveCharacter();
         SprintLevel();
     }
@@ -92,6 +92,13 @@ public class PlayerController : MonoBehaviour {
                 currentVerticalSpeed = jumpSpeed;
             }
         }
+
+        if (isPopped) {
+            currentVerticalSpeed = popSpeed;
+            isPopped = false;
+        }
+
+        OnDash();
 
         currentVerticalSpeed -= gravity * Time.deltaTime;
         moveDirection.y = currentVerticalSpeed;
