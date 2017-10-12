@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour {
 
     [SerializeField] private Camera playerCamera;
 
-    private float glidingGraivty = 2;
+    private float glidingGraivty = 2.8f;
     private float rotationSpeed = 15;
     private float aimRotationSpeed = 40;
     private float currentSpeed = 0;
@@ -39,10 +39,7 @@ public class PlayerController : MonoBehaviour {
     private Vector3 rotationDirection;
     private float sprintTimeLimit;
 
-    private bool isReadyGlide = false;
     private bool isGlide = false;
-
-    Vector3 currentDirection = Vector3.zero;
 
     private void Awake() {
         characterCtr = this.GetComponent<CharacterController>();
@@ -68,13 +65,6 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void MoveCharacter() {
-
-        currentSpeed = Mathf.Lerp(currentSpeed, walkSpeed, 0.2f);
-        OnSprint();
-
-        isReadyGlide = false;
-        isGlide = false;
-
         if (MobileInputManager.instance.isGamepadConnected == false) {
             moveDirection = MobileInputManager.instance.OnJoystickMove();
         } else {
@@ -87,74 +77,46 @@ public class PlayerController : MonoBehaviour {
         moveDirection *= currentSpeed;
 
         if (characterCtr.isGrounded) {
+            currentSpeed = Mathf.Lerp(currentSpeed, walkSpeed, 0.2f);
+            isGlide = false;
             currentVerticalSpeed = 0;
             if (toggleJump) {
                 currentVerticalSpeed = jumpSpeed;
             }
+            OnSprint();
         }
+
+        //Trigger glidimg-------------------------------------------------///
+        if (currentVerticalSpeed <= MINIMUM_SPEED_TO_GLIDE || isGlide) {
+            if (ControllerManager.instance.OnGlide()) {
+                if (isGlide == false) {
+                    isGlide = true;
+                } else {
+                    isGlide = false;
+                }
+            }
+        }
+        //Trigger glidimg-------------------------------------------------///
 
         if (isPopped) {
             currentVerticalSpeed = popSpeed;
             isPopped = false;
         }
 
-        OnDash();
+        if (isGlide) {
+            currentSpeed = Mathf.Lerp(currentSpeed, glideSpeed, 0.2f);
+            currentVerticalSpeed = -glidingGraivty;
+        } else {
+            OnDash();
+            currentVerticalSpeed -= gravity * Time.deltaTime;
+        }
 
-        currentVerticalSpeed -= gravity * Time.deltaTime;
         moveDirection.y = currentVerticalSpeed;
         characterCtr.Move(moveDirection * Time.deltaTime);
         RotateCharacter(moveDirection);
 
-        Debug.Log("Player is on the ground: " + characterCtr.isGrounded + " and Vertical Speed is " + moveDirection.y);
-
-        /*if (characterCtr.isGrounded) {
-            isReadyGlide = false;
-            isGlide = false;
-
-            if (MobileInputManager.instance.isGamepadConnected == false) {
-                moveDirection = MobileInputManager.instance.OnJoystickMove();
-            } else {
-                moveDirection = ControllerManager.instance.OnMove();
-            }
-
-            moveDirection = playerCamera.transform.TransformDirection(moveDirection);
-            moveDirection.y = 0;
-            moveDirection.Normalize();
-
-            currentDirection = moveDirection;
-
-            moveDirection *= currentSpeed;
-
-            if (isPopped) {
-                moveDirection.y = popSpeed;
-                isPopped = false;
-            }
-        } /*else {
-            currentDirection.Normalize();
-            moveDirection = new Vector3(currentDirection.x * currentSpeed, moveDirection.y, currentDirection.z * currentSpeed);
-
-            //In the air, the player has to release jump button once.
-            if (ControllerManager.instance.OnReadyGlide() == true) {
-                isReadyGlide = true;
-            }
-
-            //When the player reaches the minimum vertical speed to glide, press jump button again to glide;
-            //While gliding, player can press jump button again to toggle between gliding and falling;
-            if (isReadyGlide == true && ControllerManager.instance.OnGlide() == true && isGlide == false && moveDirection.y < MINIMUM_SPEED_TO_GLIDE) {
-                isGlide = true;
-            } else if (isGlide == true && ControllerManager.instance.OnGlide() == true) {
-                isGlide = false;
-            }
-        }*/
-
-        /*if (isGlide) {
-            OnGlide();
-        } else {
-            OnDash();
-            moveDirection.y -= gravity * Time.deltaTime;
-
-            Debug.Log(gravity);
-        }*/
+        //Debug.Log("Player is on the ground: " + characterCtr.isGrounded + " and Vertical Speed is " + moveDirection.y);
+        //Debug.Log("Player Speed is " + new Vector2(moveDirection.x, moveDirection.z).magnitude);
     }
 
     private void DetectOnGround() {
@@ -215,8 +177,8 @@ public class PlayerController : MonoBehaviour {
     private void SprintStamina(bool _isOnSprint, Vector3 _moveDirection, bool _isOnGround) {
         if (_isOnSprint == true && _moveDirection.magnitude >= 0.8f && _isOnGround == true) {
             if (sprintTime >= 0) {
-                sprintTime -= Time.deltaTime;
-                currentSpeed = runSpeed;
+                //sprintTime -= Time.deltaTime;
+                currentSpeed = Mathf.Lerp(currentSpeed, runSpeed, 0.2f);
             }
         } else {
             if (sprintTime < sprintTimeLimit) {
@@ -230,29 +192,8 @@ public class PlayerController : MonoBehaviour {
     private void OnDash() {
         if (ControllerManager.instance.OnDash() && sprintTime / sprintTimeLimit >= 1 && moveDirection.magnitude >= 0.8f) {
             sprintTime = 0;
-            currentSpeed = dashSpeed;
+            currentSpeed = Mathf.Lerp(currentSpeed, dashSpeed, 0.8f);
         }
-    }
-
-    private void OnGlide () {
-        if (currentGlidingGraivity < glidingGraivty) {
-            currentGlidingGraivity += 0.2f;
-        } else if(currentGlidingGraivity >= glidingGraivty) {
-            currentGlidingGraivity = glidingGraivty;
-        }
-
-        currentSpeed = glideSpeed;
-        if (MobileInputManager.instance.isGamepadConnected == false) {
-            moveDirection = MobileInputManager.instance.OnJoystickMove();
-        } else {
-            moveDirection = ControllerManager.instance.OnMove();
-        }
-        moveDirection = playerCamera.transform.TransformDirection(moveDirection);
-        moveDirection.y = 0;
-        moveDirection.Normalize();
-        currentDirection = moveDirection;
-        moveDirection *= currentSpeed;
-        moveDirection.y = -currentGlidingGraivity;
     }
 
     private void SprintLevel() {
