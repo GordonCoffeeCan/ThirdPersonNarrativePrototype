@@ -20,7 +20,6 @@ public class PlayerController : MonoBehaviour {
     [HideInInspector] public float gravity = 20;
 
     [HideInInspector] public bool isPopped = false;
-    [HideInInspector] public bool isGrounded = false;
     [HideInInspector] public bool toggleJump = false;
 
     [SerializeField] private Camera playerCamera;
@@ -40,6 +39,7 @@ public class PlayerController : MonoBehaviour {
     private float sprintTimeLimit;
 
     private bool isGlide = false;
+    private bool isInMiddleAir = false;
 
     private void Awake() {
         characterCtr = this.GetComponent<CharacterController>();
@@ -59,9 +59,9 @@ public class PlayerController : MonoBehaviour {
         if (MultiplayerUIManager.isMenuPanelOn) {
             return;
         }
-        //DetectOnGround();
         MoveCharacter();
         SprintLevel();
+        DetectGround();
     }
 
     private void MoveCharacter() {
@@ -88,12 +88,14 @@ public class PlayerController : MonoBehaviour {
 
         //Trigger glidimg-------------------------------------------------///
         if (currentVerticalSpeed <= MINIMUM_SPEED_TO_GLIDE || isGlide) {
-            if (ControllerManager.instance.OnGlide()) {
-                if (isGlide == false) {
-                    isGlide = true;
-                } else {
-                    isGlide = false;
-                }
+            
+        }
+
+        if (ControllerManager.instance.OnGlide() && isInMiddleAir) {
+            if (isGlide == false) {
+                isGlide = true;
+            } else {
+                isGlide = false;
             }
         }
         //Trigger glidimg-------------------------------------------------///
@@ -103,7 +105,7 @@ public class PlayerController : MonoBehaviour {
             isPopped = false;
         }
 
-        if (isGlide) {
+        if (isGlide && currentVerticalSpeed < 0) {
             currentSpeed = Mathf.Lerp(currentSpeed, glideSpeed, 0.2f);
             currentVerticalSpeed = -glidingGraivty;
         } else {
@@ -119,14 +121,16 @@ public class PlayerController : MonoBehaviour {
         //Debug.Log("Player Speed is " + new Vector2(moveDirection.x, moveDirection.z).magnitude);
     }
 
-    private void DetectOnGround() {
-        Vector3 _rayPosition = this.transform.position + characterCtr.center;
-        if (Physics.Raycast(_rayPosition, Vector3.down, 1f)) {
-            isGrounded = true;
-        } else {
-            isGrounded = false;
+    private void DetectGround() {
+        RaycastHit _hit;
+        if (Physics.Raycast(this.transform.position, Vector3.down, out _hit, Mathf.Infinity)) {
+            if (Vector3.Distance(this.transform.position, _hit.point) > 2 && Mathf.Abs(moveDirection.y) > 0.5f) {
+                isInMiddleAir = true;
+            } else {
+                isInMiddleAir = false;
+            }
         }
-        Debug.DrawRay(_rayPosition, Vector3.down * 1f, Color.cyan);
+        Debug.DrawRay(this.transform.position, Vector3.down * 2f, Color.cyan);
     }
 
     private void RotateCharacter(Vector3 _direction) {
