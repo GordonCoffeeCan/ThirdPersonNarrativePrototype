@@ -21,6 +21,8 @@ public class PlayerController : MonoBehaviour {
 
     [HideInInspector] public bool isPopped = false;
     [HideInInspector] public bool toggleJump = false;
+    [HideInInspector] public bool isGlide = false;
+    [HideInInspector] public bool isInMiddleAir = false;
 
     [SerializeField] private Camera playerCamera;
 
@@ -37,9 +39,6 @@ public class PlayerController : MonoBehaviour {
     private Vector3 moveDirection;
     private Vector3 rotationDirection;
     private float sprintTimeLimit;
-
-    private bool isGlide = false;
-    private bool isInMiddleAir = false;
 
     private void Awake() {
         characterCtr = this.GetComponent<CharacterController>();
@@ -77,20 +76,16 @@ public class PlayerController : MonoBehaviour {
         moveDirection *= currentSpeed;
 
         if (characterCtr.isGrounded) {
-            currentSpeed = Mathf.Lerp(currentSpeed, walkSpeed, 0.2f);
+            OnDash();
+            OnSprint();
             isGlide = false;
             currentVerticalSpeed = 0;
             if (toggleJump) {
                 currentVerticalSpeed = jumpSpeed;
             }
-            OnSprint();
         }
 
         //Trigger glidimg-------------------------------------------------///
-        if (currentVerticalSpeed <= MINIMUM_SPEED_TO_GLIDE || isGlide) {
-            
-        }
-
         if (ControllerManager.instance.OnGlide() && isInMiddleAir) {
             if (isGlide == false) {
                 isGlide = true;
@@ -105,32 +100,34 @@ public class PlayerController : MonoBehaviour {
             isPopped = false;
         }
 
+        //In the middle air------------------------------------------------------///
         if (isGlide && currentVerticalSpeed < 0) {
             currentSpeed = Mathf.Lerp(currentSpeed, glideSpeed, 0.2f);
             currentVerticalSpeed = -glidingGraivty;
         } else {
-            OnDash();
             currentVerticalSpeed -= gravity * Time.deltaTime;
         }
+        //In the middle air------------------------------------------------------///
 
         moveDirection.y = currentVerticalSpeed;
         characterCtr.Move(moveDirection * Time.deltaTime);
         RotateCharacter(moveDirection);
 
         //Debug.Log("Player is on the ground: " + characterCtr.isGrounded + " and Vertical Speed is " + moveDirection.y);
-        //Debug.Log("Player Speed is " + new Vector2(moveDirection.x, moveDirection.z).magnitude);
+        Debug.Log("Player Speed is " + new Vector2(moveDirection.x, moveDirection.z).magnitude);
     }
 
     private void DetectGround() {
         RaycastHit _hit;
         if (Physics.Raycast(this.transform.position, Vector3.down, out _hit, Mathf.Infinity)) {
-            if (Vector3.Distance(this.transform.position, _hit.point) > 2 && Mathf.Abs(moveDirection.y) > 0.5f) {
+            if (Vector3.Distance(this.transform.position, _hit.point) > 2) {
                 isInMiddleAir = true;
             } else {
                 isInMiddleAir = false;
             }
         }
-        Debug.DrawRay(this.transform.position, Vector3.down * 2f, Color.cyan);
+
+        Debug.DrawRay(this.transform.position, Vector3.down * 0.5f, Color.cyan);
     }
 
     private void RotateCharacter(Vector3 _direction) {
@@ -179,9 +176,12 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void SprintStamina(bool _isOnSprint, Vector3 _moveDirection, bool _isOnGround) {
+        if (_isOnSprint == false || sprintTime < 0) {
+            currentSpeed = Mathf.Lerp(currentSpeed, walkSpeed, 0.2f);
+        }
         if (_isOnSprint == true && _moveDirection.magnitude >= 0.8f && _isOnGround == true) {
             if (sprintTime >= 0) {
-                //sprintTime -= Time.deltaTime;
+                sprintTime -= Time.deltaTime;
                 currentSpeed = Mathf.Lerp(currentSpeed, runSpeed, 0.2f);
             }
         } else {
@@ -196,7 +196,7 @@ public class PlayerController : MonoBehaviour {
     private void OnDash() {
         if (ControllerManager.instance.OnDash() && sprintTime / sprintTimeLimit >= 1 && moveDirection.magnitude >= 0.8f) {
             sprintTime = 0;
-            currentSpeed = Mathf.Lerp(currentSpeed, dashSpeed, 0.8f);
+            currentSpeed = dashSpeed;
         }
     }
 

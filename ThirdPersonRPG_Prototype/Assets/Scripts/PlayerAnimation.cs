@@ -73,7 +73,9 @@ public class PlayerAnimation : MonoBehaviour {
         }
 
         playerAnimator.SetFloat("Speed", currentLocomotionSpeed);
-        playerAnimator.SetBool("IsGround", characterCtr.isGrounded);
+        playerAnimator.SetBool("IsGrounded", characterCtr.isGrounded);
+        playerAnimator.SetBool("InAir", playerController.isInMiddleAir);
+        playerAnimator.SetBool("Gliding", playerController.isGlide);
 
         //Only idle state will trigger jump action when press jump button;
         if((currentAnimatorState.fullPathHash == idleState || currentAnimatorState.fullPathHash == joggingState) && !playerAnimator.IsInTransition(0)) {
