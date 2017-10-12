@@ -12,9 +12,10 @@ public class PlayerAnimation : MonoBehaviour {
     private Vector2 idleBlend = Vector2.zero;
     private Vector2 currentIdleBlend = Vector2.zero;
     private Vector2 horizontalSpeed = Vector2.zero;
-
+    
+    private int idleState = Animator.StringToHash("Base Layer.Human_Idle");
+    private int joggingState = Animator.StringToHash("Base Layer.Jogging");
     private int jumpingState = Animator.StringToHash("Base Layer.Jumping");
-    private int runningJumpingState = Animator.StringToHash("Base Layer.RunningJump");
 
     private AnimatorStateInfo currentAnimatorState;
 
@@ -74,10 +75,15 @@ public class PlayerAnimation : MonoBehaviour {
         playerAnimator.SetFloat("Speed", currentLocomotionSpeed);
         playerAnimator.SetBool("IsGround", characterCtr.isGrounded);
 
-        if (MobileInputManager.instance.isGamepadConnected == false) {
+        //Only idle state will trigger jump action when press jump button;
+        if((currentAnimatorState.fullPathHash == idleState || currentAnimatorState.fullPathHash == joggingState) && !playerAnimator.IsInTransition(0)) {
+            if (MobileInputManager.instance.isGamepadConnected == false) {
 
-        } else {
-            playerAnimator.SetBool("Jump", ControllerManager.instance.OnJump());
+            } else {
+                playerAnimator.SetBool("Jump", ControllerManager.instance.OnJump());
+                playerController.toggleJump = ControllerManager.instance.OnJump();
+            }
         }
+        //Only idle state will trigger jump action when press jump button;
     }
 }
