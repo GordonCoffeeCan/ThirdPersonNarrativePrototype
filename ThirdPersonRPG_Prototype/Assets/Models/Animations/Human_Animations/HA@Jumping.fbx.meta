@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 7099e854162a82945a89cf17328d60e3
-timeCreated: 1507846675
+guid: c4dc26f729f558c4fa56fd82358e423e
+timeCreated: 1507848460
 licenseType: Pro
 ModelImporter:
   serializedVersion: 21
@@ -122,7 +122,7 @@ ModelImporter:
     - serializedVersion: 16
       name: Jumping
       takeName: Take 001
-      firstFrame: 1
+      firstFrame: 0
       lastFrame: 57
       wrapMode: 0
       orientationOffsetY: 0
