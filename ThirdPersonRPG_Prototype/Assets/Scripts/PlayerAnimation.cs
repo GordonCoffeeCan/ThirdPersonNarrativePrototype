@@ -16,7 +16,8 @@ public class PlayerAnimation : MonoBehaviour {
     private int idleState = Animator.StringToHash("Base Layer.Human_Idle");
     private int joggingState = Animator.StringToHash("Base Layer.Jogging");
     private int jumpingState = Animator.StringToHash("Base Layer.Jumping");
-    private int runToStopState = Animator.StringToHash("Base Layer.RunToStop");
+    private int runToStopState = Animator.StringToHash("Base Layer.RunToStop"); 
+    private int hardLandingState = Animator.StringToHash("Base Layer.HardLanding");
 
     private AnimatorStateInfo currentAnimatorState;
 
@@ -78,10 +79,12 @@ public class PlayerAnimation : MonoBehaviour {
         playerAnimator.SetBool("InAir", playerController.isInMiddleAir);
         playerAnimator.SetBool("Gliding", playerController.isGlide);
 
-        if(currentAnimatorState.fullPathHash != runToStopState) {
-            playerController.isAbleToMove = true;
-        } else {
+        Debug.Log(playerController.isPopped);
+
+        if(currentAnimatorState.fullPathHash == runToStopState || currentAnimatorState.fullPathHash == hardLandingState) {
             playerController.isAbleToMove = false;
+        } else {
+            playerController.isAbleToMove = true;
         }
 
         //Only idle state will trigger jump action when press jump button;
