@@ -16,6 +16,7 @@ public class PlayerAnimation : MonoBehaviour {
     private int idleState = Animator.StringToHash("Base Layer.Human_Idle");
     private int joggingState = Animator.StringToHash("Base Layer.Jogging");
     private int jumpingState = Animator.StringToHash("Base Layer.Jumping");
+    private int runToStopState = Animator.StringToHash("Base Layer.RunToStop");
 
     private AnimatorStateInfo currentAnimatorState;
 
@@ -77,6 +78,12 @@ public class PlayerAnimation : MonoBehaviour {
         playerAnimator.SetBool("InAir", playerController.isInMiddleAir);
         playerAnimator.SetBool("Gliding", playerController.isGlide);
 
+        if(currentAnimatorState.fullPathHash != runToStopState) {
+            playerController.isAbleToMove = true;
+        } else {
+            playerController.isAbleToMove = false;
+        }
+
         //Only idle state will trigger jump action when press jump button;
         if((currentAnimatorState.fullPathHash == idleState || currentAnimatorState.fullPathHash == joggingState) && !playerAnimator.IsInTransition(0)) {
             if (MobileInputManager.instance.isGamepadConnected == false) {
@@ -87,5 +94,13 @@ public class PlayerAnimation : MonoBehaviour {
             }
         }
         //Only idle state will trigger jump action when press jump button;
+
+        //Play Dash animation only player animator is in Jogging state and triggered dashing in PlayerController;
+        if(currentAnimatorState.fullPathHash == joggingState && !playerAnimator.IsInTransition(0)) {
+            if (playerController.isDashing) {
+                playerAnimator.SetTrigger("Dashing");
+            }
+        }
+        //Play Dash animation only player animator is in Jogging state and triggered dashing in PlayerController;
     }
 }

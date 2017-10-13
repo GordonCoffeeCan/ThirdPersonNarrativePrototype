@@ -23,6 +23,8 @@ public class PlayerController : MonoBehaviour {
     [HideInInspector] public bool toggleJump = false;
     [HideInInspector] public bool isGlide = false;
     [HideInInspector] public bool isInMiddleAir = false;
+    [HideInInspector] public bool isDashing = false;
+    [HideInInspector] public bool isAbleToMove = true;
 
     [SerializeField] private Camera playerCamera;
 
@@ -58,7 +60,9 @@ public class PlayerController : MonoBehaviour {
         if (MultiplayerUIManager.isMenuPanelOn) {
             return;
         }
-        MoveCharacter();
+        if (isAbleToMove) {
+            MoveCharacter();
+        }
         SprintLevel();
         DetectGround();
     }
@@ -76,13 +80,15 @@ public class PlayerController : MonoBehaviour {
         moveDirection *= currentSpeed;
 
         if (characterCtr.isGrounded) {
-            OnDash();
             OnSprint();
+            OnDash();
             isGlide = false;
             currentVerticalSpeed = 0;
             if (toggleJump) {
                 currentVerticalSpeed = jumpSpeed;
             }
+        }else {
+            currentSpeed = Mathf.Lerp(currentSpeed, walkSpeed, 0.2f);
         }
 
         //Trigger glidimg-------------------------------------------------///
@@ -97,6 +103,7 @@ public class PlayerController : MonoBehaviour {
 
         if (isPopped) {
             currentVerticalSpeed = popSpeed;
+            isGlide = false;
             isPopped = false;
         }
 
@@ -112,9 +119,6 @@ public class PlayerController : MonoBehaviour {
         moveDirection.y = currentVerticalSpeed;
         characterCtr.Move(moveDirection * Time.deltaTime);
         RotateCharacter(moveDirection);
-
-        //Debug.Log("Player is on the ground: " + characterCtr.isGrounded + " and Vertical Speed is " + moveDirection.y);
-        Debug.Log("Player Speed is " + new Vector2(moveDirection.x, moveDirection.z).magnitude);
     }
 
     private void DetectGround() {
@@ -127,7 +131,7 @@ public class PlayerController : MonoBehaviour {
             }
         }
 
-        Debug.DrawRay(this.transform.position, Vector3.down * 0.5f, Color.cyan);
+        //Debug.DrawRay(this.transform.position, Vector3.down * 0.5f, Color.cyan);
     }
 
     private void RotateCharacter(Vector3 _direction) {
@@ -194,9 +198,12 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void OnDash() {
-        if (ControllerManager.instance.OnDash() && sprintTime / sprintTimeLimit >= 1 && moveDirection.magnitude >= 0.8f) {
+        if (ControllerManager.instance.OnDash() && moveDirection.magnitude >= 0.8f) {
             sprintTime = 0;
             currentSpeed = dashSpeed;
+            isDashing = true;
+        } else {
+            isDashing = false;
         }
     }
 
