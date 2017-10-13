@@ -15,8 +15,7 @@ public class PlayerAnimation : MonoBehaviour {
     
     private int idleState = Animator.StringToHash("Base Layer.Human_Idle");
     private int joggingState = Animator.StringToHash("Base Layer.Jogging");
-    private int jumpingState = Animator.StringToHash("Base Layer.Jumping");
-    private int runToStopState = Animator.StringToHash("Base Layer.RunToStop"); 
+    private int runToStopState = Animator.StringToHash("Base Layer.RunToStop");
     private int hardLandingState = Animator.StringToHash("Base Layer.HardLanding");
 
     private AnimatorStateInfo currentAnimatorState;
@@ -24,10 +23,8 @@ public class PlayerAnimation : MonoBehaviour {
     [SerializeField]private float idleChangeTimer = 3;
     private float currentIdleChangeTimer;
     private float currentLocomotionSpeed = 0;
-    private float characterCtrHeight = 0;
-    private float playerGravity = 0;
-    private float currentCharacterControllerCenterOffsetY;
-    private float currentCharacterControllerStepOffset;
+
+    [HideInInspector] public bool isHardLanding = false;
 
     private void Awake() {
         characterCtr = this.GetComponent<CharacterController>();
@@ -42,10 +39,6 @@ public class PlayerAnimation : MonoBehaviour {
         }
 
         currentIdleChangeTimer = idleChangeTimer;
-        characterCtrHeight = characterCtr.height;
-        playerGravity = playerController.gravity;
-        currentCharacterControllerCenterOffsetY = characterCtr.center.y;
-        currentCharacterControllerStepOffset = characterCtr.stepOffset;
     }
 	
 	// Update is called once per frame
@@ -78,8 +71,7 @@ public class PlayerAnimation : MonoBehaviour {
         playerAnimator.SetBool("IsGrounded", characterCtr.isGrounded);
         playerAnimator.SetBool("InAir", playerController.isInMiddleAir);
         playerAnimator.SetBool("Gliding", playerController.isGlide);
-
-        Debug.Log(playerController.isPopped);
+        playerAnimator.SetBool("HardLanding", isHardLanding);
 
         if(currentAnimatorState.fullPathHash == runToStopState || currentAnimatorState.fullPathHash == hardLandingState) {
             playerController.isAbleToMove = false;

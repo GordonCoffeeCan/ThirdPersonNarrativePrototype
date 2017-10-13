@@ -36,7 +36,8 @@ public class PlayerController : MonoBehaviour {
 
     private const float MINIMUM_SPEED_TO_GLIDE = -6.5f;
 
-    protected CharacterController characterCtr;
+    private CharacterController characterCtr;
+    private PlayerAnimation playerAnimation;
     
     private Vector3 moveDirection;
     private Vector3 rotationDirection;
@@ -44,6 +45,7 @@ public class PlayerController : MonoBehaviour {
 
     private void Awake() {
         characterCtr = this.GetComponent<CharacterController>();
+        playerAnimation = this.GetComponent<PlayerAnimation>();
         moveDirection = Vector3.zero;
         sprintTimeLimit = sprintTime;
         currentGlidingGraivity = glidingGraivty;
@@ -100,7 +102,7 @@ public class PlayerController : MonoBehaviour {
             }
         }
         //Trigger glidimg-------------------------------------------------///
-
+        
         if (isPopped) {
             currentVerticalSpeed = popSpeed;
             isGlide = false;
@@ -123,11 +125,20 @@ public class PlayerController : MonoBehaviour {
 
     private void DetectGround() {
         RaycastHit _hit;
+        RaycastHit _hitGround;
         if (Physics.Raycast(this.transform.position, Vector3.down, out _hit, Mathf.Infinity)) {
             if (Vector3.Distance(this.transform.position, _hit.point) > 2) {
                 isInMiddleAir = true;
             } else {
                 isInMiddleAir = false;
+            }
+        }
+
+        if(Physics.Raycast(this.transform.position, Vector3.down, out _hitGround, 0.1f)) {
+            if(_hitGround.collider.gameObject.layer == LayerMask.NameToLayer("Spring")) {
+                playerAnimation.isHardLanding = false;
+            } else {
+                playerAnimation.isHardLanding = true;
             }
         }
 
