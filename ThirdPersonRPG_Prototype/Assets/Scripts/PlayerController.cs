@@ -134,6 +134,7 @@ public class PlayerController : MonoBehaviour {
         if (Physics.Raycast(this.transform.position, Vector3.down, out _hit, Mathf.Infinity)) {
             if (Vector3.Distance(this.transform.position, _hit.point) > 2) {
                 isInMiddleAir = true;
+                playerAnimation.isHardLanding = false;
             } else {
                 isInMiddleAir = false;
             }
