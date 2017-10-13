@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour {
     [HideInInspector] public bool isInMiddleAir = false;
     [HideInInspector] public bool isDashing = false;
     [HideInInspector] public bool isAbleToMove = true;
+    [HideInInspector] public bool isAbleToDash = false;
 
     [SerializeField] private Camera playerCamera;
 
@@ -83,14 +84,18 @@ public class PlayerController : MonoBehaviour {
 
         if (characterCtr.isGrounded) {
             OnSprint();
-            OnDash();
+            if (isAbleToDash) {
+                OnDash();
+            }
             isGlide = false;
             currentVerticalSpeed = 0;
             if (toggleJump) {
                 currentVerticalSpeed = jumpSpeed;
             }
         }else {
-            currentSpeed = Mathf.Lerp(currentSpeed, walkSpeed, 0.2f);
+            if(currentSpeed > runSpeed) {
+                currentSpeed = Mathf.Lerp(currentSpeed, walkSpeed, 0.2f);
+            }
         }
 
         //Trigger glidimg-------------------------------------------------///
@@ -134,7 +139,7 @@ public class PlayerController : MonoBehaviour {
             }
         }
 
-        if(Physics.Raycast(this.transform.position, Vector3.down, out _hitGround, 0.1f)) {
+        if(Physics.Raycast(this.transform.position, Vector3.down, out _hitGround, 0.05f)) {
             if(_hitGround.collider.gameObject.layer == LayerMask.NameToLayer("Spring")) {
                 playerAnimation.isHardLanding = false;
             } else {
