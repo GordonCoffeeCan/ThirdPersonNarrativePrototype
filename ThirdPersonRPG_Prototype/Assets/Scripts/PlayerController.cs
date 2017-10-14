@@ -50,6 +50,7 @@ public class PlayerController : MonoBehaviour {
         moveDirection = Vector3.zero;
         sprintTimeLimit = sprintTime;
         currentGlidingGraivity = glidingGraivty;
+        
     }
 
     // Use this for initialization
@@ -215,7 +216,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void OnDash() {
-        if (ControllerManager.instance.OnDash() && moveDirection.magnitude >= 0.8f) {
+        if (ControllerManager.instance.OnDash() && moveDirection.magnitude >= 0.8f && sprintTime / sprintTimeLimit > 0.5f) {
             sprintTime = 0;
             currentSpeed = dashSpeed;
             isDashing = true;

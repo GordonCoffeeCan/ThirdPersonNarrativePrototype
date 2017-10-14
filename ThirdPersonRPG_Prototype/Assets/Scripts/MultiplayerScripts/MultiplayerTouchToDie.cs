@@ -25,6 +25,6 @@ public class MultiplayerTouchToDie : NetworkBehaviour {
     private void CmdPlayerDie(string _playerName, int _damage) {
         MultiplayerPlayerManager _player = MultiplayerGameManager.GetPlayer(_playerName);
         _player.RpcTakeDamage(_damage);
-        _player.RpcDestroyCargo();
+        //_player.RpcDestroyCargo();
     }
 }

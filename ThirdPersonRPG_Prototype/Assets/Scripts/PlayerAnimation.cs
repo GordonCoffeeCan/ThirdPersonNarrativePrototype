@@ -87,7 +87,7 @@ public class PlayerAnimation : MonoBehaviour {
         }
 
         //Only idle state will trigger jump action when press jump button;
-        if((currentAnimatorState.fullPathHash == idleState || currentAnimatorState.fullPathHash == joggingState)) {
+        if((currentAnimatorState.fullPathHash == idleState || currentAnimatorState.fullPathHash == joggingState) && !playerAnimator.IsInTransition(0)) {
             if (MobileInputManager.instance.isGamepadConnected == false) {
 
             } else {
