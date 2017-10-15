@@ -44,8 +44,6 @@ public class PlayerController : MonoBehaviour {
     private Vector3 rotationDirection;
     private float sprintTimeLimit;
 
-    private float jumpingTimer = 0;
-
     private void Awake() {
         characterCtr = this.GetComponent<CharacterController>();
         playerAnimation = this.GetComponent<PlayerAnimation>();
@@ -95,16 +93,11 @@ public class PlayerController : MonoBehaviour {
             currentVerticalSpeed = 0;
             if (toggleJump) {
                 currentVerticalSpeed = jumpSpeed;
-                jumpingTimer = 0;
             }
-
-            Debug.Log(jumpingTimer);
         }else {
             if(currentSpeed > runSpeed) {
                 currentSpeed = Mathf.Lerp(currentSpeed, walkSpeed, 0.2f);
             }
-
-            jumpingTimer += Time.deltaTime;
         }
 
         //Trigger glidimg-------------------------------------------------///
