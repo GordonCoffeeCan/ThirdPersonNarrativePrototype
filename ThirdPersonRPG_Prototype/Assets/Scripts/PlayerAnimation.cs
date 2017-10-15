@@ -98,7 +98,7 @@ public class PlayerAnimation : MonoBehaviour {
         //Only idle state will trigger jump action when press jump button;
 
         //Play Dash animation only player animator is in Jogging state and triggered dashing in PlayerController;
-        if(currentAnimatorState.fullPathHash == joggingState && !playerAnimator.IsInTransition(0)) {
+        if (currentAnimatorState.fullPathHash == joggingState && !playerAnimator.IsInTransition(0)) {
             if (playerController.isDashing) {
                 playerAnimator.SetTrigger("Dashing");
             }

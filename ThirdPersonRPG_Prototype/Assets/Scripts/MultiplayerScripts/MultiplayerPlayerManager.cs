@@ -156,6 +156,22 @@ public class MultiplayerPlayerManager : NetworkBehaviour {
         }*/
 
         //Call respawn method after a few seconds;
+
+        //only test here--------------------------------------------------------------------------------------
+        if (hasCargo == true) {
+            MultiplayerGameManager.UnstoreCargo(pickedUpCarogoName);
+            if (currentHealth <= 0) {
+                MultiplayerGameManager.GetEnvCargo(pickedUpCarogoName).gameObject.SetActive(true);
+                MultiplayerGameManager.UnstoreEnvCargo(pickedUpCarogoName);
+            }
+
+            Destroy(this.transform.Find(pickedUpCarogoName).gameObject);
+
+            pickedUpCarogoName = null;
+            hasCargo = false;
+        }
+        //only test here--------------------------------------------------------------------------------------
+
         StartCoroutine(Respawn(MultiplayerGameManager.instance.gameSettings.respawnDelayTime));
     }
 

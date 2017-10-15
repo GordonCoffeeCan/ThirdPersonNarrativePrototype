@@ -50,6 +50,7 @@ public class PlayerController : MonoBehaviour {
         moveDirection = Vector3.zero;
         sprintTimeLimit = sprintTime;
         currentGlidingGraivity = glidingGraivty;
+        
     }
 
     // Use this for initialization
@@ -132,7 +133,7 @@ public class PlayerController : MonoBehaviour {
         RaycastHit _hit;
         RaycastHit _hitGround;
         if (Physics.Raycast(this.transform.position, Vector3.down, out _hit, Mathf.Infinity)) {
-            if (Vector3.Distance(this.transform.position, _hit.point) > 2) {
+            if (Vector3.Distance(this.transform.position, _hit.point) > 3) {
                 isInMiddleAir = true;
                 playerAnimation.isHardLanding = false;
             } else {
@@ -215,7 +216,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void OnDash() {
-        if (ControllerManager.instance.OnDash() && moveDirection.magnitude >= 0.8f) {
+        if (ControllerManager.instance.OnDash() && moveDirection.magnitude >= 0.8f && sprintTime / sprintTimeLimit > 0.5f) {
             sprintTime = 0;
             currentSpeed = dashSpeed;
             isDashing = true;
