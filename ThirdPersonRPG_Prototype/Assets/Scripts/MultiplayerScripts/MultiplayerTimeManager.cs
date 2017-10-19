@@ -17,6 +17,7 @@ public class MultiplayerTimeManager : NetworkBehaviour {
     private string minSec;
 
 
+    
 
     // Use this for initialization
     void Start () {
@@ -27,9 +28,11 @@ public class MultiplayerTimeManager : NetworkBehaviour {
             }
         }
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+  
+
+    // Update is called once per frame
+    void Update () {
         CmdTimer();
 
         minSec = string.Format("{0}:{1:00}", (int)timer / 60, (int)timer % 60);

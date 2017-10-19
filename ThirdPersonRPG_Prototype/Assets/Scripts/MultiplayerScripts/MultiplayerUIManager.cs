@@ -27,6 +27,13 @@ public class MultiplayerUIManager : NetworkBehaviour {
     [SerializeField]
     private Text cargoesStolen;
 
+    [SerializeField]
+    private float cargoCount;
+
+    [SerializeField]
+    private GameObject[] cargoArray=null;
+  
+
     //[SerializeField]
     //private Text timerUI;
 
@@ -46,6 +53,15 @@ public class MultiplayerUIManager : NetworkBehaviour {
         networkManager = NetworkManager.singleton;
 
         isMenuPanelOn = false;
+
+        //count all objects at start
+
+        cargoArray = GameObject.FindGameObjectsWithTag("Cargo");
+
+
+        foreach (GameObject respawn in cargoArray) {
+            cargoCount++;
+        }
     }
 	
 	// Update is called once per frame
@@ -87,7 +103,11 @@ public class MultiplayerUIManager : NetworkBehaviour {
         coolDownRefill.fillAmount = MultiplayerGameManager.instance.coolDownLevel;
         healthRefill.fillAmount = MultiplayerGameManager.instance.playerHealthLevel;
 
-        cargoesStolen.text = MultiplayerGameManager.instance.cargoesStolen.ToString() + " out of 17";
+        //count how many cargo crates are in the scene.
+     
+        
+
+        cargoesStolen.text = MultiplayerGameManager.instance.cargoesStolen.ToString() + " out of " + cargoCount;
        
     }
 
