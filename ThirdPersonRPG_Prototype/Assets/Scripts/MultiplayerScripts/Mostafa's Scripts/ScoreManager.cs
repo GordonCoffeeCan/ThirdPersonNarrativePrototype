@@ -10,6 +10,10 @@ public class ScoreManager : NetworkBehaviour {
     public float totalScore;
 
     public Text scoreText;
+
+    public float individualScore;
+
+    public Text individiualScoreText;
    
 
     // Use this for initialization
@@ -22,6 +26,8 @@ public class ScoreManager : NetworkBehaviour {
 	void Update () {
 
         CmdTimer();
+
+        individiualScoreText.text = "you scored " + individualScore.ToString() + " points";
 
 	}
 

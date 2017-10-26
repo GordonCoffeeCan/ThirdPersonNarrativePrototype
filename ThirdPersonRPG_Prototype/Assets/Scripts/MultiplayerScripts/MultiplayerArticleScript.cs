@@ -109,6 +109,8 @@ public class MultiplayerArticleScript : NetworkBehaviour {
                     //_col.GetComponent<MultiplayerPlayerManager>().pickedUpKeyName = this.gameObject.name;
                     GameObject scoreManager = GameObject.Find("ScoreManager");
                     scoreManager.GetComponent<ScoreManager>().totalScore = scoreManager.GetComponent<ScoreManager>().totalScore + 10;
+                    scoreManager.GetComponent<ScoreManager>().individualScore = scoreManager.GetComponent<ScoreManager>().individualScore + 10;
+
 
                     CmdOnPickUp();
                 }
