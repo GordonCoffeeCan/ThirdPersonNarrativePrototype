@@ -10,7 +10,8 @@ public class MultiplayerArticleScript : NetworkBehaviour {
         keyRed,
         freezGun,
         obstacleMagic,
-        windZone
+        windZone,
+        coin
     }
 
     [SerializeField]
@@ -53,7 +54,14 @@ public class MultiplayerArticleScript : NetworkBehaviour {
                 break;
             case Article.obstacleMagic:
                 break;
-      
+            case Article.coin:
+                objectGFX = this.transform.Find("Key_GFX").GetComponent<Renderer>();
+
+                color = new Color32((byte)255, (byte)232, (byte)0, (byte)255);
+
+                objectGFX.material.SetColor("_Color", color);
+                break;
+
 
         }
     }
@@ -96,6 +104,18 @@ public class MultiplayerArticleScript : NetworkBehaviour {
                     CmdOnPickUp();
                 }
                 break;
+            case Article.coin:
+                if (_col.tag == "Player") {
+                    //_col.GetComponent<MultiplayerPlayerManager>().pickedUpKeyName = this.gameObject.name;
+                    GameObject scoreManager = GameObject.Find("ScoreManager");
+                    scoreManager.GetComponent<ScoreManager>().totalScore = scoreManager.GetComponent<ScoreManager>().totalScore + 10;
+
+                    CmdOnPickUp();
+                }
+                break;
+
+
+
         }
     }
 
