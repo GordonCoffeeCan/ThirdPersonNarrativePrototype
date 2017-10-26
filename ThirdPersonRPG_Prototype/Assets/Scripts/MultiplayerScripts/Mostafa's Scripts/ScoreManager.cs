@@ -20,7 +20,21 @@ public class ScoreManager : NetworkBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        scoreText.text = "total points: "+totalScore.ToString();
+        CmdTimer();
 
 	}
+
+    [Command]
+    void CmdTimer() {
+        RpcScore();
+    }
+
+    [ClientRpc]
+    void RpcScore() {
+
+        scoreText.text = "total points: " + totalScore.ToString();
+
+
+
+    }
 }
