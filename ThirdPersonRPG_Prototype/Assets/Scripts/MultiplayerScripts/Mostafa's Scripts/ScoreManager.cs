@@ -10,6 +10,7 @@ public class ScoreManager : NetworkBehaviour {
     public float totalScore;
 
     public Text scoreText;
+   
 
     // Use this for initialization
     void Start () {
@@ -31,6 +32,8 @@ public class ScoreManager : NetworkBehaviour {
 
     [ClientRpc]
     void RpcScore() {
+
+        //scoreText.text = "total points: " + totalScore.ToString() +"points";
 
         scoreText.text = "total points: " + totalScore.ToString();
 
