@@ -11,6 +11,7 @@ public class ScoreManager : NetworkBehaviour {
 
     public Text scoreText;
 
+    [HideInInspector]
     public float individualScore;
 
     public Text individiualScoreText;
