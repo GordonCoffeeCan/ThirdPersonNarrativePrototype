@@ -24,6 +24,7 @@ public class MultiplayerTimeManager : NetworkBehaviour {
     private string minSec;
 
     public GameObject gate;
+    public GameObject panel;
 
 
     
@@ -66,6 +67,7 @@ public class MultiplayerTimeManager : NetworkBehaviour {
             }
             else {
                 timerText.text = "Time's up!";
+                panel.SetActive(true);
             }
         }
 
