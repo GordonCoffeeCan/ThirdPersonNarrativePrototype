@@ -130,6 +130,13 @@ public class MultiplayerArticleScript : NetworkBehaviour {
 
     [ClientRpc]
     private void RpcOnPickUp() {
+
+        AudioClip coinPickupSFX = this.gameObject.GetComponent<AudioSource>().clip;
+
+
+        this.gameObject.GetComponent<AudioSource>().PlayOneShot(coinPickupSFX);
+
         this.gameObject.SetActive(false);
+        
     }
 }
