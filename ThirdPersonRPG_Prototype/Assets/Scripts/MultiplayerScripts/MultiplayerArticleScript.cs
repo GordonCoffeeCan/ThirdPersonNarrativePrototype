@@ -113,6 +113,8 @@ public class MultiplayerArticleScript : NetworkBehaviour {
 
                     MultiplayerGameManager.instance.playerScore = MultiplayerGameManager.instance.playerScore + 10;
 
+                    //_col.GetComponent<MultiplayerPlayerManager>().individualScore = _col.GetComponent<MultiplayerPlayerManager>().individualScore + 10;
+
 
                     CmdOnPickUp();
                 }
@@ -137,6 +139,7 @@ public class MultiplayerArticleScript : NetworkBehaviour {
         //this.gameObject.GetComponent<AudioSource>().PlayOneShot(coinPickupSFX);
 
         AudioSource.PlayClipAtPoint(coinPickupSFX, this.transform.position);
+
 
         this.gameObject.SetActive(false);
         

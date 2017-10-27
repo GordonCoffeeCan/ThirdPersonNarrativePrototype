@@ -34,6 +34,8 @@ public class MultiplayerPlayerManager : NetworkBehaviour {
     [SyncVar]
     private bool _isDead = false;
 
+    private float playerScore;
+
     private Camera sceneCamera;
     private Transform rotationPivot;
 
@@ -43,6 +45,11 @@ public class MultiplayerPlayerManager : NetworkBehaviour {
         get { return _isDead; }
         protected set { _isDead = value; }
     }
+
+
+    //HoldingPersonalScore
+    public float individualScore;
+    
 
     // Use this for initialization
     void Start () {
