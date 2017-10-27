@@ -7,21 +7,35 @@ using UnityEngine.UI;
 public class MultiplayerTimeManager : NetworkBehaviour {
 
     [SyncVar]
-    public float timer=120;
+    public float timer=30;
     [SyncVar]
     public bool masterTimer = false;
     [SyncVar]
     public float gameTime;
 
+    [SyncVar]
+    public bool started = false;
+
+
+    public float roundTimer;
+    private float preTimer = 10;
+
     public Text timerText;
     private string minSec;
+
+    public GameObject gate;
 
 
     
 
     // Use this for initialization
     void Start () {
+        gate = GameObject.Find("gate");
+
         //CmdTimer
+        timer = preTimer;
+
+
         if (isServer) {
             if (isLocalPlayer) {
                
@@ -33,16 +47,26 @@ public class MultiplayerTimeManager : NetworkBehaviour {
 
     // Update is called once per frame
     void Update () {
-        CmdTimer();
-
         minSec = string.Format("{0}:{1:00}", (int)timer / 60, (int)timer % 60);
+        CmdTimer();
+        if (started == false) {
+            timerText.text = "match starts in " +minSec;
+            if (timer <= 1) {
+                started = true;
+                timer = roundTimer;
+                Destroy(gate);
 
-        if (timer > 0) {
-            //timerText.text = timer.ToString("F0");
+            }
+        }
+        else {
+            if (timer > 0) {
+                //timerText.text = timer.ToString("F0");
 
-            timerText.text = minSec;
-        }else {
-            timerText.text = "Time's up!";
+                timerText.text = minSec;
+            }
+            else {
+                timerText.text = "Time's up!";
+            }
         }
 
         //if(timer>0){ timerText.text = timer.ToString("F0");}

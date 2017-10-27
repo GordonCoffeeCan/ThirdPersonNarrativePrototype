@@ -18,21 +18,27 @@ public class ScoreManager : NetworkBehaviour {
 
     // Use this for initialization
     void Start () {
+        if (isServer) {
+            if (isLocalPlayer) {
 
+            }
+        }
         //totalScore = 0;	
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {
 
-        CmdTimer();
+        CmdScore();
+
+        individualScore = MultiplayerGameManager.instance.playerScore;
 
         individiualScoreText.text = "you scored " + individualScore.ToString() + " points";
 
 	}
 
     [Command]
-    void CmdTimer() {
+    void CmdScore() {
         RpcScore();
     }
 
