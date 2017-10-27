@@ -109,7 +109,9 @@ public class MultiplayerArticleScript : NetworkBehaviour {
                     //_col.GetComponent<MultiplayerPlayerManager>().pickedUpKeyName = this.gameObject.name;
                     GameObject scoreManager = GameObject.Find("ScoreManager");
                     scoreManager.GetComponent<ScoreManager>().totalScore = scoreManager.GetComponent<ScoreManager>().totalScore + 10;
-                    scoreManager.GetComponent<ScoreManager>().individualScore = scoreManager.GetComponent<ScoreManager>().individualScore + 10;
+                    //scoreManager.GetComponent<ScoreManager>().individualScore = scoreManager.GetComponent<ScoreManager>().individualScore + 10;
+
+                    MultiplayerGameManager.instance.playerScore = MultiplayerGameManager.instance.playerScore + 10;
 
 
                     CmdOnPickUp();
@@ -128,6 +130,15 @@ public class MultiplayerArticleScript : NetworkBehaviour {
 
     [ClientRpc]
     private void RpcOnPickUp() {
+
+        AudioClip coinPickupSFX = this.gameObject.GetComponent<AudioSource>().clip;
+
+
+        //this.gameObject.GetComponent<AudioSource>().PlayOneShot(coinPickupSFX);
+
+        AudioSource.PlayClipAtPoint(coinPickupSFX, this.transform.position);
+
         this.gameObject.SetActive(false);
+        
     }
 }
