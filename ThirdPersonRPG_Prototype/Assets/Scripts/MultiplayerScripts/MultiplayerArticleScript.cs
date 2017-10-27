@@ -134,7 +134,9 @@ public class MultiplayerArticleScript : NetworkBehaviour {
         AudioClip coinPickupSFX = this.gameObject.GetComponent<AudioSource>().clip;
 
 
-        this.gameObject.GetComponent<AudioSource>().PlayOneShot(coinPickupSFX);
+        //this.gameObject.GetComponent<AudioSource>().PlayOneShot(coinPickupSFX);
+
+        AudioSource.PlayClipAtPoint(coinPickupSFX, this.transform.position);
 
         this.gameObject.SetActive(false);
         
