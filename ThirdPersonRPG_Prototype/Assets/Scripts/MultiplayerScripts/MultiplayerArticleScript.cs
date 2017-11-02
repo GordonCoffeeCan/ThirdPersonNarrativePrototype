@@ -108,7 +108,7 @@ public class MultiplayerArticleScript : NetworkBehaviour {
                 if (_col.tag == "Player") {
                     //_col.GetComponent<MultiplayerPlayerManager>().pickedUpKeyName = this.gameObject.name;
                     GameObject scoreManager = GameObject.Find("ScoreManager");
-                    scoreManager.GetComponent<ScoreManager>().totalScore = scoreManager.GetComponent<ScoreManager>().totalScore + 10;
+
                     //scoreManager.GetComponent<ScoreManager>().individualScore = scoreManager.GetComponent<ScoreManager>().individualScore + 10;
 
                     MultiplayerGameManager.instance.playerScore = MultiplayerGameManager.instance.playerScore + 10;
