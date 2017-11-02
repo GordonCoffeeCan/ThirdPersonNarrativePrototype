@@ -43,7 +43,7 @@ public class MultiplayerEnemyAI : NetworkBehaviour {
 
     private void OnTriggerExit(Collider _col) {
         if (_col.tag == "Player") {
-           // navigator.ResetPath();
+            //navigator.ResetPath();
             navigator.SetDestination(initialPos);
         }
     }
