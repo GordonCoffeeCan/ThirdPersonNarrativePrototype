@@ -32,6 +32,10 @@ public class MultiplayerTimeManager : NetworkBehaviour {
     // Use this for initialization
     void Start () {
         gate = GameObject.Find("gate");
+        if (panel == null) {
+            panel = GameObject.Find("EndPanel");
+        }
+        panel.SetActive(false);
 
         //CmdTimer
         timer = preTimer;
