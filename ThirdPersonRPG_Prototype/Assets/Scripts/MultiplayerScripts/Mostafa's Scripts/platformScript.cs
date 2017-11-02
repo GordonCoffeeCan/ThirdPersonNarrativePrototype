@@ -5,7 +5,7 @@ using UnityEngine.Networking;
 
 public class platformScript : MonoBehaviour {
 
-    [HideInInspector]
+    
     public bool isTriggered = false;
 
     private Animator platformAnimator;
