@@ -46,16 +46,25 @@ public class MultiplayerLedgeGrab : MonoBehaviour {
         Debug.DrawRay(this.transform.position + headPos, forwardFromPivot * dist, Color.red);
 
         if (Physics.Raycast(this.transform.position + armPos, forwardFromPivot, out armHit, dist)) {
-            if (Physics.Raycast(this.transform.position + headPos, forwardFromPivot, out armHit, dist)) {
+            if (Physics.Raycast(this.transform.position + headPos, forwardFromPivot, out headHit, dist)) {
 
                 print("Cannot ledge grab");
             }
             else {
                 print("Can ledge grab");
 
+                //this.gameObject.GetComponent<PlayerAnimation>().playerAnimator.SetBool
 
-                this.GetComponent<PlayerController>().popSpeed = 10;
-                this.GetComponent<PlayerController>().isPopped = true;
+              
+
+                if (armHit.collider.isTrigger) { } else {
+                    this.GetComponent<PlayerController>().popSpeed = 10;
+                    this.GetComponent<PlayerController>().isPopped = true;
+                }
+               
+
+               
+                   
 
             }
 
