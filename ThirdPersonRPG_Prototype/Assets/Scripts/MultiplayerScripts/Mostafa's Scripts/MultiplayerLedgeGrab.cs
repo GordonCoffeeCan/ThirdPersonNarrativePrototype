@@ -6,7 +6,11 @@ using UnityEngine.UI;
 
 public class MultiplayerLedgeGrab : MonoBehaviour {
 
-    private float dist;
+    public float dist;
+
+    public float armHeight = 1.75f;
+    public float headHeight = 2.0f;
+   
 
     private RaycastHit armHit;
     private RaycastHit headHit;
@@ -20,8 +24,8 @@ public class MultiplayerLedgeGrab : MonoBehaviour {
 	void Start () {
         dist = 1;
 
-        armPos = new Vector3(0, 1.75f, 0);
-        headPos = new Vector3(0, 2, 0);
+        armPos = new Vector3(0, armHeight, 0);
+        headPos = new Vector3(0, headHeight, 0);
 
 
 
@@ -48,6 +52,11 @@ public class MultiplayerLedgeGrab : MonoBehaviour {
             }
             else {
                 print("Can ledge grab");
+
+
+                this.GetComponent<PlayerController>().popSpeed = 10;
+                this.GetComponent<PlayerController>().isPopped = true;
+
             }
 
 
