@@ -19,6 +19,8 @@ public class MultiplayerConstruction : NetworkBehaviour {
             transparentColor.a = 0;
 
             scaffolds[i].GetComponent<Renderer>().material.color = transparentColor;
+            GameObject scaffoldChild = scaffolds[i].transform.GetChild(0).gameObject;
+            scaffoldChild.SetActive(false);
             scaffolds[i].GetComponent<Collider>().enabled = false;
         }
 
@@ -33,20 +35,27 @@ public class MultiplayerConstruction : NetworkBehaviour {
         if (_col.tag == "Player") {
             string _playerName = _col.transform.name;
             MultiplayerPlayerManager _player = MultiplayerGameManager.GetPlayer(_playerName);
-            if (_player.hasCargo == true) {
-                CmdDestroyCargo(_playerName);
-                constructionMaterialsCollected++;
-                for (int i = 0; i < constructionMaterialsCollected; i++) {
+            if (constructionMaterialsCollected < scaffolds.Length) {
+                if (_player.hasCargo == true) {
+                    CmdDestroyCargo(_playerName);
+                    constructionMaterialsCollected++;
+                    for (int i = 0; i < constructionMaterialsCollected; i++) {
 
-                    Color transparentColor = scaffolds[i].GetComponent<Renderer>().material.color;
+                        //Color transparentColor = scaffolds[i].GetComponent<Renderer>().material.color;
 
-                    transparentColor.a = 256;
+                        // transparentColor.a = 256;
 
-                    scaffolds[i].GetComponent<Renderer>().material.color = transparentColor;
-                     scaffolds[i].GetComponent<Renderer>().material.color = transparentColor;
-                    scaffolds[i].GetComponent<Collider>().enabled = true;
+                        //scaffolds[i].GetComponent<Renderer>().material.color = transparentColor;
+
+                        scaffolds[i].GetComponent<MeshRenderer>().enabled = false;
+
+                        GameObject scaffoldChild = scaffolds[i].transform.GetChild(0).gameObject;
+                        scaffoldChild.SetActive(true);
+
+                        // scaffolds[i].GetComponent<Collider>().enabled = true;
+                    }
+
                 }
-
             }
         }
     }
