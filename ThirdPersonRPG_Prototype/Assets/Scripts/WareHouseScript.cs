@@ -40,6 +40,5 @@ public class WareHouseScript : NetworkBehaviour {
     [ClientRpc]
     void RpcStealCargo() {
         MultiplayerGameManager.instance.cargoesStolen++;
-        MultiplayerGameManager.instance.playerScore = MultiplayerGameManager.instance.playerScore + 100;
     }
 }
