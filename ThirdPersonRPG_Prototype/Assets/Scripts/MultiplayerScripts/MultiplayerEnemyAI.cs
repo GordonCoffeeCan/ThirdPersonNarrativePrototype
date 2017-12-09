@@ -6,25 +6,28 @@ using UnityEngine.Networking;
 
 public class MultiplayerEnemyAI : NetworkBehaviour {
 
+    [SerializeField] private Animator enemyAnimator;
   
     public float speed = 4.5f;
     private Vector3 initialPos;
 
     private NavMeshAgent navigator;
+    private Rigidbody rig;
     // Use this for initialization
     void Start()
     {
         initialPos = this.transform.position; //startingPos
 
-
         navigator = this.gameObject.GetComponent<NavMeshAgent>();
+        rig = this.GetComponent<Rigidbody>();
         navigator.speed = speed;
         navigator.stoppingDistance = 2;
     }
 
     // Update is called once per frame
     void Update(){
-
+        Debug.Log(navigator.velocity.magnitude);
+        enemyAnimator.SetFloat("Speed", navigator.velocity.magnitude);
 
     }
 
