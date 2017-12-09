@@ -56,7 +56,7 @@ public class MultiplayerLedgeGrab : MonoBehaviour {
                 //this.gameObject.GetComponent<PlayerAnimation>().playerAnimator.SetBool
 
               
-
+            
                 if (armHit.collider.isTrigger) { } else {
                     this.GetComponent<PlayerController>().popSpeed = 10;
                     this.GetComponent<PlayerController>().isPopped = true;
