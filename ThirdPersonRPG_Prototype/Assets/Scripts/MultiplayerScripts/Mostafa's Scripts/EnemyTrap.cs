@@ -16,10 +16,19 @@ public class EnemyTrap : MonoBehaviour {
 	}
 
     private void OnTriggerEnter(Collider _col) {
-        if (_col.tag == "Player") {
+        if (_col.tag == "Enemy") {
+
+            //_col.GetComponent<MultiplayerEnemyAI>().enabled = false;
+            
            
                 doorAnimator.SetBool("OpenDoor", true);
             
+        }
+    }
+
+    private void OnTriggerExit(Collider _col) {
+        if (_col.tag == "Enemy ") {
+            doorAnimator.SetBool("OpenDoor", false);
         }
     }
 
