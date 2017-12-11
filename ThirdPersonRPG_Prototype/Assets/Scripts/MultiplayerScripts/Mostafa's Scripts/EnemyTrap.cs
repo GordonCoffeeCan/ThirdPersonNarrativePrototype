@@ -25,9 +25,11 @@ public class EnemyTrap : MonoBehaviour {
         else {
             if (_col.tag == "EnemyBody") {
 
+              
                 _col.GetComponentInParent<MultiplayerEnemyAI>().enabled = false;
                 _col.GetComponentInParent<NavMeshAgent>().enabled = false;
                 _col.GetComponentInParent<Rigidbody>().isKinematic = false;
+
 
 
                 doorAnimator.SetBool("OpenDoor", true);
