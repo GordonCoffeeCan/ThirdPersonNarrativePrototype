@@ -52,6 +52,8 @@ public class MultiplayerConstruction : NetworkBehaviour {
                         GameObject scaffoldChild = scaffolds[i].transform.GetChild(0).gameObject;
                         scaffoldChild.SetActive(true);
 
+                        AudioSource audio = GetComponent<AudioSource>();
+                        audio.Play();
                         // scaffolds[i].GetComponent<Collider>().enabled = true;
                     }
 
