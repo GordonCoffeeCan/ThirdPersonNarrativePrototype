@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] private float glideSpeed = 4;
     [SerializeField] private float jumpSpeed = 8;
     [SerializeField] private float sprintTime = 1.65f;
+    [SerializeField] private GameObject glider;
 
     public Transform rotationPivot;
     public CameraDynamicOrbit cameraPivot;
@@ -108,8 +109,10 @@ public class PlayerController : MonoBehaviour {
                 isGlide = false;
             }
         }
+
+        glider.SetActive(isGlide);
         //Trigger glidimg-------------------------------------------------///
-        
+
         if (isPopped) {
             currentVerticalSpeed = popSpeed;
             isGlide = false;
