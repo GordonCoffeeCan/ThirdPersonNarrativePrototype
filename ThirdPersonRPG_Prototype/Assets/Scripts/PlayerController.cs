@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour {
     [HideInInspector] public bool isDashing = false;
     [HideInInspector] public bool isAbleToMove = true;
     [HideInInspector] public bool isAbleToDash = false;
+    [HideInInspector] public bool isWindPushed = false;
 
     [SerializeField] private Camera playerCamera;
 
@@ -117,6 +118,12 @@ public class PlayerController : MonoBehaviour {
             currentVerticalSpeed = popSpeed;
             isGlide = false;
             isPopped = false;
+        }
+
+        //Wind Zone-------------------------------------------------///
+        if (isWindPushed) {
+            currentVerticalSpeed = popSpeed;
+            isWindPushed = false;
         }
 
         //In the middle air------------------------------------------------------///

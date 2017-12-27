@@ -19,6 +19,7 @@ public class MultiplayerLedgeGrab : MonoBehaviour {
     private Vector3 headPos;
 
     public Vector3 forwardFromPivot;
+    
 
 	// Use this for initialization
 	void Start () {
@@ -45,34 +46,41 @@ public class MultiplayerLedgeGrab : MonoBehaviour {
         Debug.DrawRay(this.transform.position + armPos, forwardFromPivot * dist, Color.green);
         Debug.DrawRay(this.transform.position + headPos, forwardFromPivot * dist, Color.red);
 
-        if (Physics.Raycast(this.transform.position + armPos, forwardFromPivot, out armHit, dist)) {
-            if (Physics.Raycast(this.transform.position + headPos, forwardFromPivot, out headHit, dist)) {
+        
 
-                print("Cannot ledge grab");
-            }
-            else {
-                print("Can ledge grab");
+            if (Physics.Raycast(this.transform.position + armPos, forwardFromPivot, out armHit, dist)) {
+                if (Physics.Raycast(this.transform.position + headPos, forwardFromPivot, out headHit, dist)) {
 
-                //this.gameObject.GetComponent<PlayerAnimation>().playerAnimator.SetBool
-
-              
-            
-                if (armHit.collider.isTrigger) { } else {
-                    this.GetComponent<PlayerController>().popSpeed = 10;
-                    this.GetComponent<PlayerController>().isPopped = true;
+                    print("Cannot ledge grab");
                 }
-               
+                else {
+                    print("Can ledge grab");
 
-               
-                   
+                    //this.gameObject.GetComponent<PlayerAnimation>().playerAnimator.SetBool
 
+
+
+                    if (armHit.collider.isTrigger) { }
+                    else {
+
+                    if (GetComponent<PlayerController>().isInMiddleAir == true) {
+                        this.GetComponent<PlayerController>().popSpeed = 10;
+                        this.GetComponent<PlayerController>().isPopped = true;
+                        }
+                    }
+
+
+
+
+
+                }
+
+
+
+                //the ray collided with something, you can interact
+                // with the hit object now by using hit.collider.gameObject
             }
-
-
-
-            //the ray collided with something, you can interact
-            // with the hit object now by using hit.collider.gameObject
-        }
+        
 
 
     }

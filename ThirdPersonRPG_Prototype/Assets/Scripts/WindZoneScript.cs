@@ -21,14 +21,24 @@ public class WindZoneScript : MonoBehaviour {
 
     private void OnTriggerEnter(Collider _col) {
         if (_col.tag == "Player") {
-            playerCtr = _col.GetComponent<PlayerController>();
+            if (_col.GetComponent<PlayerController>().isGlide == true) {
+                _col.GetComponent<PlayerController>().popSpeed = 40;
+                _col.GetComponent<PlayerController>().isWindPushed = true;
+               
+            }
         }
     }
 
     private void OnTriggerStay(Collider _col) {
         if (_col.tag == "Player") {
             Debug.Log("Push!");
-            playerCtr.currentGlidingGraivity = -windForce;
+            if (_col.GetComponent<PlayerController>().isGlide == true) {
+                 _col.GetComponent<PlayerController>().popSpeed = 40;
+                _col.GetComponent<PlayerController>().isWindPushed = true;
+
+                _col.GetComponent<PlayerController>().isGlide = true;
+
+            }
         }
     }
 }

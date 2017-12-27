@@ -21,7 +21,7 @@ public class platformScript : MonoBehaviour {
 	}
 
     private void OnTriggerEnter(Collider _col) {
-        if (_col.tag == "Player") {
+        if (_col.tag == "Player" || _col.tag =="weightedCube") {
             Debug.Log("PlatformPressed");
             isTriggered = true;
             platformAnimator.SetBool("isPressed", true);
@@ -30,7 +30,7 @@ public class platformScript : MonoBehaviour {
     }
 
     private void OnTriggerExit(Collider _col) {
-        if (_col.tag == "Player") {
+        if (_col.tag == "Player" || _col.tag == "weightedCube") {
             Debug.Log("PlatformReleased");
             isTriggered = false;
             platformAnimator.SetBool("isPressed", false);
